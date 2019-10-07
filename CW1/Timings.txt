@@ -1,0 +1,5 @@
+1024x1024 
+
+1. Code with no change: 3.986370 s
+2. Changed fractions to values in stencil() : 4.081248 s 
+3. 
