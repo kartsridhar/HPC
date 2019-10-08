@@ -3,3 +3,4 @@
 1. Code with no change                                      :          3.986370 s
 2. Changed fractions to values in stencil()                 :          4.081248 s 
 3. Combined all += operations in stencil() to 1 statement   :          3.974715 s
+4. Switched nx and ny of for loop in stencil()              :          1.108350 s
