@@ -1,8 +1,11 @@
 1024x1024 
 
 1. Code with no change                                      :          3.986370 s
+    on bcp4                                                 :          5.908341 s
 2. Changed fractions to values in stencil()                 :          4.081248 s 
+    on bcp4                                                 :          DID NOT CHECK
 3. Combined all += operations in stencil() to 1 statement   :          3.974715 s
+    on bcp4                                                 :          DID NOT CHECK
 4. Switched nx and ny of for loop in stencil()              :          1.108350 s
     Ran code on bcp4, passes python script check
-    code work when for loop dimensions are switched         :          1.775642 s
+    code work when for loop dimensions are switched         :          2.148430 s
