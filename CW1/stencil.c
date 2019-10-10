@@ -65,8 +65,7 @@ void stencil(const int nx, const int ny, const int width, const int height,
       //                           +  (image[j     + (i + 1) * height] * 0.1) + (image[j - 1 + i       * height] * 0.1)
       //                           +  (image[j + 1 + i       * height] * 0.1);
       int cell = j + i * height;
-      tmp_image[cell] =  (image[cell] * 0.6) + (image[cell - height] * 0.1) + (image[cell + height] * 0.1) + (image[cell - 1] * 0.1)
-                      +  (image[cell + 1] * 0.1);
+      tmp_image[cell] = image[cell] * 0.6 + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1;
     }
   }
 }
