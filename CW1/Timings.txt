@@ -8,3 +8,4 @@
 4. Ran code on bcp4, passes python script check code work 
    when for loop dimensions are switched                    :          2.148430 s
 5. Added Ofast in Makefile on bcp4                          :          0.294532 s
+6. Tested with icc instead of gcc                           :          0.228607 s
