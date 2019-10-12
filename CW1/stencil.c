@@ -6,11 +6,11 @@
 #define OUTPUT_FILE "stencil.pgm"
 
 void stencil(const int nx, const int ny, const int width, const int height,
-             double* image, double* tmp_image);
+             float* image, float* tmp_image);
 void init_image(const int nx, const int ny, const int width, const int height,
-                double* image, double* tmp_image);
+                float* image, float* tmp_image);
 void output_image(const char* file_name, const int nx, const int ny,
-                  const int width, const int height, double* image);
+                  const int width, const int height, float* image);
 double wtime(void);
 
 int main(int argc, char* argv[])
@@ -32,8 +32,8 @@ int main(int argc, char* argv[])
   int height = ny + 2;
 
   // Allocate the image
-  double* image = malloc(sizeof(double) * width * height);
-  double* tmp_image = malloc(sizeof(double) * width * height);
+  float* image = malloc(sizeof(double) * width * height);
+  float* tmp_image = malloc(sizeof(double) * width * height);
 
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 }
 
 void stencil(const int nx, const int ny, const int width, const int height,
-             double* image, double* tmp_image)
+             float* image, float* tmp_image)
 {
   for (int i = 1; i < nx + 1; ++i) {
     for (int j = 1; j < ny + 1; ++j) {
@@ -72,7 +72,7 @@ void stencil(const int nx, const int ny, const int width, const int height,
 
 // Create the input image
 void init_image(const int nx, const int ny, const int width, const int height,
-                double* image, double* tmp_image)
+                float* image, float* tmp_image)
 {
   // Zero everything
   for (int j = 0; j < ny + 2; ++j) {
@@ -101,7 +101,7 @@ void init_image(const int nx, const int ny, const int width, const int height,
 
 // Routine to output the image in Netpbm grayscale binary image format
 void output_image(const char* file_name, const int nx, const int ny,
-                  const int width, const int height, double* image)
+                  const int width, const int height, float* image)
 {
   // Open output file
   FILE* fp = fopen(file_name, "w");

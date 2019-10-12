@@ -12,3 +12,4 @@
 7. Added O3 in Makefile for gcc				    :          0.288616 s
 8. Tested with icc instead of gcc                           :          0.228607 s
 9. Added -fast flag to icc in Makefile                      :          0.188753 s
+10. Changed datatypes from double to float                  :          0.162495 s
