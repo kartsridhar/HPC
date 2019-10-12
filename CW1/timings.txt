@@ -13,3 +13,12 @@
 8. Tested with icc instead of gcc                           :          0.228607 s
 9. Added -fast flag to icc in Makefile                      :          0.188753 s
 10. Changed datatypes from double to float                  :          0.162495 s
+
+4096x4096
+
+1. Tested 4096x4096 with latest code of changed datatypes
+   and icc compiler                                         :          3.365626 s
+
+8000x8000
+
+1. Tested with latest code of changed datatypes + icc       :          12.038236 s
