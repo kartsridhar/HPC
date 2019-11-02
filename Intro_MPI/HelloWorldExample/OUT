@@ -1,0 +1,12 @@
+Running on host compute084.bc4.acrc.priv
+Time is Sat Nov  2 11:53:24 GMT 2019
+Directory is /mnt/storage/home/ks17226/cw/HPC/Intro_MPI/HelloWorldExample
+Slurm job ID is 2681738
+
+This job runs on the following machines:
+compute084
+
+Hello, world; from host compute084.bc4.acrc.priv: process 0 of 4
+Hello, world; from host compute084.bc4.acrc.priv: process 1 of 4
+Hello, world; from host compute084.bc4.acrc.priv: process 2 of 4
+Hello, world; from host compute084.bc4.acrc.priv: process 3 of 4
