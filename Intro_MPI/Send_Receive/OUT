@@ -1,0 +1,12 @@
+Running on host compute084.bc4.acrc.priv
+Time is Sat Nov  2 12:19:46 GMT 2019
+Directory is /mnt/storage/home/ks17226/cw/HPC/Intro_MPI/Send_Receive
+Slurm job ID is 2681740
+
+This job runs on the following machines:
+compute084
+
+messages recieved by rank 0 (master):
+recieved message: Come-in Danny-Boy, this is process 1!
+recieved message: Come-in Danny-Boy, this is process 2!
+recieved message: Come-in Danny-Boy, this is process 3!
