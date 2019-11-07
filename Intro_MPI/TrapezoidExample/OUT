@@ -1,0 +1,73 @@
+Running on host compute085.bc4.acrc.priv
+Time is Thu Nov  7 11:52:41 GMT 2019
+Directory is /mnt/storage/home/ks17226/cw/HPC/Intro_MPI/TrapezoidExample
+Slurm job ID is 2693830
+
+This job runs on the following machines:
+compute085
+
+Running serial_trapezoid.exe
+Definite integral from 0.000000 to 1.000000 estimated as 3.140852 (using 15 trapezoids)
+(error: 0.0007407405665525)
+
+Running send_trapezoid.exe
+rank 0:	local_n 1
+rank 0:	local_a 0.000000, local_b 0.066667
+rank 0:	local_sum 0.266077
+rank 1:	local_n 1
+rank 1:	local_a 0.066667, local_b 0.133333
+rank 1:	local_sum 0.263748
+rank 2:	local_n 1
+rank 2:	local_a 0.133333, local_b 0.200000
+rank 2:	local_sum 0.259209
+rank 7:	local_n 1
+rank 7:	local_a 0.466667, local_b 0.533333
+rank 7:	local_sum 0.213295
+rank 8:	local_n 1
+rank 8:	local_a 0.533333, local_b 0.600000
+rank 8:	local_sum 0.201845
+rank 12:	local_n 1
+rank 12:	local_a 0.800000, local_b 0.866667
+rank 12:	local_sum 0.157443
+rank 14:	local_n 1
+rank 14:	local_a 0.933333, local_b 1.000000
+rank 14:	local_sum 0.137926
+
+Definite integral from 0.000000 to 1.000000 estimated as 3.140852 (using 15 trapezoids)
+(error: 0.0007407405665529)
+rank 3:	local_n 1
+rank 3:	local_a 0.200000, local_b 0.266667
+rank 3:	local_sum 0.252686
+rank 4:	local_n 1
+rank 4:	local_a 0.266667, local_b 0.333333
+rank 4:	local_sum 0.244481
+rank 5:	local_n 1
+rank 5:	local_a 0.333333, local_b 0.400000
+rank 5:	local_sum 0.234943
+rank 6:	local_n 1
+rank 6:	local_a 0.400000, local_b 0.466667
+rank 6:	local_sum 0.224432
+rank 9:	local_n 1
+rank 9:	local_a 0.600000, local_b 0.666667
+rank 9:	local_sum 0.190347
+rank 10:	local_n 1
+rank 10:	local_a 0.666667, local_b 0.733333
+rank 10:	local_sum 0.179013
+rank 11:	local_n 1
+rank 11:	local_a 0.733333, local_b 0.800000
+rank 11:	local_sum 0.168006
+rank 13:	local_n 1
+rank 13:	local_a 0.866667, local_b 0.933333
+rank 13:	local_sum 0.147401
+
+Running dartboard_pi_send.exe
+   After 5000 throws, average value of pi = 3.13602857 (error is 0.0055640821612220)
+   After 10000 throws, average value of pi = 3.14007143 (error is 0.0015212250183643)
+   After 15000 throws, average value of pi = 3.14182857 (error is 0.0002359178387779)
+   After 20000 throws, average value of pi = 3.14386429 (error is 0.0022716321244922)
+   After 25000 throws, average value of pi = 3.14360000 (error is 0.0020073464102066)
+   After 30000 throws, average value of pi = 3.14361905 (error is 0.0020263940292544)
+   After 35000 throws, average value of pi = 3.14337143 (error is 0.0017787749816351)
+   After 40000 throws, average value of pi = 3.14319286 (error is 0.0016002035530640)
+   After 45000 throws, average value of pi = 3.14387937 (error is 0.0022867114895719)
+   After 50000 throws, average value of pi = 3.14342857 (error is 0.0018359178387781)
