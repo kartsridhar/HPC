@@ -46,6 +46,7 @@ int main(int argc, char* argv[])
 
   int rank;               /* 'rank' of process among it's cohort */ 
   int size;               /* size of cohort, i.e. num processes started */
+  enum bool {FALSE,TRUE}; /* enumerated type: false = 0, true = 1 */  
   int flag;               /* for checking whether MPI_Init() has been called */
   int strlen;             /* length of a character array */
   char hostname[MPI_MAX_PROCESSOR_NAME];  /* character array to hold hostname running process */
