@@ -9,12 +9,25 @@
 #define MASTER 0
 
 void stencil(const int nx, const int ny, const int width, const int height,
-             float* image, float* tmp_image);
+             float* image, float* tmp_image, int rank);
 void init_image(const int nx, const int ny, const int width, const int height,
                 float* image, float* tmp_image);
 void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float* image);
 double wtime(void);
+
+int n_rows;
+int n_cols;
+
+// Function to get the respective section elements
+float *get_section_elements(float *section, float *arr, int start, int end)
+{
+  for(int i=start; i<end+1; i++)
+  {
+    section[i-start] = arr[i];
+  }
+  return section;
+}
 
 enum bool {FALSE,TRUE}; /* enumerated type: false = 0, true = 1 */  
 
@@ -43,16 +56,6 @@ int main(int argc, char* argv[])
   int width = nx + 2;
   int height = ny + 2;
 
-  // Allocate the image
-  float* image = malloc(sizeof(double) * width * height);
-  float* tmp_image = malloc(sizeof(double) * width * height);
-
-  // Set the input image
-  init_image(nx, ny, width, height, image, tmp_image);
-
-  // Call the stencil kernel
-  double tic = wtime();
-  
   /* initialise our MPI environment */
   MPI_Init( &argc, &argv );
 
@@ -65,30 +68,36 @@ int main(int argc, char* argv[])
   MPI_Comm_size( MPI_COMM_WORLD, &size );
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
 
+  // Allocate the image
+  float* image;
+  float* tmp_image;
+
   if(rank == MASTER)
   {
-    for(int i=1; i<size; i++)
-    {
-      // Receive message
-      MPI_Recv(message, BUFSIZ, MPI_CHAR, i, 0, MPI_COMM_WORLD, &status);
+    image = malloc(sizeof(double) * width * height);
+    tmp_image = malloc(sizeof(double) * width * height);
 
-      // Print the received message
-      printf("Message received = [%s]\n", message);
-    }
-  }
-  else
-  { 
-    // Create a message to send
-    sprintf(message, "Send message from process [%d]\n", rank);
-
-    // Send a message to the MASTER
-    MPI_Send(message, strlen(message)+1, MPI_CHAR, MASTER, 0, MPI_COMM_WORLD);
+    // Set the input image
+    init_image(nx, ny, width, height, image, tmp_image);
   }
 
-  // for (int t = 0; t < niters; ++t) {
-  //   stencil(nx, ny, width, height, image, tmp_image);
-  //   stencil(nx, ny, width, height, tmp_image, image);
-  // }
+  n_rows = width;
+  n_cols = height;
+  int section_size = n_rows * n_cols / 16;
+
+  float *buffer = malloc(sizeof(double) * section_size);
+  float *tmp_buffer = malloc(sizeof(double) * section_size);
+
+  // Send data from MASTER to all buffer
+  MPI_Scatter(image, section_size, MPI_FLOAT, buffer, section_size, MPI_FLOAT, MASTER, MPI_COMM_WORLD);
+
+  // Call the stencil kernel
+  double tic = wtime();
+  
+  for (int t = 0; t < niters; ++t) {
+    stencil(nx, ny, width, height, image, tmp_image, rank);
+    stencil(nx, ny, width, height, tmp_image, image, rank);
+  }
   
   double toc = wtime();
 
@@ -105,7 +114,7 @@ int main(int argc, char* argv[])
 }
 
 void stencil(const int nx, const int ny, const int width, const int height,
-             float* image, float* tmp_image)
+             float* image, float* tmp_image, int rank)
 {
   for (int i = 1; i < nx + 1; ++i) {
     for (int j = 1; j < ny + 1; ++j) {
