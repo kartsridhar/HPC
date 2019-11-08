@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
 
   if(rank == MASTER)
   {
-    for(int i=0; i<size; i++)
+    for(int i=1; i<size; i++)
     {
       // Receive message
       MPI_Recv(message, BUFSIZ, MPI_CHAR, i, 0, MPI_COMM_WORLD, &status);
