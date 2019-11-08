@@ -5,6 +5,7 @@
 
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
+#define MASTER 0
 
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image);
@@ -13,6 +14,8 @@ void init_image(const int nx, const int ny, const int width, const int height,
 void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float* image);
 double wtime(void);
+
+enum bool {FALSE,TRUE}; /* enumerated type: false = 0, true = 1 */  
 
 int main(int argc, char* argv[])
 {
@@ -26,6 +29,13 @@ int main(int argc, char* argv[])
   int nx = atoi(argv[1]);
   int ny = atoi(argv[2]);
   int niters = atoi(argv[3]);
+
+  // Adding MPI stuff
+  int rank;               /* 'rank' of process among it's cohort */ 
+  int size;               /* size of cohort, i.e. num processes started */
+  int flag;               /* for checking whether MPI_Init() has been called */
+  MPI_Status status;     /* struct used by MPI_Recv */
+  char message[BUFSIZ];
 
   // we pad the outer edge of the image to avoid out of range address issues in
   // stencil
@@ -41,16 +51,7 @@ int main(int argc, char* argv[])
 
   // Call the stencil kernel
   double tic = wtime();
-
-  // Adding MPI stuff
-
-  int rank;               /* 'rank' of process among it's cohort */ 
-  int size;               /* size of cohort, i.e. num processes started */
-  enum bool {FALSE,TRUE}; /* enumerated type: false = 0, true = 1 */  
-  int flag;               /* for checking whether MPI_Init() has been called */
-  int strlen;             /* length of a character array */
-  char hostname[MPI_MAX_PROCESSOR_NAME];  /* character array to hold hostname running process */
-
+  
   /* initialise our MPI environment */
   MPI_Init( &argc, &argv );
 
@@ -60,28 +61,33 @@ int main(int argc, char* argv[])
     MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
   }
 
-  /* determine the hostname */
-  MPI_Get_processor_name(hostname,&strlen);
-
-  /* 
-  ** determine the SIZE of the group of processes associated with
-  ** the 'communicator'.  MPI_COMM_WORLD is the default communicator
-  ** consisting of all the processes in the launched MPI 'job'
-  */
   MPI_Comm_size( MPI_COMM_WORLD, &size );
-  
-  /* determine the RANK of the current process [0:SIZE-1] */
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
 
-  for (int t = 0; t < niters; ++t) {
-    stencil(nx, ny, width, height, image, tmp_image);
-    stencil(nx, ny, width, height, tmp_image, image);
+  if(rank == MASTER)
+  {
+    for(int i=0; i<size; i++)
+    {
+      // Receive message
+      MPI_Recv(message, BUFSIZ, MPI_CHAR, i, 0, MPI_COMM_WORLD, &status);
+
+      // Print the received message
+      printf("Message received = [%s]\n", message);
+    }
+  }
+  else
+  { 
+    // Create a message to send
+    sprintf(message, "Send message from process [%d]\n", rank);
+
+    // Send a message to the MASTER
+    MPI_Send(message, strlen(message)+1, MPI_CHAR, MASTER, 0, MPI_COMM_WORLD);
   }
 
-  printf("Hello, world; from host %s: process %d of %d\n", hostname, rank, size);
-
-  /* finialise the MPI enviroment */
-  MPI_Finalize();
+  // for (int t = 0; t < niters; ++t) {
+  //   stencil(nx, ny, width, height, image, tmp_image);
+  //   stencil(nx, ny, width, height, tmp_image, image);
+  // }
   
   double toc = wtime();
 
@@ -93,6 +99,8 @@ int main(int argc, char* argv[])
   output_image(OUTPUT_FILE, nx, ny, width, height, image);
   free(image);
   free(tmp_image);
+
+  MPI_Finalize();
 }
 
 void stencil(const int nx, const int ny, const int width, const int height,
