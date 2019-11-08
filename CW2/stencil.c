@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include "mpi.h"
+#include <string.h>
 
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
