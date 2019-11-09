@@ -7,6 +7,9 @@
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
+#define NROWS 1024       // number of rows in the image
+#define NCOLS 1024/4     // number of cols in the image
+#define SECTION_SIZE ((NROWS * NCOLS) / 4);
 
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image, int rank);
@@ -16,20 +19,18 @@ void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float* image);
 double wtime(void);
 
-int n_rows;
-int n_cols;
-
-// Function to get the respective section elements
-float *get_section_elements(float *section, float *arr, int start, int end)
+int calc_ncols_from_rank(int rank, int size)
 {
-  for(int i=start; i<end+1; i++)
-  {
-    section[i-start] = arr[i];
-  }
-  return section;
-}
+  int ncols;
 
-enum bool {FALSE,TRUE}; /* enumerated type: false = 0, true = 1 */  
+  ncols = NCOLS / size;       /* integer division */
+  if ((NCOLS % size) != 0) {  /* if there is a remainder */
+    if (rank == size - 1)
+      ncols += NCOLS % size;  /* add remainder to last rank */
+  }
+  
+  return ncols;
+}
 
 int main(int argc, char* argv[])
 {
@@ -47,9 +48,11 @@ int main(int argc, char* argv[])
   // Adding MPI stuff
   int rank;               /* 'rank' of process among it's cohort */ 
   int size;               /* size of cohort, i.e. num processes started */
-  int flag;               /* for checking whether MPI_Init() has been called */
   MPI_Status status;     /* struct used by MPI_Recv */
   char message[BUFSIZ];
+
+  int local_nrows;       /* number of rows apportioned to this rank */
+  int local_ncols;       /* number of columns apportioned to this rank */
 
   // we pad the outer edge of the image to avoid out of range address issues in
   // stencil
@@ -58,15 +61,16 @@ int main(int argc, char* argv[])
 
   /* initialise our MPI environment */
   MPI_Init( &argc, &argv );
-
-  /* check whether the initialisation was successful */
-  MPI_Initialized(&flag);
-  if ( flag != TRUE ) {
-    MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
-  }
-
   MPI_Comm_size( MPI_COMM_WORLD, &size );
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
+
+  local_nrows = NROWS;
+  local_ncols = calc_ncols_from_rank(rank, size);
+  /* check whether the initialisation was successful */
+  if ( local_ncols < 1 ) {
+    fprintf(stderr,"Error: too many processes:- local_ncols < 1\n");
+    MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
+  }
 
   // Allocate the image
   float* image;
@@ -81,22 +85,18 @@ int main(int argc, char* argv[])
     init_image(nx, ny, width, height, image, tmp_image);
   }
 
-  n_rows = width;
-  n_cols = height;
-  int section_size = n_rows * n_cols / 16;
-
-  float *buffer = malloc(sizeof(double) * section_size);
-  float *tmp_buffer = malloc(sizeof(double) * section_size);
+  float *buffer = malloc(sizeof(double) * SECTION_SIZE);
+  float *tmp_buffer = malloc(sizeof(double) * SECTION_SIZE);
 
   // Send data from MASTER to all buffer
-  MPI_Scatter(image, section_size, MPI_FLOAT, buffer, section_size, MPI_FLOAT, MASTER, MPI_COMM_WORLD);
+  MPI_Scatter(image, SECTION_SIZE, MPI_FLOAT, buffer, SECTION_SIZE, MPI_FLOAT, MASTER, MPI_COMM_WORLD);
 
   // Call the stencil kernel
   double tic = wtime();
   
   for (int t = 0; t < niters; ++t) {
-    stencil(nx, ny, width, height, image, tmp_image, rank);
-    stencil(nx, ny, width, height, tmp_image, image, rank);
+    stencil(nx/size, ny, buffer, tmp_buffer, rank);
+    stencil(nx/size, ny, tmp_buffer, buffer, rank);
   }
   
   double toc = wtime();
@@ -107,6 +107,9 @@ int main(int argc, char* argv[])
   printf("------------------------------------\n");
 
   output_image(OUTPUT_FILE, nx, ny, width, height, image);
+  
+  free(buffer);
+  free(tmp_buffer);
   free(image);
   free(tmp_image);
 
@@ -116,6 +119,19 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image, int rank)
 {
+    /* 
+  ** determine process ranks to the left and right of rank
+  ** respecting periodic boundary conditions
+  */
+  int left = (rank == MASTER) ? (rank + size - 1) : (rank - 1);
+  int right = (rank + 1) % size;
+
+  // checking if master
+  // sending last row of the array to worker with rank 1
+  if(rank == MASTER)
+  {
+
+  }
   for (int i = 1; i < nx + 1; ++i) {
     for (int j = 1; j < ny + 1; ++j) {
        int cell = j + i * height;
