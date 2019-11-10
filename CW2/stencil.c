@@ -7,9 +7,8 @@
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
-#define NROWS 1024       // number of rows in the image
-#define NCOLS 1024/4     // number of cols in the image
-#define SECTION_SIZE ((NROWS * NCOLS) / 4);
+#define NROWS 1024       // number of rows in the subgrid
+#define NCOLS 1024/4     // number of cols in the subgrid
 
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image, int rank);
@@ -48,11 +47,17 @@ int main(int argc, char* argv[])
   // Adding MPI stuff
   int rank;               /* 'rank' of process among it's cohort */ 
   int size;               /* size of cohort, i.e. num processes started */
-  MPI_Status status;     /* struct used by MPI_Recv */
-  char message[BUFSIZ];
 
+  char message[BUFSIZ];
+  MPI_Status status;     /* struct used by MPI_Recv */
+  int left;              /* the rank of the process to the left */
+  int right;             /* the rank of the process to the right */
   int local_nrows;       /* number of rows apportioned to this rank */
   int local_ncols;       /* number of columns apportioned to this rank */
+
+  // Adding Buffer stuff
+  float *buffer;         /* buffer to hold values to send*/
+  float *tmp_buffer;     /* buffer to hold received values */
 
   // we pad the outer edge of the image to avoid out of range address issues in
   // stencil
@@ -64,6 +69,15 @@ int main(int argc, char* argv[])
   MPI_Comm_size( MPI_COMM_WORLD, &size );
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
 
+  int ii,jj;             /* row and column indices for the section */
+
+  /* 
+  ** determine process ranks to the left and right of rank
+  ** respecting periodic boundary conditions
+  */
+  left = (rank == MASTER) ? (rank + size - 1) : (rank - 1);
+  right = (rank + 1) % size;
+
   local_nrows = NROWS;
   local_ncols = calc_ncols_from_rank(rank, size);
   /* check whether the initialisation was successful */
@@ -72,33 +86,23 @@ int main(int argc, char* argv[])
     MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
   }
 
+  buffer = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
+  tmp_buffer = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
+
   // Allocate the image
-  float* image;
-  float* tmp_image;
+  float* image = malloc(sizeof(float) * width * height);;
+  float* tmp_image = malloc(sizeof(float) * width * height);
+  float* gathered = malloc(sizeof(float) * width * height);
 
-  if(rank == MASTER)
-  {
-    image = malloc(sizeof(double) * width * height);
-    tmp_image = malloc(sizeof(double) * width * height);
-
-    // Set the input image
-    init_image(nx, ny, width, height, image, tmp_image);
-  }
-
-  float *buffer = malloc(sizeof(double) * SECTION_SIZE);
-  float *tmp_buffer = malloc(sizeof(double) * SECTION_SIZE);
-
-  // Send data from MASTER to all buffer
-  MPI_Scatter(image, SECTION_SIZE, MPI_FLOAT, buffer, SECTION_SIZE, MPI_FLOAT, MASTER, MPI_COMM_WORLD);
+  // Set the input image
+  init_image(nx, ny, width, height, image, tmp_image);
 
   // Call the stencil kernel
   double tic = wtime();
-  
   for (int t = 0; t < niters; ++t) {
-    stencil(nx/size, ny, buffer, tmp_buffer, rank);
-    stencil(nx/size, ny, tmp_buffer, buffer, rank);
-  }
-  
+    stencil(nx, ny, width, height, buffer, tmp_buffer, rank);
+    stencil(ny, ny, width, height, tmp_buffer, buffer, rank);
+  } 
   double toc = wtime();
 
   // Output
@@ -107,36 +111,54 @@ int main(int argc, char* argv[])
   printf("------------------------------------\n");
 
   output_image(OUTPUT_FILE, nx, ny, width, height, image);
-  
-  free(buffer);
-  free(tmp_buffer);
+
+  free(gathered);
   free(image);
   free(tmp_image);
+  free(buffer);
+  free(tmp_buffer);
 
   MPI_Finalize();
 }
 
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image, int rank)
-{
-    /* 
-  ** determine process ranks to the left and right of rank
-  ** respecting periodic boundary conditions
-  */
-  int left = (rank == MASTER) ? (rank + size - 1) : (rank - 1);
-  int right = (rank + 1) % size;
-
-  // checking if master
-  // sending last row of the array to worker with rank 1
+{ 
   if(rank == MASTER)
   {
-
-  }
-  for (int i = 1; i < nx + 1; ++i) {
-    for (int j = 1; j < ny + 1; ++j) {
-       int cell = j + i * height;
-       tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+    // Handling non-edge cases
+    for (int i = 2; i < nx + 1; ++i) 
+    {
+      for (int j = 1; j < ny + 1; ++j) 
+      {
+        int cell = j + i * height;
+        tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+      }
     }
+
+    // Handling top and bottom rows
+    for(int i = 2; i < nx + 1; ++i)
+    {
+      int top = i * height;
+      tmp_image[top] = image[top] * 0.6f + (image[top - height] + image[top + height] + image[top + 1]) * 0.1f;
+
+      int bottom = i * height + (height - 1);
+      tmp_image[bottom] = image[bottom] * 0.6f + (image[bottom - height] + image[bottom + height] + image[bottom - 1]) * 0.1f;
+    }
+
+    // Handling left-most column
+    for(int i = 1; i < ny - 1; i++)
+    {
+      int left_most = i * height;
+      tmp_image[left_most] = image[left_most] * 0.6f + (image[left_most + height] + image[left_most + 1] + image[left_most - 1]) * 0.1f;
+    }
+
+    // Handling left-top corner
+    tmp_image[height] = image[height] * 0.6f + (image[height + 1] + image[height + height]) * 0.1f;
+
+    // Handling left-bottom corner
+    int left_bottom = 2 * height - 1; // height - 1 + height
+    tmp_image[left_bottom] = image[left_bottom] * 0.6f + (image[left_bottom - 1] + image[left_bottom + height]) * 0.1f;
   }
 }
 
