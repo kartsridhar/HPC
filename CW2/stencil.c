@@ -10,6 +10,8 @@
 #define NROWS 1024       // number of rows in the subgrid
 #define NCOLS 1024/4     // number of cols in the subgrid
 
+int workers;            // defining the number of workers
+
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image, int rank);
 void init_image(const int nx, const int ny, const int width, const int height,
@@ -68,6 +70,8 @@ int main(int argc, char* argv[])
   MPI_Init( &argc, &argv );
   MPI_Comm_size( MPI_COMM_WORLD, &size );
   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
+
+  workers = size;
 
   int ii,jj;             /* row and column indices for the section */
 
@@ -159,6 +163,65 @@ void stencil(const int nx, const int ny, const int width, const int height,
     // Handling left-bottom corner
     int left_bottom = 2 * height - 1; // height - 1 + height
     tmp_image[left_bottom] = image[left_bottom] * 0.6f + (image[left_bottom - 1] + image[left_bottom + height]) * 0.1f;
+  }
+  else if(rank == workers - 1)  // LAST SECTION
+  {
+    // Handling non-edge cases
+    for(int i = 1; i < nx + 1; ++i)
+    {
+      for(int j = 1; j < ny - 1; ++j)
+      {
+        int cell = j + i * height;
+        tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] + image[cell + 1]) * 0.1f;
+      }
+    }
+
+    // Handling top and bottom rows
+    for(int i = 1; i < nx + 1; ++i)
+    {
+      int top = i * height;
+      tmp_image[top] = image[top] * 0.6f + (image[top - height] + image[top + height] + image[top + 1]) * 0.1f;
+
+      int bottom = i * height + (height - 1);
+      tmp_image[bottom] = image[bottom] * 0.6f + (image[bottom - height] + image[bottom + height] + image[bottom - 1]) * 0.1f;
+    }
+
+    // Handling right-most column
+    for(int i = 1; i < ny - 2; i++)
+    {
+      int right_most = i + ((width - 2) * height);
+      tmp_image[right_most] = image[right_most] * 0.6f + (image[right_most - height] + image[right_most + 1] + image[right_most - 1]) * 0.1f;
+    }
+
+    // Handling right-top corner
+    int right_top = width * height;
+    tmp_image[right_top] = image[right_top] * 0.6f + (image[right_top - height] + image[right_top + 1]) * 0.1f;
+
+    // Handling right-bottom corner
+    int right_bottom = ((width + 1) * height) - 1;
+    tmp_image[right_bottom] = image[right_bottom] * 0.6f + (image[right_bottom - height] + image[right_bottom - 1]) * 0.1f;
+  }
+  else // MIDDLE SECTIONS
+  {
+    // Handling non-edge cases
+    for(int i = 1; i < nx + 1; ++i)
+    {
+      for(int j = 1; j < ny + 1; ++j)
+      {
+        int cell = j + i * height;
+        tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell- 1] + image[cell + 1]) * 0.1f;
+      }
+    }
+
+    // Handling the top and bottom rows
+    for(int i = 1; i < nx + 1; ++i)
+    {
+      int top = i * height;
+      tmp_image[top] = image[top] * 0.6f + (image[top - height] + image[top + height] + image[top + 1]) * 0.1f;
+
+      int bottom = i * height + (height - 1);
+      tmp_image[bottom] = image[bottom] * 0.6f + (image[bottom - height] + image[bottom + height] + image[bottom - 1]) * 0.1f;
+    }
   }
 }
 
