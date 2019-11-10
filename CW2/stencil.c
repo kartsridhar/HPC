@@ -50,16 +50,15 @@ int main(int argc, char* argv[])
   int rank;               /* 'rank' of process among it's cohort */ 
   int size;               /* size of cohort, i.e. num processes started */
 
-  char message[BUFSIZ];
   MPI_Status status;     /* struct used by MPI_Recv */
   int left;              /* the rank of the process to the left */
   int right;             /* the rank of the process to the right */
   int local_nrows;       /* number of rows apportioned to this rank */
   int local_ncols;       /* number of columns apportioned to this rank */
 
-  // Adding Buffer stuff
-  float *buffer;         /* buffer to hold values to send*/
-  float *tmp_buffer;     /* buffer to hold received values */
+  // Adding Section stuff
+  float *section;         /* section to hold values to send*/
+  float *tmp_section;     /* section to hold received values */
 
   // we pad the outer edge of the image to avoid out of range address issues in
   // stencil
@@ -90,8 +89,8 @@ int main(int argc, char* argv[])
     MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
   }
 
-  buffer = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
-  tmp_buffer = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
+  section = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
+  tmp_section = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
 
   // Allocate the image
   float* image = malloc(sizeof(float) * width * height);;
@@ -101,11 +100,23 @@ int main(int argc, char* argv[])
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
 
+  // Adding elements in the sections - INITIALISING
+  int section_start = (rank * (width/size)) - 1;
+  for(ii = 0; ii < local_nrows; ++ii)
+  {
+    for(jj = 1; jj < local_ncols + 1; ++jj)
+    {
+      int cell = ii + jj * height;
+      section[cell] = image[ii + (section_start + jj) * height];
+      tmp_section[cell] = tmp_image[ii + (section_start + jj) * height];
+    }
+  }
+
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
-    stencil(nx, ny, width, height, buffer, tmp_buffer, rank);
-    stencil(ny, ny, width, height, tmp_buffer, buffer, rank);
+    stencil(nx, ny, width, height, section, tmp_section, rank);
+    stencil(ny, ny, width, height, tmp_section, section, rank);
   } 
   double toc = wtime();
 
