@@ -130,8 +130,8 @@ int main(int argc, char* argv[])
   free(gathered);
   free(image);
   free(tmp_image);
-  free(buffer);
-  free(tmp_buffer);
+  free(section);
+  free(tmp_section);
 
   MPI_Finalize();
 }
