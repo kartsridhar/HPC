@@ -128,15 +128,15 @@ int main(int argc, char* argv[])
 
     // 1. 
     if(rank != MASTER)
-      MPI_Send(tmp_section[height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+      MPI_Send(&tmp_section[height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     if(rank != size - 1)
-      MPI_Recv(tmp_section[(local_ncols + 1) * height], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Recv(&tmp_section[(local_ncols + 1) * height], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
     // 2.
     if(rank != size - 1)
-      MPI_Send(tmp_section[local_ncols * height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+      MPI_Send(&tmp_section[local_ncols * height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     if(rank != MASTER)
-      MPI_Recv(tmp_section[0], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Recv(&tmp_section[0], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
     // Stencil from tmp_section to section depending on rank
     stencil(local_ncols, local_nrows, width, height, tmp_section, section, rank);
@@ -150,15 +150,15 @@ int main(int argc, char* argv[])
 
     // 1. 
     if(rank != MASTER)
-      MPI_Send(section[height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+      MPI_Send(&section[height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     if(rank != size - 1)
-      MPI_Recv(section[(local_ncols + 1) * height], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Recv(&section[(local_ncols + 1) * height], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
     // 2.
     if(rank != size - 1)
-      MPI_Send(section[local_ncols * height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+      MPI_Send(&section[local_ncols * height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     if(rank != MASTER)
-      MPI_Recv(section[0], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Recv(&section[0], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
   } 
   double toc = wtime();
 
