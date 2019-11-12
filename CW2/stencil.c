@@ -92,10 +92,18 @@ int main(int argc, char* argv[])
   section = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
   tmp_section = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
 
+  /////////////////////////////////////////////////////////////////////
+  printf("Allocates section and tmp_section\n");
+  /////////////////////////////////////////////////////////////////////
+
   // Allocate the image
   float* image = malloc(sizeof(float) * width * height);;
   float* tmp_image = malloc(sizeof(float) * width * height);
   float* gathered = malloc(sizeof(float) * width * height);
+
+  /////////////////////////////////////////////////////////////////////
+  printf("Allocates image, tmp_image and gathered\n");
+  /////////////////////////////////////////////////////////////////////
 
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
@@ -112,6 +120,57 @@ int main(int argc, char* argv[])
     }
   }
 
+  /////////////////////////////////////////////////////////////////////
+  printf("Initialises section and tmp_section with values\n");
+  /////////////////////////////////////////////////////////////////////
+
+  // // Sending stuff to left of the section and receiving to the right.
+  // if(rank != MASTER)
+  //   MPI_Send(&section[height], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+  // if(rank != size - 1)
+  //   MPI_Recv(&section[(local_ncols + 1) * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+
+  // // Sending stuff to the right and receiving to the left
+  // if(rank != size - 1)
+  //   MPI_Send(&section[(local_ncols + 1) * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD);
+  // if(rank != MASTER)
+  //   MPI_Recv(&section[0], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+
+  // Sending stuff to left of the section and receiving to the right.
+  if(rank != MASTER) 
+  {
+    MPI_Send(&section[height], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+    /////////////////////////////////////////////////////////////////////
+    printf("Sending stuff to the left except MASTER\n");
+    /////////////////////////////////////////////////////////////////////
+  }
+    
+  if(rank != size - 1)
+  {
+    MPI_Recv(&section[(local_ncols + 1) * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+    /////////////////////////////////////////////////////////////////////
+    printf("Receiving stuff to the right except LAST\n");
+    /////////////////////////////////////////////////////////////////////
+  }
+    
+
+  // Sending stuff to the right and receiving to the left
+  if(rank != size - 1)
+  {
+    MPI_Send(&section[(local_ncols + 1) * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD);
+    /////////////////////////////////////////////////////////////////////
+    printf("Sending stuff to the right except LAST\n");
+    /////////////////////////////////////////////////////////////////////
+  }
+    
+  if(rank != MASTER)
+  {
+    MPI_Recv(&section[0], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+    /////////////////////////////////////////////////////////////////////
+    printf("Receiving stuff to the left except MASTER\n");
+    /////////////////////////////////////////////////////////////////////
+  }
+    
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
@@ -128,15 +187,15 @@ int main(int argc, char* argv[])
 
     // 1. 
     if(rank != MASTER)
-      MPI_Send(&tmp_section[height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+      MPI_Send(&tmp_section[height], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     if(rank != size - 1)
-      MPI_Recv(&tmp_section[(local_ncols + 1) * height], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Recv(&tmp_section[(local_ncols + 1) * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
     // 2.
     if(rank != size - 1)
-      MPI_Send(&tmp_section[local_ncols * height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+      MPI_Send(&tmp_section[local_ncols * height], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     if(rank != MASTER)
-      MPI_Recv(&tmp_section[0], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Recv(&tmp_section[0], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
     // Stencil from tmp_section to section depending on rank
     stencil(local_ncols, local_nrows, width, height, tmp_section, section, rank);
@@ -150,15 +209,15 @@ int main(int argc, char* argv[])
 
     // 1. 
     if(rank != MASTER)
-      MPI_Send(&section[height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+      MPI_Send(&section[height], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     if(rank != size - 1)
-      MPI_Recv(&section[(local_ncols + 1) * height], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Recv(&section[(local_ncols + 1) * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
     // 2.
     if(rank != size - 1)
-      MPI_Send(&section[local_ncols * height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+      MPI_Send(&section[local_ncols * height], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     if(rank != MASTER)
-      MPI_Recv(&section[0], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Recv(&section[0], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
   } 
   double toc = wtime();
 
