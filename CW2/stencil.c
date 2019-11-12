@@ -7,8 +7,8 @@
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
-#define NROWS 1024       // number of rows in the subgrid
-#define NCOLS 1024/4     // number of cols in the subgrid
+#define NROWS 1024       // number of rows in the section
+#define NCOLS 1024/4     // number of cols in the section
 
 int workers;            // defining the number of workers
 
@@ -115,8 +115,50 @@ int main(int argc, char* argv[])
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
-    stencil(nx, ny, width, height, section, tmp_section, rank);
-    stencil(ny, ny, width, height, tmp_section, section, rank);
+
+    // First stencil from section to tmp_section depending on rank
+    stencil(local_ncols, local_nrows, width, height, section, tmp_section, rank);
+
+    /*
+    1. Everyone except MASTER send tmp_section column to left and 
+      everyone except LAST receive tmp_section column from right
+    2. Everyone except LAST send tmp_section column to right and 
+      everyone except MASTER receive tmp_section column from left
+    */
+
+    // 1. 
+    if(rank != MASTER)
+      MPI_Send(tmp_section[height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+    if(rank != size - 1)
+      MPI_Recv(tmp_section[(local_ncols + 1) * height], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+
+    // 2.
+    if(rank != size - 1)
+      MPI_Send(tmp_section[local_ncols * height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+    if(rank != MASTER)
+      MPI_Recv(tmp_section[0], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+
+    // Stencil from tmp_section to section depending on rank
+    stencil(local_ncols, local_nrows, width, height, tmp_section, section, rank);
+
+    /*
+    1. Everyone except MASTER send tmp_section column to left and 
+      everyone except LAST receive tmp_section column from right
+    2. Everyone except LAST send tmp_section column to right and 
+      everyone except MASTER receive tmp_section column from left
+    */
+
+    // 1. 
+    if(rank != MASTER)
+      MPI_Send(section[height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+    if(rank != size - 1)
+      MPI_Recv(section[(local_ncols + 1) * height], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+
+    // 2.
+    if(rank != size - 1)
+      MPI_Send(section[local_ncols * height], width, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+    if(rank != MASTER)
+      MPI_Recv(section[0], width, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
   } 
   double toc = wtime();
 
@@ -162,9 +204,9 @@ void stencil(const int nx, const int ny, const int width, const int height,
     }
 
     // Handling left-most column
-    for(int i = 1; i < ny - 1; i++)
+    for(int j = 1; j < ny - 1; j++)
     {
-      int left_most = i * height;
+      int left_most = j * height;
       tmp_image[left_most] = image[left_most] * 0.6f + (image[left_most + height] + image[left_most + 1] + image[left_most - 1]) * 0.1f;
     }
 
@@ -198,9 +240,9 @@ void stencil(const int nx, const int ny, const int width, const int height,
     }
 
     // Handling right-most column
-    for(int i = 1; i < ny - 2; i++)
+    for(int j = 1; j < ny - 2; j++)
     {
-      int right_most = i + ((width - 2) * height);
+      int right_most = j + ((width - 2) * height);
       tmp_image[right_most] = image[right_most] * 0.6f + (image[right_most - height] + image[right_most + 1] + image[right_most - 1]) * 0.1f;
     }
 
