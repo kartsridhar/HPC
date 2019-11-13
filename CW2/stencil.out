@@ -17,10 +17,14 @@ Allocated space for section and tmp_section for rank = 3
 Sections for rank 1 initialised successfully
 Sections for MASTER initialised successfully
 Sections for rank 2 initialised successfully
-Applied stencil from section to tmp_section for rank 0Applied stencil from section to tmp_section for rank 1Rank 1 performs Send and Receive to the LEFT successfully
-Applied stencil from section to tmp_section for rank 2Rank 2 performs Send and Receive to the LEFT successfully
+Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 1
+Rank 1 performs Send and Receive to the LEFT successfully
+Applied stencil from section to tmp_section for rank 2
+Rank 2 performs Send and Receive to the LEFT successfully
 Sections for rank 3 initialised successfully
-Applied stencil from section to tmp_section for rank 3Rank 3 performs Send and Receive to the LEFT successfully
+Applied stencil from section to tmp_section for rank 3
+Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 3
 srun: error: compute085: tasks 0-2: Segmentation fault
 srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
