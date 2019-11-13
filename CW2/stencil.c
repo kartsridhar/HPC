@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
-    //stencil(local_nrows, section_ncols, width, height, section, tmp_section);
+    stencil(local_nrows, section_ncols, width, height, section, tmp_section);
 
     printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
@@ -139,7 +139,7 @@ int main(int argc, char* argv[])
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
 
-    //stencil(local_nrows, section_ncols, width, height, tmp_section, section);
+    stencil(local_nrows, section_ncols, width, height, tmp_section, section);
 
     printf("Applied stencil from tmp_section to section for rank %d\n", rank);
 
