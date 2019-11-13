@@ -8,7 +8,7 @@
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
 #define NROWS 1024       // number of rows in the section
-#define NCOLS 1024/4     // number of cols in the section
+#define NCOLS 1024       // number of cols in the section
 
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image, int rank, int size);
