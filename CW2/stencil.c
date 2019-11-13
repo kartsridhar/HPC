@@ -83,8 +83,8 @@ int main(int argc, char* argv[])
   float *tmp_image = malloc(sizeof(float) * width * height);
 
   int section_ncols = local_ncols + 2;
-  if(rank == MASTER) section_ncols -= 1;
-  if(rank == size - 1) section_ncols = nx - ((size - 1) * local_nrows) + 1;
+  // if(rank == MASTER) section_ncols -= 1;
+  // if(rank == size - 1) section_ncols = nx - ((size - 1) * local_nrows) + 1;
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
