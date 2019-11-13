@@ -86,8 +86,12 @@ int main(int argc, char* argv[])
   if(rank == MASTER) section_ncols -= 1;
   if(rank == size - 1) section_ncols = nx - (rank * (size - 1)) + 1;
 
+  printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
+
   float *section = malloc(sizeof(float) * local_nrows * section_ncols);
   float *tmp_section = malloc(sizeof(float) * local_nrows * section_ncols);
+
+  printf("Allocated space for section and tmp_section for rank = %d\n", rank);
 
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
@@ -101,6 +105,7 @@ int main(int argc, char* argv[])
       section[i] = image[section_start + i];
       tmp_section[i] = image[section_start + i];
     }
+    printf("Sections for rank %d initialised successfully\n", rank);
   }
   else
   {
@@ -109,6 +114,7 @@ int main(int argc, char* argv[])
       section[i] = image[i];
       tmp_section[i] = image[i];
     }
+    printf("Sections for MASTER initialised successfully\n");
   }
   
   if(rank == size - 1)
@@ -119,23 +125,43 @@ int main(int argc, char* argv[])
   for (int t = 0; t < niters; ++t) {
     stencil(local_nrows, section_ncols, width, height, section, tmp_section);
 
-    if(rank != MASTER)
+    printf("Applied stencil from section to tmp_section for rank %d", rank);
+
+    if(rank != MASTER) 
+    {
       MPI_Sendrecv(&tmp_section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
       &tmp_section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
-    
+
+      printf("Rank %d performs Send and Receive to the LEFT successfully\n", rank);
+    }
+      
     if(rank != size - 1)
+    {
       MPI_Sendrecv(&tmp_section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
       &tmp_section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
+      printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
+    }
+
     stencil(local_nrows, section_ncols, width, height, tmp_section, section);
 
+    printf("Applied stencil from tmp_section to section for rank %d\n", rank);
+
     if(rank != MASTER)
+    {
       MPI_Sendrecv(&section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
       &section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
 
+      printf("Rank %d performs Send and Receive to the LEFT successfully\n", rank);
+    }
+
     if(rank != size - 1)
+    {
       MPI_Sendrecv(&section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
       &section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      
+      printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
+    }
   } 
   double toc = wtime();
 
