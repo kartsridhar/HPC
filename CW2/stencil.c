@@ -315,20 +315,56 @@ int main(int argc, char* argv[])
   } 
   double toc = wtime();
 
-  // Output
-  printf("------------------------------------\n");
-  printf(" runtime: %lf s\n", toc - tic);
-  printf("------------------------------------\n");
+  // GATHERING ALL THE SECTIONS if rank is MASTER otherwise send all the sections to MASTER
+  if(rank == MASTER)
+  {
+    for(ii = 0; ii < local_nrows; ++ii)
+    {
+      for(jj = 1; jj < local_ncols + 1; ++jj)
+      {
+        int cell =  ii + (jj - 1) * height;
+        result[cell] = section[ii + jj * height];
+      }
+    }
 
-  output_image(OUTPUT_FILE, nx, ny, width, height, image);
+    // Receiving stuff from each rank into the respective rank
+    for(int _rank = 0; _rank < size; ++_rank)
+    {
+      int section_start = (_rank * (width/size)) - 1;
+      int gather_ncols = calc_ncols_from_rank(_rank, size);
+
+      for(jj = 1; jj < gather_ncols + 1; ++jj)
+      {
+        MPI_Recv(gathered[(section_start + jj) * height], height, MPI_FLOAT, _rank, 0, MPI_COMM_WORLD, &status);
+      }
+    }
+  }
+  else  // sending everything to the MASTER
+  {
+    for(jj = 1; jj < local_ncols + 1; ++jj)
+    {
+      MPI_Send(&section[jj * height], height, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+    }
+  }
+  
+
+  // Output if rank is MASTER
+  if(rank == MASTER)
+  {
+    printf("------------------------------------\n");
+    printf(" runtime: %lf s\n", toc - tic);
+    printf("------------------------------------\n");
+
+    output_image(OUTPUT_FILE, nx, ny, width, height, gathered);
+  }
+
+  MPI_Finalize();
 
   free(gathered);
   free(image);
   free(tmp_image);
   free(section);
   free(tmp_section);
-
-  MPI_Finalize();
 }
 
 void stencil(const int nx, const int ny, const int width, const int height,
