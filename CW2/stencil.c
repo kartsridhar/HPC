@@ -69,6 +69,10 @@ int main(int argc, char* argv[])
   left = (rank == MASTER) ? (rank + size - 1) : (rank - 1);
   right = (rank + 1) % size;
 
+  // Allocate the image
+  float * restrict image = malloc(sizeof(float) * width * height);;
+  float * restrict tmp_image = malloc(sizeof(float) * width * height);
+  
   local_nrows = nx;
   local_ncols = calc_ncols_from_rank(rank, size, ny);
   
@@ -77,14 +81,10 @@ int main(int argc, char* argv[])
     fprintf(stderr,"Error: too many processes:- local_ncols < 1\n");
     MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
   }
-
-  // Allocate the image
-  float * restrict image = malloc(sizeof(float) * width * height);;
-  float * restrict tmp_image = malloc(sizeof(float) * width * height);
-
+  
   int section_ncols = local_ncols + 2;
   if(rank == MASTER) section_ncols -= 1;
-  if(rank == size - 1) section_ncols = nx - ((size - 1) * local_nrows) + 1;
+  if(rank == size - 1) section_ncols = ny - ((size - 1) * local_ncols) + 1;
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
@@ -116,9 +116,6 @@ int main(int argc, char* argv[])
     }
     printf("Sections for rank %d initialised successfully\n", rank);
   }
-  
-  if(rank == size - 1)
-    local_ncols = nx - ((size - 1) * local_ncols) + 1;
 
   // Call the stencil kernel
   double tic = wtime();
@@ -138,7 +135,7 @@ int main(int argc, char* argv[])
     if(rank != size - 1)
     {
       MPI_Sendrecv(&tmp_section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
-      &tmp_section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      &tmp_section[local_nrows * section_ncols - local_nrows], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
@@ -158,7 +155,7 @@ int main(int argc, char* argv[])
     if(rank != size - 1)
     {
       MPI_Sendrecv(&section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
-      &section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      &section[local_nrows * section_ncols - local_nrows], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
@@ -172,13 +169,18 @@ int main(int argc, char* argv[])
       image[i] = section[i];
     }
 
-    for(int _rank = 1; _rank < size; ++_rank)
+    for(int _rank = 1; _rank < size - 1; ++_rank)
     {
-      int section_start = _rank * local_nrows * local_ncols;
+      int section_start = _rank * (local_nrows * local_ncols);
       for(int j = 0; j < local_ncols; ++j)
       {
         MPI_Recv(&image[section_start + j * local_nrows], local_nrows, MPI_FLOAT, _rank, 0, MPI_COMM_WORLD, &status);
       }
+    }
+
+    for(int last = 0; last < ny - ((size - 1) * local_ncols); ++last)
+    {
+      MPI_Recv(&image[(size - 1) * (local_nrows * local_ncols) + last * local_nrows], local_nrows, MPI_FLOAT, size - 1, 0, MPI_COMM_WORLD, &status);
     }
   }
   else
@@ -210,7 +212,7 @@ int main(int argc, char* argv[])
 }
 
 void stencil(const int nx, const int ny, const int width, const int height,
-             float* image, float* tmp_image)
+             float * restrict image, float * restrict tmp_image)
 { 
   for (int i = 1; i < nx + 1; ++i)
   {
@@ -224,7 +226,7 @@ void stencil(const int nx, const int ny, const int width, const int height,
 
 // Create the input image
 void init_image(const int nx, const int ny, const int width, const int height,
-                float* image, float* tmp_image)
+                float * restrict image, float * restrict tmp_image)
 {
   // Zero everything
   for (int j = 0; j < ny + 2; ++j) {
@@ -253,7 +255,7 @@ void init_image(const int nx, const int ny, const int width, const int height,
 
 // Routine to output the image in Netpbm grayscale binary image format
 void output_image(const char* file_name, const int nx, const int ny,
-                  const int width, const int height, float* image)
+                  const int width, const int height, float * restrict image)
 {
   // Open output file
   FILE* fp = fopen(file_name, "w");
