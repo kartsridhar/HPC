@@ -1,7 +1,7 @@
 Running on host compute084.bc4.acrc.priv
-Time is Wed Nov 13 13:59:40 GMT 2019
+Time is Wed Nov 13 15:37:46 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2702554
+Slurm job ID is 2702673
 
 This job runs on the following machines:
 compute084
@@ -408,7 +408,7 @@ compute084
 99 iterations done
 srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
 srun: got SIGCONT
-slurmstepd: error: *** STEP 2702554.0 ON compute084 CANCELLED AT 2019-11-13T14:04:30 ***
-slurmstepd: error: *** JOB 2702554 ON compute084 CANCELLED AT 2019-11-13T14:04:30 ***
+slurmstepd: error: *** STEP 2702673.0 ON compute084 CANCELLED AT 2019-11-13T15:39:46 ***
+slurmstepd: error: *** JOB 2702673 ON compute084 CANCELLED AT 2019-11-13T15:39:46 ***
 srun: forcing job termination
 srun: error: compute084: tasks 0-3: Terminated
