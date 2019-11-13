@@ -71,6 +71,7 @@ int main(int argc, char* argv[])
 
   local_nrows = nx;
   local_ncols = calc_ncols_from_rank(rank, size, ny);
+  
   /* check whether the initialisation was successful */
   if ( local_ncols < 1 ) {
     fprintf(stderr,"Error: too many processes:- local_ncols < 1\n");
@@ -81,12 +82,12 @@ int main(int argc, char* argv[])
   float *image = malloc(sizeof(float) * width * height);;
   float *tmp_image = malloc(sizeof(float) * width * height);
 
-  local_ncols = local_ncols + 2;
-  if(rank == MASTER) local_ncols -= 1;
-  if(rank == size - 1) local_ncols = nx - (rank * (size - 1)) + 1;
+  int section_ncols = local_ncols + 2;
+  if(rank == MASTER) section_ncols -= 1;
+  if(rank == size - 1) section_ncols = nx - (rank * (size - 1)) + 1;
 
-  float *section = malloc(sizeof(float) * local_nrows * local_ncols);
-  float *tmp_section = malloc(sizeof(float) * local_nrows * local_ncols);
+  float *section = malloc(sizeof(float) * local_nrows * section_ncols);
+  float *tmp_section = malloc(sizeof(float) * local_nrows * section_ncols);
 
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
@@ -95,7 +96,7 @@ int main(int argc, char* argv[])
   if(rank != MASTER)
   { 
     int section_start = rank * local_nrows * local_ncols - local_nrows;
-    for(int i = 0; i < (local_nrows * local_ncols); ++i)
+    for(int i = 0; i < (local_nrows * section_ncols); ++i)
     {
       section[i] = image[section_start + i];
       tmp_section[i] = image[section_start + i];
@@ -103,7 +104,7 @@ int main(int argc, char* argv[])
   }
   else
   {
-    for(int i = 0; i < (local_nrows * local_ncols); ++i)
+    for(int i = 0; i < (local_nrows * section_ncols); ++i)
     {
       section[i] = image[i];
       tmp_section[i] = image[i];
@@ -111,30 +112,30 @@ int main(int argc, char* argv[])
   }
   
   if(rank == size - 1)
-    local_ncols = nx - ((size - 1) * rank);
+    local_ncols = nx - ((size - 1) * local_ncols);
 
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
-    stencil(nx, local_ncols, width, height, section, tmp_section);
+    stencil(local_nrows, section_ncols, width, height, section, tmp_section);
 
     if(rank != MASTER)
       MPI_Sendrecv(&tmp_section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
       &tmp_section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
     
     if(rank != size - 1)
-      MPI_Sendrecv(&tmp_section[local_nrows * local_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
-      &tmp_section[local_nrows * local_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Sendrecv(&tmp_section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
+      &tmp_section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
-    stencil(nx, local_ncols, width, height, tmp_section, section);
+    stencil(local_nrows, section_ncols, width, height, tmp_section, section);
 
     if(rank != MASTER)
       MPI_Sendrecv(&section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
       &section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
 
     if(rank != size - 1)
-      MPI_Sendrecv(&section[local_nrows * local_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
-      &section[local_nrows * local_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      MPI_Sendrecv(&section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
+      &section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
   } 
   double toc = wtime();
 
@@ -145,12 +146,10 @@ int main(int argc, char* argv[])
       image[i] = section[i];
     }
 
-    for(int _rank = 0; _rank < size; ++_rank)
+    for(int _rank = 1; _rank < size; ++_rank)
     {
       int section_start = _rank * local_nrows * local_ncols;
-      int n_cols = calc_ncols_from_rank(_rank, size, ny);
-      
-      for(int j = 0; j < n_cols; ++j)
+      for(int j = 0; j < local_ncols; ++j)
       {
         MPI_Recv(&image[section_start + j * local_nrows], local_nrows, MPI_FLOAT, _rank, 0, MPI_COMM_WORLD, &status);
       }
@@ -158,7 +157,7 @@ int main(int argc, char* argv[])
   }
   else
   {
-    for(int i = 1; i < local_ncols; ++i)
+    for(int i = 1; i < section_ncols; ++i)
     {
       MPI_Send(&section[i * local_nrows], local_nrows, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
@@ -176,6 +175,7 @@ int main(int argc, char* argv[])
   }
 
   free(image);
+  free(tmp_image);
   free(section);
   free(tmp_section);
 
