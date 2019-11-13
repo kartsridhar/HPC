@@ -7,8 +7,6 @@
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
-#define NROWS 1024       // number of rows in the section
-#define NCOLS 1024       // number of cols in the section
 
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image, int rank, int size);
@@ -18,14 +16,14 @@ void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float* image);
 double wtime(void);
 
-int calc_ncols_from_rank(int rank, int size)
+int calc_ncols_from_rank(int rank, int size, int height)
 {
   int ncols;
 
-  ncols = NCOLS / size;       /* integer division */
-  if ((NCOLS % size) != 0) {  /* if there is a remainder */
+  ncols = height / size;       /* integer division */
+  if ((height % size) != 0) {  /* if there is a remainder */
     if (rank == size - 1)
-      ncols += NCOLS % size;  /* add remainder to last rank */
+      ncols += height % size;  /* add remainder to last rank */
   }
   
   return ncols;
@@ -77,8 +75,8 @@ int main(int argc, char* argv[])
   left = (rank == MASTER) ? (rank + size - 1) : (rank - 1);
   right = (rank + 1) % size;
 
-  local_nrows = NROWS;
-  local_ncols = calc_ncols_from_rank(rank, size);
+  local_nrows = height;
+  local_ncols = calc_ncols_from_rank(rank, size, height);
   /* check whether the initialisation was successful */
   if ( local_ncols < 1 ) {
     fprintf(stderr,"Error: too many processes:- local_ncols < 1\n");
@@ -115,7 +113,6 @@ int main(int argc, char* argv[])
   if(rank != size - 1)
     MPI_Recv(&section[(local_ncols + 1) * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
     
-
   // Sending stuff to the right and receiving to the left
   if(rank != size - 1)
     MPI_Ssend(&section[local_ncols * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD);
@@ -160,10 +157,6 @@ int main(int argc, char* argv[])
 
     if(rank != MASTER)
       MPI_Recv(&section[0], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
-         
-    /////////////////////////////////////////////////////////////////////
-    printf("%d iterations done\n", t);
-    /////////////////////////////////////////////////////////////////////
   } 
   double toc = wtime();
 
@@ -175,7 +168,7 @@ int main(int argc, char* argv[])
       for(jj = 1; jj < local_ncols + 1; ++jj)
       {
         int cell =  ii + (jj - 1) * height;
-        gathered[cell] = section[ii + jj * height];
+        gathered[cell] = section[cell - height];
       }
     }
 
@@ -183,7 +176,7 @@ int main(int argc, char* argv[])
     for(int _rank = 0; _rank < size; ++_rank)
     {
       int section_start = (_rank * (width/size)) - 1;
-      int gather_ncols = calc_ncols_from_rank(_rank, size);
+      int gather_ncols = calc_ncols_from_rank(_rank, size, height);
 
       for(jj = 1; jj < gather_ncols + 1; ++jj)
       {
