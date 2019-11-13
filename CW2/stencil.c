@@ -9,11 +9,11 @@
 #define MASTER 0
 
 void stencil(const int nx, const int ny, const int width, const int height,
-             float* image, float* tmp_image);
+             float * restrict image, float * restrict tmp_image);
 void init_image(const int nx, const int ny, const int width, const int height,
-                float* image, float* tmp_image);
+                float * restrict image, float * restrict tmp_image);
 void output_image(const char* file_name, const int nx, const int ny,
-                  const int width, const int height, float* image);
+                  const int width, const int height, float * restrict image);
 double wtime(void);
 
 int calc_ncols_from_rank(int rank, int size, int height)
@@ -79,17 +79,17 @@ int main(int argc, char* argv[])
   }
 
   // Allocate the image
-  float *image = malloc(sizeof(float) * width * height);;
-  float *tmp_image = malloc(sizeof(float) * width * height);
+  float * restrict image = malloc(sizeof(float) * width * height);;
+  float * restrict tmp_image = malloc(sizeof(float) * width * height);
 
   int section_ncols = local_ncols + 2;
-  // if(rank == MASTER) section_ncols -= 1;
-  // if(rank == size - 1) section_ncols = nx - ((size - 1) * local_nrows) + 1;
+  if(rank == MASTER) section_ncols -= 1;
+  if(rank == size - 1) section_ncols = nx - ((size - 1) * local_nrows) + 1;
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
-  float *section = malloc(sizeof(float) * local_nrows * section_ncols);
-  float *tmp_section = malloc(sizeof(float) * local_nrows * section_ncols);
+  float * restrict section = malloc(sizeof(float) * local_nrows * section_ncols);
+  float * restrict tmp_section = malloc(sizeof(float) * local_nrows * section_ncols);
 
   printf("Allocated space for section and tmp_section for rank = %d\n", rank);
 
