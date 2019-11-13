@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
     if(rank != MASTER) 
     {
       MPI_Sendrecv(&tmp_section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
-      &tmp_section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+      &tmp_section[0], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the LEFT successfully\n", rank);
     }
@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
     if(rank != size - 1)
     {
       MPI_Sendrecv(&tmp_section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
-      &tmp_section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      &tmp_section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
@@ -150,7 +150,7 @@ int main(int argc, char* argv[])
     if(rank != MASTER)
     {
       MPI_Sendrecv(&section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
-      &section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+      &section[0], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the LEFT successfully\n", rank);
     }
@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
     if(rank != size - 1)
     {
       MPI_Sendrecv(&section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
-      &section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      &section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
