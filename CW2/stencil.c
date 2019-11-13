@@ -323,7 +323,7 @@ int main(int argc, char* argv[])
       for(jj = 1; jj < local_ncols + 1; ++jj)
       {
         int cell =  ii + (jj - 1) * height;
-        result[cell] = section[ii + jj * height];
+        gathered[cell] = section[ii + jj * height];
       }
     }
 
@@ -335,7 +335,7 @@ int main(int argc, char* argv[])
 
       for(jj = 1; jj < gather_ncols + 1; ++jj)
       {
-        MPI_Recv(gathered[(section_start + jj) * height], height, MPI_FLOAT, _rank, 0, MPI_COMM_WORLD, &status);
+        MPI_Recv(&gathered[(section_start + jj) * height], height, MPI_FLOAT, _rank, 0, MPI_COMM_WORLD, &status);
       }
     }
   }
