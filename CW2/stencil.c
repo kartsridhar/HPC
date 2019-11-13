@@ -10,10 +10,8 @@
 #define NROWS 1024       // number of rows in the section
 #define NCOLS 1024/4     // number of cols in the section
 
-int workers;            // defining the number of workers
-
 void stencil(const int nx, const int ny, const int width, const int height,
-             float* image, float* tmp_image, int rank);
+             float* image, float* tmp_image, int rank, int size);
 void init_image(const int nx, const int ny, const int width, const int height,
                 float* image, float* tmp_image);
 void output_image(const char* file_name, const int nx, const int ny,
@@ -176,7 +174,7 @@ int main(int argc, char* argv[])
   for (int t = 0; t < niters; ++t) {
 
     // First stencil from section to tmp_section depending on rank
-    stencil(local_ncols, local_nrows, width, height, section, tmp_section, rank);
+    stencil(local_ncols, local_nrows, width, height, section, tmp_section, rank, size);
     /////////////////////////////////////////////////////////////////////
     printf("Performed stencil from section to tmp_section for rank %d\n", rank);
     /////////////////////////////////////////////////////////////////////
@@ -218,7 +216,7 @@ int main(int argc, char* argv[])
       
 
     // Stencil from tmp_section to section depending on rank
-    stencil(local_ncols, local_nrows, width, height, tmp_section, section, rank);
+    stencil(local_ncols, local_nrows, width, height, tmp_section, section, rank, size);
     /////////////////////////////////////////////////////////////////////
     printf("Performed stencil from tmp_section to section for rank %d\n", rank);
     /////////////////////////////////////////////////////////////////////
@@ -368,7 +366,7 @@ int main(int argc, char* argv[])
 }
 
 void stencil(const int nx, const int ny, const int width, const int height,
-             float* image, float* tmp_image, int rank)
+             float* image, float* tmp_image, int rank, int size)
 { 
   if(rank == MASTER)
   {
@@ -406,7 +404,7 @@ void stencil(const int nx, const int ny, const int width, const int height,
     int left_bottom = 2 * height - 1; // height - 1 + height
     tmp_image[left_bottom] = image[left_bottom] * 0.6f + (image[left_bottom - 1] + image[left_bottom + height]) * 0.1f;
   }
-  else if(rank == workers - 1)  // LAST SECTION
+  else if(rank == size - 1)  // LAST SECTION
   {
     // Handling non-edge cases
     for(int i = 1; i < nx + 1; ++i)
