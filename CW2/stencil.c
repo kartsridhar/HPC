@@ -85,17 +85,17 @@ int main(int argc, char* argv[])
     MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
   }
 
-  section = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
-  tmp_section = (float*) malloc(sizeof(float) * local_nrows * (local_ncols + 2));
+  section = (float*) malloc(sizeof(float*) * local_nrows * (local_ncols + 2));
+  tmp_section = (float*) malloc(sizeof(float*) * local_nrows * (local_ncols + 2));
 
   /////////////////////////////////////////////////////////////////////
   printf("Allocates section and tmp_section for rank %d\n", rank);
   /////////////////////////////////////////////////////////////////////
 
   // Allocate the image
-  float* image = malloc(sizeof(float) * width * height);;
-  float* tmp_image = malloc(sizeof(float) * width * height);
-  float* gathered = malloc(sizeof(float) * width * height);
+  float *image = malloc(sizeof(float) * width * height);;
+  float *tmp_image = malloc(sizeof(float) * width * height);
+  float *gathered = malloc(sizeof(float) * width * height);
 
   /////////////////////////////////////////////////////////////////////
   printf("Allocates image, tmp_image and gathered for rank %d\n", rank);
@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
   // Sending stuff to left of the section and receiving to the right.
   if(rank != MASTER) 
   {
-    MPI_Send(&section[height], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
+    MPI_Ssend(&section[height], height, MPI_FLOAT, left, 0, MPI_COMM_WORLD);
     /////////////////////////////////////////////////////////////////////
     printf("Sending stuff to left of section %d\n", rank);
     /////////////////////////////////////////////////////////////////////
@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
   // Sending stuff to the right and receiving to the left
   if(rank != size - 1)
   {
-    MPI_Send(&section[(local_ncols + 1) * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD);
+    MPI_Ssend(&section[local_ncols * height], height, MPI_FLOAT, right, 0, MPI_COMM_WORLD);
     /////////////////////////////////////////////////////////////////////
     printf("Sending stuff to the right of section %d\n", rank);
     /////////////////////////////////////////////////////////////////////
@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
   for (int t = 0; t < niters; ++t) {
 
     // First stencil from section to tmp_section depending on rank
-    stencil(local_ncols, local_nrows, width, height, section, tmp_section, rank, size);
+    stencil(local_ncols, ny, width, height, section, tmp_section, rank, size);
     /////////////////////////////////////////////////////////////////////
     printf("Performed stencil from section to tmp_section for rank %d\n", rank);
     /////////////////////////////////////////////////////////////////////
@@ -214,7 +214,7 @@ int main(int argc, char* argv[])
       
 
     // Stencil from tmp_section to section depending on rank
-    stencil(local_ncols, local_nrows, width, height, tmp_section, section, rank, size);
+    stencil(local_ncols, ny, width, height, tmp_section, section, rank, size);
     /////////////////////////////////////////////////////////////////////
     printf("Performed stencil from tmp_section to section for rank %d\n", rank);
     /////////////////////////////////////////////////////////////////////
@@ -339,7 +339,7 @@ int main(int argc, char* argv[])
   {
     for(jj = 1; jj < local_ncols + 1; ++jj)
     {
-      MPI_Send(&section[jj * height], height, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+      MPI_Ssend(&section[jj * height], height, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
   }
   
