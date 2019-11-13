@@ -83,8 +83,8 @@ int main(int argc, char* argv[])
   float *tmp_image = malloc(sizeof(float) * width * height);
 
   int section_ncols = local_ncols + 2;
-  if(rank == MASTER || rank == size - 1) section_ncols -= 1;
-  // if(rank == size - 1) section_ncols = nx - (local_nrows * (size - 1)) + 1;
+  if(rank == MASTER) section_ncols -= 1;
+  if(rank == size - 1) section_ncols = nx - ((size - 1) * local_nrows) + 1;
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
@@ -97,8 +97,17 @@ int main(int argc, char* argv[])
   init_image(nx, ny, width, height, image, tmp_image);
 
   // Initialising the sections
-  if(rank != MASTER)
+  if(rank == MASTER)
   { 
+    for(int i = 0; i < (local_nrows * section_ncols); ++i)
+    {
+      section[i] = image[i];
+      tmp_section[i] = image[i];
+    }
+    printf("Sections for MASTER initialised successfully\n");
+  }
+  else
+  {
     int section_start = rank * local_nrows * local_ncols - local_nrows;
     for(int i = 0; i < (local_nrows * section_ncols); ++i)
     {
@@ -107,18 +116,9 @@ int main(int argc, char* argv[])
     }
     printf("Sections for rank %d initialised successfully\n", rank);
   }
-  else
-  {
-    for(int i = 0; i < (local_nrows * section_ncols); ++i)
-    {
-      section[i] = image[i];
-      tmp_section[i] = image[i];
-    }
-    printf("Sections for MASTER initialised successfully\n");
-  }
   
-  // if(rank == size - 1)
-  //   section_ncols = nx - ((size - 1) * local_nrows) + 1;
+  if(rank == size - 1)
+    local_ncols = nx - ((size - 1) * local_ncols) + 1;
 
   // Call the stencil kernel
   double tic = wtime();
@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
     if(rank != MASTER) 
     {
       MPI_Sendrecv(&tmp_section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
-      &tmp_section[0], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      &tmp_section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the LEFT successfully\n", rank);
     }
@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
     if(rank != size - 1)
     {
       MPI_Sendrecv(&tmp_section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
-      &tmp_section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+      &tmp_section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
@@ -150,7 +150,7 @@ int main(int argc, char* argv[])
     if(rank != MASTER)
     {
       MPI_Sendrecv(&section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
-      &section[0], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+      &section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the LEFT successfully\n", rank);
     }
@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
     if(rank != size - 1)
     {
       MPI_Sendrecv(&section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
-      &section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+      &section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
@@ -189,6 +189,7 @@ int main(int argc, char* argv[])
     }
   }
   
+  printf("Final Image added from Rank %d\n", rank);
 
   // Output if rank is MASTER
   if(rank == MASTER)
@@ -201,7 +202,7 @@ int main(int argc, char* argv[])
   }
 
   free(image);
-  free(tmp_image);
+  // free(tmp_image);
   free(section);
   free(tmp_section);
 
