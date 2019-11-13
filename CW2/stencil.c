@@ -83,9 +83,8 @@ int main(int argc, char* argv[])
   }
   
   int section_ncols = local_ncols + 2;
-  if(rank == MASTER) section_ncols -= 1;
-  if(rank == size - 1) section_ncols = ny - ((size - 1) * local_ncols) + 1;
-
+  if(rank == MASTER || rank == size - 1) section_ncols -= 1;
+  
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
   float * restrict section = malloc(sizeof(float) * local_nrows * section_ncols);
@@ -214,12 +213,75 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
-  for (int i = 1; i < nx + 1; ++i)
-  {
-    for (int j = 1; j < ny + 1; ++j) 
-    {
-      int cell = j + i * height;
-      tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+  // for (int i = 1; i < nx + 1; ++i)
+  // {
+  //   for (int j = 1; j < ny + 1; ++j) 
+  //   {
+  //     int cell = j + i * height;
+  //     tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+  //   }
+  // }
+        tmp_image[0] = image[0] * 0.6f;                     //order of each of these sections could matter with respect to caching
+      tmp_image[0] += image[1]* 0.1f;
+      tmp_image[0] += image[nx]* 0.1f;
+
+      //topRight
+      tmp_image[nx-1] = image[nx-1] * 0.6f;
+      tmp_image[nx-1] += image[nx-2]* 0.1f;
+      tmp_image[nx-1] += image[(2*nx)-1]* 0.1f;
+
+      for(int topEdge = 1; topEdge < nx-1; ++topEdge){
+        tmp_image[topEdge] = image[topEdge] * 0.6f;
+        tmp_image[topEdge] += image[topEdge + 1]* 0.1f;
+        tmp_image[topEdge] += image[topEdge - 1]* 0.1f;
+        tmp_image[topEdge] += image[topEdge + nx]*0.1f;
+      }
+    //}
+
+    //if(rank == nnodes-1){
+      //bottomLeft
+      tmp_image[nx*(ny-1)] = image[nx*(ny-1)] * 0.6f;
+      tmp_image[nx*(ny-1)] += image[nx*(ny-1)+1]* 0.1f;
+      tmp_image[nx*(ny-1)] += image[nx*(ny-2)]* 0.1f;
+
+      //bottomRight
+      tmp_image[(nx*ny)-1] = image[(nx*ny)-1] * 0.6f;
+      tmp_image[(nx*ny)-1] += image[(nx*ny)-2]* 0.1f;
+      tmp_image[(nx*ny)-1] += image[(nx*ny)-(nx+1)]* 0.1f;
+
+      for(int bottomEdge = 1; bottomEdge < nx-1; ++bottomEdge){
+        tmp_image[nx*(ny-1)+bottomEdge] = image[nx*(ny-1)+bottomEdge] * 0.6f;
+        tmp_image[nx*(ny-1)+bottomEdge] += image[(nx*(ny-1)+bottomEdge) + 1]* 0.1f;
+        tmp_image[nx*(ny-1)+bottomEdge] += image[(nx*(ny-1)+bottomEdge) - 1]* 0.1f;
+        tmp_image[nx*(ny-1)+bottomEdge] += image[(nx*(ny-1)+bottomEdge) - nx]*0.1f;
+      }
+    //}
+
+
+
+  for(int leftEdge = 1; leftEdge < ny-1; ++leftEdge){
+    tmp_image[nx*leftEdge] = image[nx*leftEdge] * 0.6f;
+    tmp_image[nx*leftEdge] += image[nx*leftEdge + 1]* 0.1f;
+    tmp_image[nx*leftEdge] += image[nx*leftEdge + nx]* 0.1f;
+    tmp_image[nx*leftEdge] += image[nx*leftEdge - nx]*0.1f;
+  }
+
+  //unsigned short rightPixel = nx+(nx-1);
+  for(int rightEdge = 1; rightEdge < ny-1; ++rightEdge){
+    tmp_image[rightEdge*nx+(nx-1)] = image[rightEdge*nx+(nx-1)] * 0.6f;
+    tmp_image[rightEdge*nx+(nx-1)] += image[(rightEdge*nx+(nx-1)) - 1]* 0.1f;
+    tmp_image[rightEdge*nx+(nx-1)] += image[(rightEdge*nx+(nx-1)) + nx]* 0.1f;
+    tmp_image[rightEdge*nx+(nx-1)] += image[(rightEdge*nx+(nx-1)) - nx]*0.1f;
+  }
+
+  for (int i = 1; i < ny-1; ++i) {
+    for (int j = 1; j < nx-1; ++j) {
+
+      tmp_image[j+i*nx] = image[j+i*nx] * 0.6f;
+      tmp_image[j+i*nx] += image[(j+i*nx)+1] * 0.1f;
+      tmp_image[j+i*nx] += image[(j+i*nx) - 1] * 0.1f;
+      tmp_image[j+i*nx] += image[(j+i*nx) + nx] * 0.1f;
+      tmp_image[j+i*nx] += image[(j+i*nx) - nx] * 0.1f;
     }
   }
 }
