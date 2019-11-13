@@ -159,7 +159,7 @@ int main(int argc, char* argv[])
     {
       MPI_Sendrecv(&section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
       &section[local_nrows * section_ncols], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
-      
+
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
   } 
@@ -211,14 +211,74 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image)
 { 
-  for (int i = 1; i < nx + 1; ++i)
-  {
-    for (int j = 1; j < ny + 1; ++j) 
-    {
-      int cell = j + i * height;
-      tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+  // for (int i = 1; i < nx + 1; ++i)
+  // {
+  //   for (int j = 1; j < ny + 1; ++j) 
+  //   {
+  //     int cell = j + i * height;
+  //     tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+  //   }
+  // }
+   //topLeft
+    tmp_image[0] = image[0] * 0.6f;                     //order of each of these sections could matter with respect to caching
+    tmp_image[0] += image[1]* 0.1f;
+    tmp_image[0] += image[ny]* 0.1f;
+
+    //topRight
+    tmp_image[ny-1] = image[ny-1] * 0.6f;
+    tmp_image[ny-1] += image[ny-2]* 0.1f;
+    tmp_image[ny-1] += image[(2*ny)-1]* 0.1f;
+
+    //bottomLeft
+    tmp_image[ny*(nx-1)] = image[ny*(nx-1)] * 0.6f;
+    tmp_image[ny*(nx-1)] += image[ny*(nx-1)+1]* 0.1f;
+    tmp_image[ny*(nx-1)] += image[ny*(nx-2)]* 0.1f;
+
+    //bottomRight
+    tmp_image[(ny*nx)-1] = image[(ny*nx)-1] * 0.6f;
+    tmp_image[(ny*nx)-1] += image[(ny*nx)-2]* 0.1f;
+    tmp_image[(ny*nx)-1] += image[(ny*nx)-(ny+1)]* 0.1f;
+
+    for(int leftEdge = 1; leftEdge < nx-1; ++leftEdge){
+      tmp_image[ny*leftEdge] = image[ny*leftEdge] * 0.6f;
+      tmp_image[ny*leftEdge] += image[ny*leftEdge + 1]* 0.1f;
+      tmp_image[ny*leftEdge] += image[ny*leftEdge + ny]* 0.1f;
+      tmp_image[ny*leftEdge] += image[ny*leftEdge - ny]*0.1f;
     }
-  }
+
+    //unsigned short rightPixel = nx+(nx-1);
+    for(int rightEdge = 1; rightEdge < nx-1; ++rightEdge){
+      tmp_image[rightEdge*ny+(ny-1)] = image[rightEdge*ny+(ny-1)] * 0.6f;
+      tmp_image[rightEdge*ny+(ny-1)] += image[(rightEdge*ny+(ny-1)) - 1]* 0.1f;
+      tmp_image[rightEdge*ny+(ny-1)] += image[(rightEdge*ny+(ny-1)) + nx]* 0.1f;
+      tmp_image[rightEdge*ny+(ny-1)] += image[(rightEdge*ny+(ny-1)) - nx]*0.1f;
+    }
+
+    for(int topEdge = 1; topEdge < ny-1; ++topEdge){
+      tmp_image[topEdge] = image[topEdge] * 0.6f;
+      tmp_image[topEdge] += image[topEdge + 1]* 0.1f;
+      tmp_image[topEdge] += image[topEdge - 1]* 0.1f;
+      tmp_image[topEdge] += image[topEdge + ny]*0.1f;
+    }
+
+    for(int bottomEdge = 1; bottomEdge < ny-1; ++bottomEdge){
+      tmp_image[ny*(nx-1)+bottomEdge] = image[ny*(nx-1)+bottomEdge] * 0.6f;
+      tmp_image[ny*(nx-1)+bottomEdge] += image[(ny*(nx-1)+bottomEdge) + 1]* 0.1f;
+      tmp_image[ny*(nx-1)+bottomEdge] += image[(ny*(nx-1)+bottomEdge) - 1]* 0.1f;
+      tmp_image[ny*(nx-1)+bottomEdge] += image[(ny*(nx-1)+bottomEdge) - ny]*0.1f;
+    }
+
+
+    for (int i = 1; i < nx-1; ++i) {
+      for (int j = 1; j < ny-1; ++j) {
+
+        tmp_image[j+i*ny] = image[j+i*ny] * 0.6f;
+        tmp_image[j+i*ny] += image[(j+i*ny)+1] * 0.1f;
+        tmp_image[j+i*ny] += image[(j+i*ny) - 1] * 0.1f;
+        tmp_image[j+i*ny] += image[(j+i*ny) + ny] * 0.1f;
+        tmp_image[j+i*ny] += image[(j+i*ny) - ny] * 0.1f;
+      }
+    }
 }
 
 // Create the input image
