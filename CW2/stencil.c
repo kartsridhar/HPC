@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 
   int section_ncols = local_ncols + 2;
   if(rank == MASTER) section_ncols -= 1;
-  if(rank == size - 1) section_ncols = nx - (rank * (size - 1)) + 1;
+  if(rank == size - 1) section_ncols = nx - (local_nrows * (size - 1)) + 1;
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
