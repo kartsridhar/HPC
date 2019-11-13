@@ -52,10 +52,6 @@ int main(int argc, char* argv[])
   int local_nrows;       /* number of rows apportioned to this rank */
   int local_ncols;       /* number of columns apportioned to this rank */
 
-  // Adding Section stuff
-  float *section;         /* section to hold values to send*/
-  float *tmp_section;     /* section to hold received values */
-
   // we pad the outer edge of the image to avoid out of range address issues in
   // stencil
   int width = nx + 2;

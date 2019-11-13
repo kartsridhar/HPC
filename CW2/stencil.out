@@ -1,14 +1,9 @@
 Running on host compute085.bc4.acrc.priv
-Time is Wed Nov 13 16:40:26 GMT 2019
+Time is Wed Nov 13 19:54:58 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2702739
+Slurm job ID is 2703050
 
 This job runs on the following machines:
 compute085
 
-srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
-srun: got SIGCONT
-slurmstepd: error: *** STEP 2702739.0 ON compute085 CANCELLED AT 2019-11-13T16:42:17 ***
-slurmstepd: error: *** JOB 2702739 ON compute085 CANCELLED AT 2019-11-13T16:42:17 ***
-srun: forcing job termination
-srun: error: compute085: tasks 0-3: Terminated
+srun: error: compute085: tasks 0-3: Segmentation fault
