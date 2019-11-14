@@ -230,11 +230,11 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
-  for (int j = 1; j < ny + 1; ++j)
+  for (int i = 0; i < nx; ++i)
   {
-    for (int i = 0; i < nx; ++i) 
+    for (int j = 0; j < ny; ++j) 
     {
-      int cell = j + i * nx;
+      int cell = i + j * nx;
       tmp_image[cell] = image[cell] * 0.6f + (image[cell - ny] + image[cell + ny] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
     }
   }
