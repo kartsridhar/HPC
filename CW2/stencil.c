@@ -235,7 +235,7 @@ void stencil(const int nx, const int ny, const int width, const int height,
     for (int j = 1; j < ny + 1; ++j) 
     {
       int cell = j + i * nx;
-      tmp_image[cell] = image[cell] * 0.6f + (image[cell - nx] + image[cell + nx] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+      tmp_image[cell] = image[cell] * 0.6f + (image[cell - ny] + image[cell + ny] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
     }
   }
 }
