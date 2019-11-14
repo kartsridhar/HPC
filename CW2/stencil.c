@@ -214,7 +214,7 @@ void stencil(const int nx, const int ny, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
   // Handling each case separately
-
+/*
   // 1. Left Top Corner
   int left_top = 0;
   tmp_image[left_top] = image[left_top] * 0.6f + (image[left_top + 1] + image[left_top + nx]) * 0.1f;
@@ -256,14 +256,14 @@ void stencil(const int nx, const int ny, const int width, const int height,
   {
     int left_col_index = nx * left_col;
     tmp_image[left_col_index] = image[left_col_index] * 0.6f + (image[left_col_index + 1] + image[left_col_index - nx] + image[left_col_index + nx]) * 0.1f;
-  }
+  }*/
 
   // 9. Middle Section
-  for(int i = 1; i < nx - 1; ++i)
+  for(int i = 0; i < nx; ++i)
   {
-    for(int j = 1; j < ny - 1; ++j)
+    for(int j = 1; j < ny + 1; ++j)
     {
-      int index = j + i * height;
+      int index = j + i * nx;
       tmp_image[index] = image[index] * 0.6f + (image[index - 1] + image[index + 1] + image[index - nx] + image[index + nx]) * 0.1f;
     }
   }
