@@ -219,9 +219,8 @@ void stencil(const int nx, const int ny, const int width, const int height,
   {
     for(int j = 1; j < ny + 1; ++j)
     { 
-      int index = j + i * nx;
-      printf("index = %d\n", index);
-      tmp_image[index] = image[index] * 0.6f + (image[index - 1] + image[index + 1] + image[index - nx] + image[index + nx]) * 0.1f;
+      int index = j + i * height;
+      tmp_image[index] = image[index] * 0.6f + (image[index - 1] + image[index + 1] + image[index - height] + image[index + height]) * 0.1f;
     }
   }
 }
