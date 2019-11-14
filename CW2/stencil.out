@@ -1,43 +1,43 @@
 Running on host compute085.bc4.acrc.priv
-Time is Thu Nov 14 20:49:06 GMT 2019
+Time is Thu Nov 14 20:53:26 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2705578
+Slurm job ID is 2705587
 
 This job runs on the following machines:
 compute085
 
 section_nrows = 1024, section_cols = 257 for rank 0
+Allocated space for section and tmp_section for rank = 0
 section_nrows = 1024, section_cols = 258 for rank 1
 section_nrows = 1024, section_cols = 258 for rank 2
+Allocated space for section and tmp_section for rank = 2
 section_nrows = 1024, section_cols = 257 for rank 3
 Allocated space for section and tmp_section for rank = 3
 Allocated space for section and tmp_section for rank = 1
-Allocated space for section and tmp_section for rank = 2
-Allocated space for section and tmp_section for rank = 0
 Sections for rank 1 initialised successfully
 Sections for MASTER initialised successfully
-Rank 0 performs INITIAL Send and Receive to the RIGHT successfully
 Rank 1 performs INITIAL Send and Receive to the LEFT successfully
+Rank 0 performs INITIAL Send and Receive to the RIGHT successfully
 Sections for rank 2 initialised successfully
 Rank 1 performs INITIAL Send and Receive to the RIGHT successfully
 Rank 2 performs INITIAL Send and Receive to the LEFT successfully
-Applied stencil from section to tmp_section for rank 0
-Applied stencil from section to tmp_section for rank 1
-Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 0
 Sections for rank 3 initialised successfully
-Rank 3 performs INITIAL Send and Receive to the LEFT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 2 performs INITIAL Send and Receive to the RIGHT successfully
+Rank 3 performs INITIAL Send and Receive to the LEFT successfully
+Applied stencil from section to tmp_section for rank 0
+Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 1
+Rank 1 performs Send and Receive to the LEFT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 2
-Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the LEFT successfully
-Rank 3 performs Send and Receive to the LEFT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
+Rank 3 performs Send and Receive to the LEFT successfully
+Applied stencil from tmp_section to section for rank 0
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
@@ -45,26 +45,27 @@ Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -72,29 +73,29 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -102,29 +103,29 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -132,19 +133,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -152,39 +153,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -192,19 +193,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -212,59 +213,59 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -272,19 +273,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -292,19 +293,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -312,19 +313,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -332,79 +333,79 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -412,19 +413,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -432,19 +433,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -452,29 +453,29 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -482,29 +483,29 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -512,19 +513,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -532,19 +533,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -552,19 +553,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -572,19 +573,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -592,39 +593,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -632,19 +633,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -652,79 +653,79 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -732,19 +733,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -752,19 +753,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -772,19 +773,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -792,19 +793,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -812,19 +813,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -832,19 +833,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -852,19 +853,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -872,19 +873,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -892,39 +893,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -932,19 +933,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -952,19 +953,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -972,29 +973,29 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1002,29 +1003,29 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1032,49 +1033,49 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1082,9 +1083,9 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1092,39 +1093,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1132,19 +1133,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1152,19 +1153,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1172,19 +1173,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1192,39 +1193,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1232,39 +1233,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1272,49 +1273,49 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1322,29 +1323,29 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1352,39 +1353,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1392,19 +1393,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1412,19 +1413,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1432,39 +1433,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1472,39 +1473,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1512,19 +1513,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1532,19 +1533,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1552,39 +1553,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1592,19 +1593,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1612,39 +1613,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1652,39 +1653,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Applied stencil from tmp_section to section for rank 3
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Applied stencil from section to tmp_section for rank 2
-Rank 2 performs Send and Receive to the LEFT successfully
-Applied stencil from section to tmp_section for rank 3
-Rank 3 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 2
+Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
+Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1692,19 +1693,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1712,19 +1713,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1732,19 +1733,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1752,19 +1753,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1772,19 +1773,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1792,59 +1793,59 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1852,79 +1853,79 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1932,19 +1933,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1952,39 +1953,39 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 0 performs Send and Receive to the RIGHT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
-Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
+Rank 0 performs Send and Receive to the RIGHT successfully
+Rank 1 performs Send and Receive to the RIGHT successfully
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -1992,19 +1993,19 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from section to tmp_section for rank 0
+Applied stencil from section to tmp_section for rank 3
 Applied stencil from section to tmp_section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
 Rank 0 performs Send and Receive to the RIGHT successfully
@@ -2012,22 +2013,21 @@ Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from section to tmp_section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from section to tmp_section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
 Applied stencil from tmp_section to section for rank 0
-Rank 0 performs Send and Receive to the RIGHT successfully
+Applied stencil from tmp_section to section for rank 3
 Applied stencil from tmp_section to section for rank 1
 Rank 1 performs Send and Receive to the LEFT successfully
+Rank 0 performs Send and Receive to the RIGHT successfully
 Rank 1 performs Send and Receive to the RIGHT successfully
 Applied stencil from tmp_section to section for rank 2
 Rank 2 performs Send and Receive to the LEFT successfully
 Rank 2 performs Send and Receive to the RIGHT successfully
-Applied stencil from tmp_section to section for rank 3
 Rank 3 performs Send and Receive to the LEFT successfully
-Final Image added from Rank 3
 Final Image added from Rank 1
 Final Image added from Rank 2
+Final Image added from Rank 3
 Final Image added from Rank 0
 ------------------------------------
- runtime: 0.027595 s
+ runtime: 0.231860 s
 ------------------------------------
