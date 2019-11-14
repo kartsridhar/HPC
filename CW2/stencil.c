@@ -232,7 +232,7 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
-  for (int i = 0; i < ny; ++i)
+  for (int i = 0; i < ny - 1; ++i)
   {
     for (int j = 0; j < nx; ++j) 
     {
