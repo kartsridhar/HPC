@@ -49,52 +49,6 @@ LOOP BEGIN at stencil.c(84,3) inlined into stencil.c(39,3)
    LOOP END
 LOOP END
 
-LOOP BEGIN at stencil.c(43,3)
-   remark #25460: No loop optimizations reported
-
-   LOOP BEGIN at stencil.c(62,3) inlined into stencil.c(44,5)
-      remark #25460: No loop optimizations reported
-
-      LOOP BEGIN at stencil.c(63,5) inlined into stencil.c(44,5)
-      <Peeled loop for vectorization>
-      LOOP END
-
-      LOOP BEGIN at stencil.c(63,5) inlined into stencil.c(44,5)
-         remark #15300: LOOP WAS VECTORIZED
-      LOOP END
-
-      LOOP BEGIN at stencil.c(63,5) inlined into stencil.c(44,5)
-      <Remainder loop for vectorization>
-         remark #15301: REMAINDER LOOP WAS VECTORIZED
-      LOOP END
-
-      LOOP BEGIN at stencil.c(63,5) inlined into stencil.c(44,5)
-      <Remainder loop for vectorization>
-      LOOP END
-   LOOP END
-
-   LOOP BEGIN at stencil.c(62,3) inlined into stencil.c(45,5)
-      remark #25460: No loop optimizations reported
-
-      LOOP BEGIN at stencil.c(63,5) inlined into stencil.c(45,5)
-      <Peeled loop for vectorization>
-      LOOP END
-
-      LOOP BEGIN at stencil.c(63,5) inlined into stencil.c(45,5)
-         remark #15300: LOOP WAS VECTORIZED
-      LOOP END
-
-      LOOP BEGIN at stencil.c(63,5) inlined into stencil.c(45,5)
-      <Remainder loop for vectorization>
-         remark #15301: REMAINDER LOOP WAS VECTORIZED
-      LOOP END
-
-      LOOP BEGIN at stencil.c(63,5) inlined into stencil.c(45,5)
-      <Remainder loop for vectorization>
-      LOOP END
-   LOOP END
-LOOP END
-
 LOOP BEGIN at stencil.c(118,5) inlined into stencil.c(54,3)
    remark #25460: No loop optimizations reported
 
