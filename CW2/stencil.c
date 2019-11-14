@@ -217,11 +217,10 @@ void stencil(const int nx, const int ny, const int width, const int height,
   // Middle Section
   for(int i = 0; i < nx; ++i)
   {
-    printf("iterating through local_nrows\n");
     for(int j = 1; j < ny + 1; ++j)
     { 
-      printf("iterating through section_ncols\n");
       int index = j + i * nx;
+      printf("index = %d\n", index);
       tmp_image[index] = image[index] * 0.6f + (image[index - 1] + image[index + 1] + image[index - nx] + image[index + nx]) * 0.1f;
     }
   }
