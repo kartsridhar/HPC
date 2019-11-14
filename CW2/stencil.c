@@ -238,7 +238,7 @@ void stencil(const int nx, const int ny, const int width, const int height,
 
   // 5. Right Bottom Corner
   int right_bot = (nx * ny) - 1;
-  tmp[right_bot] = image[right_bot] * 0.6f + (image[right_bot - 1] + image[right_bot - height]) * 0.1f;
+  tmp_image[right_bot] = image[right_bot] * 0.6f + (image[right_bot - 1] + image[right_bot - height]) * 0.1f;
 
   // 6. Bottom Row
   for(int bot_row = 1; bot_row < nx - 1; ++bot_row)
