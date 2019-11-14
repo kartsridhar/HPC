@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
   float * restrict image = malloc(sizeof(float) * width * height);;
   float * restrict tmp_image = malloc(sizeof(float) * width * height);
   
-  local_nrows = nx;
+  local_nrows = height;
   local_ncols = calc_ncols_from_rank(rank, size, ny);
   
   /* check whether the initialisation was successful */
@@ -83,8 +83,7 @@ int main(int argc, char* argv[])
   }
   
   int section_ncols = local_ncols + 2;
-  if(rank == MASTER || rank == size - 1) section_ncols -= 1;
-  
+
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
   float * restrict section = malloc(sizeof(float) * local_nrows * section_ncols);
@@ -98,20 +97,27 @@ int main(int argc, char* argv[])
   // Initialising the sections
   if(rank == MASTER)
   { 
-    for(int i = 0; i < (local_nrows * section_ncols); ++i)
+    for(int i = 0; i < local_nrows; ++i)
     {
-      section[i] = image[i];
-      tmp_section[i] = image[i];
+      for(int j = 1; j < section_ncols; ++j)
+      {
+        section[j + i * local_nrows] = image[(j - 1) + i * local_nrows];
+        tmp_section[j + i * local_nrows] = image[(j - 1) + i * local_nrows];
+      }
+
     }
     printf("Sections for MASTER initialised successfully\n");
   }
   else
   {
-    int section_start = rank * local_nrows * local_ncols - local_nrows;
-    for(int i = 0; i < (local_nrows * section_ncols); ++i)
-    {
-      section[i] = image[section_start + i];
-      tmp_section[i] = image[section_start + i];
+    int section_start = rank * local_nrows * local_ncols + local_nrows;
+    for(int i = 0; i < local_nrows; ++i)
+    { 
+      for(int j = 1; j < section_ncols; ++j)
+      {
+        section[j + i * local_nrows] = image[(j - 1) + i * local_nrows];
+        tmp_section[j + i * local_nrows] = image[(j - 1) + i * local_nrows];
+      }
     }
     printf("Sections for rank %d initialised successfully\n", rank);
   }
@@ -119,9 +125,6 @@ int main(int argc, char* argv[])
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
-    stencil(local_nrows, section_ncols, width, height, section, tmp_section);
-
-    printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
     if(rank != MASTER) 
     {
@@ -139,9 +142,9 @@ int main(int argc, char* argv[])
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
 
-    stencil(local_nrows, section_ncols, width, height, tmp_section, section);
+    //stencil(section_ncols, local_nrows, width, height, section, tmp_section);
 
-    printf("Applied stencil from tmp_section to section for rank %d\n", rank);
+    printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
     if(rank != MASTER)
     {
@@ -158,6 +161,10 @@ int main(int argc, char* argv[])
 
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
+
+    //stencil(section_ncols, local_nrows, width, height, tmp_section, section);
+
+    printf("Applied stencil from tmp_section to section for rank %d\n", rank);
   } 
   double toc = wtime();
 
@@ -220,6 +227,7 @@ void stencil(const int nx, const int ny, const int width, const int height,
     for(int j = 1; j < ny + 1; ++j)
     { 
       int index = j + i * height;
+
       tmp_image[index] = image[index] * 0.6f + (image[index - 1] + image[index + 1] + image[index - height] + image[index + height]) * 0.1f;
     }
   }
