@@ -213,12 +213,58 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
-  for (int i = 1; i < nx + 1; ++i)
+  // Handling each case separately
+
+  // 1. Left Top Corner
+  int left_top = 0;
+  tmp_image[left_top] = image[left_top] * 0.6f + (image[left_top + 1] + image[left_top + height]) * 0.1f;
+
+  // 2. Top Row
+  for(int top_row = 1; top_row < nx - 1; ++top_row)
   {
-    for (int j = 1; j < ny + 1; ++j) 
+    tmp_image[top_row] = image[top_row] * 0.6f + (image[top_row - 1] + image[top_row + 1] + image[top_row + height]) * 0.1f;
+  }
+
+  // 3. Right Top Corner
+  int right_top = nx - 1;
+  tmp_image[right_top] = image[right_top] * 0.6f + (image[right_top - 1] + image[right_top + height]) * 0.1f;
+
+  // 4. Right Column
+  for(int right_col = 1; right_col < ny - 1; ++right_col)
+  {
+    int right_col_index = right_col * nx + (nx - 1);
+    tmp_image[right_col_index] = image[right_col_index] * 0.6f + (image[right_col_index - 1] + image[right_col_index + height] + image[right_col_index - height]) * 0.1f;
+  }
+
+  // 5. Right Bottom Corner
+  int right_bot = (nx * ny) - 1;
+  tmp[right_bot] = image[right_bot] * 0.6f + (image[right_bot - 1] + image[right_bot - height]) * 0.1f;
+
+  // 6. Bottom Row
+  for(int bot_row = 1; bot_row < nx - 1; ++bot_row)
+  {
+    int bot_row_index = bot_row + (nx * (ny - 1));
+    tmp_image[bot_row_index] = image[bot_row_index] * 0.6f + (image[bot_row_index + 1] + image[bot_row_index - 1] + image[bot_row_index - height]) * 0.1f;
+  }
+
+  // 7. Left Bottom Corner
+  int left_bot = nx * (ny - 1);
+  tmp_image[left_bot] = image[left_bot] * 0.6f + (image[left_bot + 1] + image[nx * (ny - 2)]) * 0.1f;
+
+  // 8. Left Column
+  for(int left_col = 1; left_col < ny - 1; ++left_col)
+  {
+    int left_col_index = nx * left_col;
+    tmp_image[left_col_index] = image[left_col_index] * 0.6f + (image[left_col_index + 1] + image[left_col_index - height] + image[left_col_index + height]) * 0.1f;
+  }
+
+  // 9. Middle Section
+  for(int i = 1; i < nx - 1; ++i)
+  {
+    for(int j = 1; j < ny - 1; ++j)
     {
-      int cell = j + i * height;
-      tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+      int index = j + i * height;
+      tmp_image[index] = image[index] * 0.6f + (image[index - 1] + image[index + 1] + image[index - height] + image[index + height]) * 0.1f;
     }
   }
 }
