@@ -83,8 +83,7 @@ int main(int argc, char* argv[])
   }
   
   int section_ncols = local_ncols + 2;
-  if(rank == MASTER) section_ncols -= 1;
-  if(rank == size - 1) section_ncols = ny - ((size - 1) * local_ncols) + 1;
+  if(rank == MASTER || rank == size - 1) section_ncols -= 1;
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
@@ -117,10 +116,27 @@ int main(int argc, char* argv[])
     printf("Sections for rank %d initialised successfully\n", rank);
   }
 
+  // Initialising the Halo Regions
+  if(rank != MASTER) 
+  {
+    MPI_Sendrecv(&tmp_section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
+    &tmp_section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+
+    printf("Rank %d performs INITIAL Send and Receive to the LEFT successfully\n", rank);
+  }
+    
+  if(rank != size - 1)
+  {
+    MPI_Sendrecv(&tmp_section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
+    &tmp_section[local_nrows * section_ncols - local_nrows], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+
+    printf("Rank %d performs INITIAL Send and Receive to the RIGHT successfully\n", rank);
+  }
+
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
-    //stencil(local_nrows, section_ncols, width, height, section, tmp_section);
+    stencil(section_ncols, local_nrows, width, height, section, tmp_section);
 
     printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
@@ -140,7 +156,7 @@ int main(int argc, char* argv[])
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
 
-    //stencil(local_nrows, section_ncols, width, height, tmp_section, section);
+    stencil(section_ncols, local_nrows, width, height, tmp_section, section);
 
     printf("Applied stencil from tmp_section to section for rank %d\n", rank);
 
@@ -214,12 +230,12 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
-  for (int i = 1; i < nx + 1; ++i)
+  for (int i = 0; i < nx; ++i)
   {
     for (int j = 1; j < ny + 1; ++j) 
     {
-      int cell = j + i * height;
-      tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+      int cell = j + i * nx;
+      tmp_image[cell] = image[cell] * 0.6f + (image[cell - nx] + image[cell + nx] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
     }
   }
 }
