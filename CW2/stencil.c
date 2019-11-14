@@ -136,7 +136,8 @@ int main(int argc, char* argv[])
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
-    stencil(section_ncols, local_nrows, width, height, section, tmp_section);
+    //stencil(section_ncols, local_nrows, width, height, section, tmp_section);
+    stencil(local_nrows, section_ncols, width, height, section, tmp_section);    
 
     printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
@@ -156,7 +157,8 @@ int main(int argc, char* argv[])
       printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
 
-    stencil(section_ncols, local_nrows, width, height, tmp_section, section);
+    //stencil(section_ncols, local_nrows, width, height, tmp_section, section);
+    stencil(local_nrows, section_ncols, width, height, tmp_section, section);
 
     printf("Applied stencil from tmp_section to section for rank %d\n", rank);
 
@@ -230,11 +232,11 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
-  for (int i = 0; i < nx; ++i)
+  for (int i = 0; i < ny; ++i)
   {
-    for (int j = 0; j < ny; ++j) 
+    for (int j = 0; j < nx; ++j) 
     {
-      int cell = i + j * nx;
+      int cell = j + i * nx;
       tmp_image[cell] = image[cell] * 0.6f + (image[cell - ny] + image[cell + ny] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
     }
   }
