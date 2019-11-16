@@ -212,7 +212,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-      MPI_Send(section[i * (local_ncols + 2) + 1], local_ncols , MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols , MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
   }
   
