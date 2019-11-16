@@ -78,7 +78,6 @@ int main(int argc, char* argv[])
   // Allocate the image
   float * restrict image = malloc(sizeof(float) * width * height);
   float * restrict tmp_image = malloc(sizeof(float) * width * height);
-  float * restrict result = malloc(sizeof(float) * width * height);
 
   local_nrows = nx;
   local_ncols = calc_ncols_from_rank(rank, size, ny);
@@ -200,7 +199,7 @@ int main(int argc, char* argv[])
       for(int r = 1; r < size; r++)
       {
         int ncols = calc_ncols_from_rank(r, size, ny);
-        
+
         // offset for each rank when storing back to image
         int offset = r * (ny / size) + 1;
 
@@ -225,7 +224,7 @@ int main(int argc, char* argv[])
     printf(" runtime: %lf s\n", toc - tic);
     printf("------------------------------------\n");
 
-    output_image(OUTPUT_FILE, nx, ny, width, height, result);
+    output_image(OUTPUT_FILE, nx, ny, width, height, image);
   }
 
   free(image);
