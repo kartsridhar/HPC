@@ -52,12 +52,6 @@ int main(int argc, char* argv[])
   int local_nrows;       /* number of rows apportioned to this rank */
   int local_ncols;       /* number of columns apportioned to this rank */
 
-  float *sendbuf;       /* buffer to hold values to send */
-  float *recvbuf;       /* buffer to hold received values */
-
-  sendbuf = (float*)malloc(sizeof(float) * (local_nrows + 2));
-  recvbuf = (float*)malloc(sizeof(float) * (local_nrows + 2));
-
   // we pad the outer edge of the image to avoid out of range address issues in
   // stencil
   int width = nx + 2;
@@ -93,8 +87,8 @@ int main(int argc, char* argv[])
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
-  float * restrict section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
-  float * restrict tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
+  float * restrict section = malloc(sizeof(float) * local_nrows * section_ncols);
+  float * restrict tmp_section = malloc(sizeof(float) * local_nrows * section_ncols);
 
   printf("Allocated space for section and tmp_section for rank = %d\n", rank);
 
@@ -102,135 +96,117 @@ int main(int argc, char* argv[])
   init_image(nx, ny, width, height, image, tmp_image);
 
   // Initialising the sections
-  for(ii=0;ii<local_nrows + 2;ii++) {
-    for(jj=0; jj<local_ncols + 2; jj++) {
-      if (jj > 0 && jj < (local_ncols + 1) && ii > 0 && ii < (local_nrows + 1)) 
-      {
-        section[ii * (local_ncols + 2) + jj] = image[(ny/size * rank + ii) * ((local_ncols + 2) + jj)];
-        tmp_section[ii * (local_ncols + 2) + jj] = image[(ny/size * rank + ii) * ((local_ncols + 2) + jj)];                 /* core cells */
-      }
-      else
-      {
-        section[ii * (local_ncols + 2) + jj] = 0.0f;
-        tmp_section[ii * (local_ncols + 2) + jj] = 0.0f;  
-      }
+  if(rank == MASTER)
+  { 
+    for(int i = 0; i < (local_nrows * section_ncols); ++i)
+    {
+      section[i] = image[i];
+      tmp_section[i] = image[i];
     }
+    printf("Sections for MASTER initialised successfully\n");
+  }
+  else
+  {
+    int section_start = rank * local_nrows * local_ncols - local_nrows;
+    for(int i = 0; i < (local_nrows * section_ncols); ++i)
+    {
+      section[i] = image[section_start + i];
+      tmp_section[i] = image[section_start + i];
+    }
+    printf("Sections for rank %d initialised successfully\n", rank);
+  }
+
+  // Initialising the Halo Regions
+  if(rank != MASTER) 
+  {
+    MPI_Sendrecv(&tmp_section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
+    &tmp_section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+
+    printf("Rank %d performs INITIAL Send and Receive to the LEFT successfully\n", rank);
+  }
+    
+  if(rank != size - 1)
+  {
+    MPI_Sendrecv(&tmp_section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
+    &tmp_section[local_nrows * section_ncols - local_nrows], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+
+    printf("Rank %d performs INITIAL Send and Receive to the RIGHT successfully\n", rank);
   }
 
   // Call the stencil kernel
   double tic = wtime();
   for (int t = 0; t < niters; ++t) {
 
-    for(int i = 0; i < local_nrows + 2; ++i)
-    {
-      sendbuf[i] = section[i * (local_ncols + 2) + 1];
-    }
+    stencil(local_nrows, section_ncols, width, height, section, tmp_section);    
 
-    MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, left, 0, 
-    recvbuf, local_nrows + 2, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
-
-    printf("Rank %d performs Send to the LEFT and receive to the RIGHT successfully\n", rank);
-
-    if(rank != size - 1)
-    {
-      for(int i = 0; i < local_nrows + 2; ++i)
-      {
-        section[i * (local_ncols + 2) + local_ncols + 1] = recvbuf[i];
-      }
-    }
-
-    // SEND right
-    for(int i = 0; i < local_nrows + 2; ++i)
-    {
-      sendbuf[i] = section[i * (local_ncols + 2) + local_ncols];
-    }
-
-    MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, right, 0, 
-    recvbuf, local_nrows + 2, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
-
-    printf("Rank %d performs Send to the RIGHT and receive to the LEFT successfully\n", rank);
-
-    if(rank != MASTER)
-    {
-      for(int i = 0; i < local_nrows + 2; ++i)
-      {
-        section[i * (local_ncols + 2)] = recvbuf[i];
-      }
-    }
-
-    stencil(local_nrows, local_ncols, width, height, section, tmp_section);    
     printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
-    for(int i = 0; i < local_nrows + 2; ++i)
+    if(rank != MASTER) 
     {
-      sendbuf[i] = tmp_section[i * (local_ncols + 2) + 1];
+      MPI_Sendrecv(&tmp_section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
+      &tmp_section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+
+      printf("Rank %d performs Send and Receive to the LEFT successfully\n", rank);
     }
-
-    MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, left, 0, 
-    recvbuf, local_nrows + 2, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
-
-    printf("Rank %d performs Send to the LEFT and receive to the RIGHT successfully\n", rank);
-
+      
     if(rank != size - 1)
     {
-      for(int i = 0; i < local_nrows + 2; ++i)
-      {
-        tmp_section[i * (local_ncols + 2) + local_ncols + 1] = recvbuf[i];
-      }
+      MPI_Sendrecv(&tmp_section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
+      &tmp_section[local_nrows * section_ncols - local_nrows], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+
+      printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
     }
 
-    // SEND right
-    for(int i = 0; i < local_nrows + 2; ++i)
-    {
-      sendbuf[i] = tmp_section[i * (local_ncols + 2) + local_ncols];
-    }
+    stencil(local_nrows, section_ncols, width, height, tmp_section, section);
 
-    MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, right, 0, 
-    recvbuf, local_nrows + 2, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
-
-    printf("Rank %d performs Send to the RIGHT and receive to the LEFT successfully\n", rank);
+    printf("Applied stencil from tmp_section to section for rank %d\n", rank);
 
     if(rank != MASTER)
     {
-      for(int i = 0; i < local_nrows + 2; ++i)
-      {
-        tmp_section[i * (local_ncols + 2)] = recvbuf[i];
-      }
+      MPI_Sendrecv(&section[local_nrows], local_nrows, MPI_FLOAT, left, 0, 
+      &section[0], local_nrows, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
+
+      printf("Rank %d performs Send and Receive to the LEFT successfully\n", rank);
     }
 
-    stencil(local_nrows, local_ncols, width, height, tmp_section, section);
-    printf("Applied stencil from tmp_section to section for rank %d\n", rank);
+    if(rank != size - 1)
+    {
+      MPI_Sendrecv(&section[local_nrows * section_ncols - (2 * local_nrows)], local_nrows, MPI_FLOAT, right, 0, 
+      &section[local_nrows * section_ncols - local_nrows], local_nrows, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
+
+      printf("Rank %d performs Send and Receive to the RIGHT successfully\n", rank);
+    }
   } 
   double toc = wtime();
 
-  // if(rank == MASTER)
-  // {
-  //   for(int i = 0; i < (local_nrows * local_ncols); ++i)
-  //   {
-  //     image[i] = section[i];
-  //   }
+  if(rank == MASTER)
+  {
+    for(int i = 0; i < (local_nrows * local_ncols); ++i)
+    {
+      image[i] = section[i];
+    }
 
-  //   for(int _rank = 1; _rank < size - 1; ++_rank)
-  //   {
-  //     int section_start = _rank * (local_nrows * local_ncols);
-  //     for(int j = 0; j < local_ncols; ++j)
-  //     {
-  //       MPI_Recv(&image[section_start + j * local_nrows], local_nrows, MPI_FLOAT, _rank, 0, MPI_COMM_WORLD, &status);
-  //     }
-  //   }
+    for(int _rank = 1; _rank < size - 1; ++_rank)
+    {
+      int section_start = _rank * (local_nrows * local_ncols);
+      for(int j = 0; j < local_ncols; ++j)
+      {
+        MPI_Recv(&image[section_start + j * local_nrows], local_nrows, MPI_FLOAT, _rank, 0, MPI_COMM_WORLD, &status);
+      }
+    }
 
-  //   for(int last = 0; last < ny - ((size - 1) * local_ncols); ++last)
-  //   {
-  //     MPI_Recv(&image[(size - 1) * (local_nrows * local_ncols) + last * local_nrows], local_nrows, MPI_FLOAT, size - 1, 0, MPI_COMM_WORLD, &status);
-  //   }
-  // }
-  // else
-  // {
-  //   for(int i = 1; i < section_ncols; ++i)
-  //   {
-  //     MPI_Send(&section[i * local_nrows], local_nrows, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
-  //   }
-  // }
+    for(int last = 0; last < ny - ((size - 1) * local_ncols); ++last)
+    {
+      MPI_Recv(&image[(size - 1) * (local_nrows * local_ncols) + last * local_nrows], local_nrows, MPI_FLOAT, size - 1, 0, MPI_COMM_WORLD, &status);
+    }
+  }
+  else
+  {
+    for(int i = 1; i < section_ncols; ++i)
+    {
+      MPI_Send(&section[i * local_nrows], local_nrows, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+    }
+  }
   
   printf("Final Image added from Rank %d\n", rank);
 
@@ -252,15 +228,15 @@ int main(int argc, char* argv[])
   MPI_Finalize();
 }
 
-void stencil(const int local_nrows, const int local_ncols, const int width, const int height,
+void stencil(const int nx, const int ny, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
-  for (int i = 1; i < local_nrows + 1; ++i)
+  for (int i = 0; i < ny - 1; ++i)
   {
-    for (int j = 1; j < local_ncols + 1; ++j) 
+    for (int j = 0; j < nx; ++j) 
     {
-      int cell = j + i * height;
-      tmp_image[cell] = image[cell] * 0.6f + (image[cell - height] + image[cell + height] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
+      int cell = j + i * nx;
+      tmp_image[cell] = image[cell] * 0.6f + (image[cell - ny] + image[cell + ny] + image[cell - 1] +  image[cell + 1]) * 0.1f;      
     }
   }
 }
