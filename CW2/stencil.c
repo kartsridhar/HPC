@@ -89,7 +89,6 @@ int main(int argc, char* argv[])
   }
   
   int section_ncols = local_ncols + 2;
-  if(rank == MASTER || rank == size - 1) section_ncols -= 1;
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
@@ -102,17 +101,17 @@ int main(int argc, char* argv[])
   init_image(nx, ny, width, height, image, tmp_image);
 
   // Initialising the sections
-  for(ii=0;ii<local_nrows + 2;ii++) {
-    for(jj=0; jj<local_ncols + 2; jj++) {
-      if (jj > 0 && jj < (local_ncols + 1) && ii > 0 && ii < (local_nrows + 1)) 
+  for(int i = 0; i < local_nrows + 2; i++) {
+    for(int j = 0; j < local_ncols + 2; j++) {
+      if (j > 0 && j < (local_ncols + 1) && i > 0 && i < (local_nrows + 1)) 
       {
-        section[ii * (local_ncols + 2) + jj] = image[(ny/size * rank + ii) * ((local_ncols + 2) + jj)];
-        tmp_section[ii * (local_ncols + 2) + jj] = image[(ny/size * rank + ii) * ((local_ncols + 2) + jj)];                 /* core cells */
+        section[i * (local_ncols + 2) + j] = image[(ny/size * rank + i) * ((local_ncols + 2) + j)];
+        tmp_section[i * (local_ncols + 2) + j] = image[(ny/size * rank + i) * ((local_ncols + 2) + j)];                 /* core cells */
       }
       else
       {
-        section[ii * (local_ncols + 2) + jj] = 0.0f;
-        tmp_section[ii * (local_ncols + 2) + jj] = 0.0f;  
+        section[i * (local_ncols + 2) + j] = 0.0f;
+        tmp_section[i * (local_ncols + 2) + j] = 0.0f;  
       }
     }
   }
@@ -122,9 +121,7 @@ int main(int argc, char* argv[])
   for (int t = 0; t < niters; ++t) {
 
     for(int i = 0; i < local_nrows + 2; ++i)
-    {
       sendbuf[i] = section[i * (local_ncols + 2) + 1];
-    }
 
     MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, left, 0, 
     recvbuf, local_nrows + 2, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
@@ -134,16 +131,12 @@ int main(int argc, char* argv[])
     if(rank != size - 1)
     {
       for(int i = 0; i < local_nrows + 2; ++i)
-      {
         section[i * (local_ncols + 2) + local_ncols + 1] = recvbuf[i];
-      }
     }
 
     // SEND right
     for(int i = 0; i < local_nrows + 2; ++i)
-    {
       sendbuf[i] = section[i * (local_ncols + 2) + local_ncols];
-    }
 
     MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, right, 0, 
     recvbuf, local_nrows + 2, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
@@ -153,18 +146,14 @@ int main(int argc, char* argv[])
     if(rank != MASTER)
     {
       for(int i = 0; i < local_nrows + 2; ++i)
-      {
         section[i * (local_ncols + 2)] = recvbuf[i];
-      }
     }
 
     stencil(local_nrows, local_ncols, width, height, section, tmp_section);    
     printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
     for(int i = 0; i < local_nrows + 2; ++i)
-    {
       sendbuf[i] = tmp_section[i * (local_ncols + 2) + 1];
-    }
 
     MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, left, 0, 
     recvbuf, local_nrows + 2, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
@@ -174,16 +163,12 @@ int main(int argc, char* argv[])
     if(rank != size - 1)
     {
       for(int i = 0; i < local_nrows + 2; ++i)
-      {
         tmp_section[i * (local_ncols + 2) + local_ncols + 1] = recvbuf[i];
-      }
     }
 
     // SEND right
     for(int i = 0; i < local_nrows + 2; ++i)
-    {
       sendbuf[i] = tmp_section[i * (local_ncols + 2) + local_ncols];
-    }
 
     MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, right, 0, 
     recvbuf, local_nrows + 2, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
@@ -193,9 +178,7 @@ int main(int argc, char* argv[])
     if(rank != MASTER)
     {
       for(int i = 0; i < local_nrows + 2; ++i)
-      {
         tmp_section[i * (local_ncols + 2)] = recvbuf[i];
-      }
     }
 
     stencil(local_nrows, local_ncols, width, height, tmp_section, section);
