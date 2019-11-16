@@ -76,8 +76,8 @@ int main(int argc, char* argv[])
   right = (rank + 1) % size;
 
   // Allocate the image
-  float * restrict image = malloc(sizeof(float) * width * height);
-  float * restrict tmp_image = malloc(sizeof(float) * width * height);
+  float* image = malloc(sizeof(float) * width * height);
+  float* tmp_image = malloc(sizeof(float) * width * height);
 
   local_nrows = nx;
   local_ncols = calc_ncols_from_rank(rank, size, ny);
@@ -92,8 +92,8 @@ int main(int argc, char* argv[])
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
-  float * restrict section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
-  float * restrict tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
+  float* section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
+  float* tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
 
   printf("Allocated space for section and tmp_section for rank = %d\n", rank);
 
@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
         section[i * (local_ncols + 2)] = recvbuf[i];
     }
 
-    stencil(local_ncols, local_nrows, width, height, section, tmp_section);    
+    // stencil(local_ncols, local_nrows, width, height, section, tmp_section);    
     printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
     for(int i = 0; i < local_nrows + 2; ++i)
@@ -181,7 +181,7 @@ int main(int argc, char* argv[])
         tmp_section[i * (local_ncols + 2)] = recvbuf[i];
     }
 
-    stencil(local_ncols, local_nrows, width, height, tmp_section, section);
+    // stencil(local_ncols, local_nrows, width, height, tmp_section, section);
     printf("Applied stencil from tmp_section to section for rank %d\n", rank);
   } 
   double toc = wtime();
