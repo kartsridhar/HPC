@@ -78,7 +78,8 @@ int main(int argc, char* argv[])
   // Allocate the image
   float * restrict image = malloc(sizeof(float) * width * height);
   float * restrict tmp_image = malloc(sizeof(float) * width * height);
-  
+  float * restrict result = malloc(sizeof(float) * width * height);
+
   local_nrows = nx;
   local_ncols = calc_ncols_from_rank(rank, size, ny);
   
@@ -186,34 +187,30 @@ int main(int argc, char* argv[])
   } 
   double toc = wtime();
 
-  // if(rank == MASTER)
-  // {
-  //   for(int i = 0; i < (local_nrows * local_ncols); ++i)
-  //   {
-  //     image[i] = section[i];
-  //   }
+  // Gathering 
+  for(int i = 0; i < local_nrows + 2; i++)
+  {
+    if(rank == MASTER)
+    {
+      for(int j = 0; j < local_ncols + 2; j++)
+      {
+        result[i * (local_ncols + 2) + j] = section[i * (local_ncols + 2) + j];
+      }
 
-  //   for(int _rank = 1; _rank < size - 1; ++_rank)
-  //   {
-  //     int section_start = _rank * (local_nrows * local_ncols);
-  //     for(int j = 0; j < local_ncols; ++j)
-  //     {
-  //       MPI_Recv(&image[section_start + j * local_nrows], local_nrows, MPI_FLOAT, _rank, 0, MPI_COMM_WORLD, &status);
-  //     }
-  //   }
-
-  //   for(int last = 0; last < ny - ((size - 1) * local_ncols); ++last)
-  //   {
-  //     MPI_Recv(&image[(size - 1) * (local_nrows * local_ncols) + last * local_nrows], local_nrows, MPI_FLOAT, size - 1, 0, MPI_COMM_WORLD, &status);
-  //   }
-  // }
-  // else
-  // {
-  //   for(int i = 1; i < section_ncols; ++i)
-  //   {
-  //     MPI_Send(&section[i * local_nrows], local_nrows, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
-  //   }
-  // }
+      for(int r = 1; r < size; r++)
+      {
+        int ncols = calc_ncols_from_rank(r, size, ny);
+        for(int k = 0; k < ncols + 2; k++)
+        {
+          MPI_Recv(section[i * (ncols + 2)], ncols + 2, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+        }
+      }
+    }
+    else 
+    {
+      MPI_Send(section[i * (local_ncols + 2)], local_ncols + 2, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+    }
+  }
   
   printf("Final Image added from Rank %d\n", rank);
 
@@ -224,11 +221,13 @@ int main(int argc, char* argv[])
     printf(" runtime: %lf s\n", toc - tic);
     printf("------------------------------------\n");
 
-    output_image(OUTPUT_FILE, nx, ny, width, height, image);
+    output_image(OUTPUT_FILE, nx, ny, width, height, result);
   }
 
   free(image);
-  // free(tmp_image);
+  free(tmp_image);
+  free(sendbuf);
+  free(recvbuf);
   free(section);
   free(tmp_section);
 
