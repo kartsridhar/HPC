@@ -188,27 +188,31 @@ int main(int argc, char* argv[])
   double toc = wtime();
 
   // Gathering 
-  for(int i = 0; i < local_nrows + 2; i++)
+  for(int i = 1; i < local_nrows + 1; i++)
   {
     if(rank == MASTER)
     {
-      for(int j = 0; j < local_ncols + 2; j++)
+      for(int j = 1; j < local_ncols + 1 ; j++)
       {
-        result[i * (local_ncols + 2) + j] = section[i * (local_ncols + 2) + j];
+        image[ (i * width) + j] = section[i * (local_ncols + 2) + j];
       }
 
       for(int r = 1; r < size; r++)
       {
         int ncols = calc_ncols_from_rank(r, size, ny);
-        for(int k = 0; k < ncols + 2; k++)
-        {
-          MPI_Recv(section[i * (ncols + 2)], ncols + 2, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
-        }
+        
+        // offset for each rank when storing back to image
+        int offset = r * (ny / size) + 1;
+
+        MPI_Recv(&image[(i * width) + offset], local_ncols , MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+
+        // MPI_Recv(recvbuf, ncols + 2, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+        // image[i * (ncols + 2)] = recvbuf[i];
       }
     }
-    else 
+    else
     {
-      MPI_Send(section[i * (local_ncols + 2)], local_ncols + 2, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+      MPI_Send(section[i * (local_ncols + 2) + 1], local_ncols , MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
   }
   
