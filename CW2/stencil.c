@@ -8,7 +8,7 @@
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
 
-void stencil(const int nx, const int ny, const int width, const int height,
+void stencil(const int local_nrows, const int local_ncols, const int width, const int height,
              float * restrict image, float * restrict tmp_image);
 void init_image(const int nx, const int ny, const int width, const int height,
                 float * restrict image, float * restrict tmp_image);
@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
         section[i * (local_ncols + 2)] = recvbuf[i];
     }
 
-    stencil(local_nrows, local_ncols, width, height, section, tmp_section);    
+    stencil(local_ncols, local_nrows, width, height, section, tmp_section);    
     printf("Applied stencil from section to tmp_section for rank %d\n", rank);
 
     for(int i = 0; i < local_nrows + 2; ++i)
@@ -181,7 +181,7 @@ int main(int argc, char* argv[])
         tmp_section[i * (local_ncols + 2)] = recvbuf[i];
     }
 
-    stencil(local_nrows, local_ncols, width, height, tmp_section, section);
+    stencil(local_ncols, local_nrows, width, height, tmp_section, section);
     printf("Applied stencil from tmp_section to section for rank %d\n", rank);
   } 
   double toc = wtime();
