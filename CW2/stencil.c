@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
 
   // Call the stencil kernel
   double tic = wtime();
-  for (int t = 0; t < niters; ++t) {
+  /*for (int t = 0; t < niters; ++t) {
 
     for(int i = 0; i < local_nrows + 2; ++i)
       sendbuf[i] = section[i * (local_ncols + 2) + 1];
@@ -183,7 +183,7 @@ int main(int argc, char* argv[])
 
     // stencil(local_ncols, local_nrows, width, height, tmp_section, section);
     printf("Applied stencil from tmp_section to section for rank %d\n", rank);
-  } 
+  }*/ 
   double toc = wtime();
 
   // Gathering 
