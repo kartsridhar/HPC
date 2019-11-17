@@ -1,24 +1,11 @@
 Running on host compute084.bc4.acrc.priv
-Time is Sun Nov 17 00:48:58 GMT 2019
+Time is Sun Nov 17 01:09:20 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2735106
+Slurm job ID is 2736225
 
 This job runs on the following machines:
 compute084
 
-section_nrows = 1024, section_cols = 258 for rank 0
-section_nrows = 1024, section_cols = 258 for rank 1
-Allocated space for section and tmp_section for rank = 1
-section_nrows = 1024, section_cols = 258 for rank 2
-section_nrows = 1024, section_cols = 258 for rank 3
-Allocated space for section and tmp_section for rank = 3
-Allocated space for section and tmp_section for rank = 0
-Allocated space for section and tmp_section for rank = 2
-Initialised section and tmp_section for rank = 0
-Initialised section and tmp_section for rank = 1
-Initialised section and tmp_section for rank = 2
-Initialised section and tmp_section for rank = 3
 ------------------------------------
- runtime: 0.042542 s
+ runtime: 0.037077 s
 ------------------------------------
-srun: error: compute084: tasks 0-3: Segmentation fault
