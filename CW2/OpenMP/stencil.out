@@ -1,11 +1,11 @@
 Running on host compute084.bc4.acrc.priv
-Time is Sun Nov 17 15:36:25 GMT 2019
+Time is Sun Nov 17 15:44:39 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2/OpenMP
-Slurm job ID is 2762656
+Slurm job ID is 2762688
 
 This job runs on the following machines:
 compute084
 
 ------------------------------------
- runtime: 0.037591 s
+ runtime: 0.032673 s
 ------------------------------------
