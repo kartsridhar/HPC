@@ -15,7 +15,7 @@ void init_image(const int nx, const int ny, const int width, const int height,
 void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float* image);
 double wtime(void);
-void communicate(float* sendbuf, float* recvbuf, float* section, int left, int right, 
+void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int right, 
                 int local_ncols, int local_nrows, int size, int rank, MPI_Status status);
 int calc_ncols_from_rank(int rank, int size, int ny);
 
@@ -108,16 +108,16 @@ int main(int argc, char* argv[])
 
   // Call the stencil kernel
   double tic = wtime();
-  for (int t = 0; t < niters; ++t) 
+  for(int t = 0; t < niters; ++t) 
   {
-    // Communicate from left to right followed by right to left for section
-    communicate(sendbuf, recvbuf, section, left, right, local_ncols, local_nrows, size, rank, status);
+    // Halo Exchange from left to right followed by right to left for section
+    halo_exchange(sendbuf, recvbuf, section, left, right, local_ncols, local_nrows, size, rank, status);
 
     // Call stencil from section to tmp_section
     stencil(local_ncols, local_nrows, width, height, section, tmp_section);
 
-    // Communicate from left to right followed by right to left for tmp_section
-    communicate(sendbuf, recvbuf, tmp_section, left, right, local_ncols, local_nrows, size, rank, status);
+    // Halo Exchange from left to right followed by right to left for tmp_section
+    halo_exchange(sendbuf, recvbuf, tmp_section, left, right, local_ncols, local_nrows, size, rank, status);
 
     // Call stencil from tmp_section to section
     stencil(local_ncols, local_nrows, width, height, tmp_section, section);
@@ -136,15 +136,14 @@ int main(int argc, char* argv[])
       for(int r = 1; r < size; r++)
       {
         int ncols = calc_ncols_from_rank(r, size, ny);
-        // offset for each rank when storing back to image
-        int offset = r * (ny / size) + 1;
+        int offset = r * (ny / size) + 1;       // offset for each rank when storing back to image
 
-        MPI_Recv(&image[(i * width) + offset], ncols , MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+        MPI_Recv(&image[(i * width) + offset], ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
       }
     }
     else
     {
-      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols , MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
   }
   double toc = wtime();
@@ -169,32 +168,44 @@ int main(int argc, char* argv[])
   free(tmp_section);
 }
 
-void communicate(float* sendbuf, float* recvbuf, float* section, int left, int right, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
+void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int right, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
 {
-    // Send to Left, Receive from Right
+    // Packing the send buffer with the left column
     for(int i = 0; i < local_nrows + 2; ++i)
+    {
       sendbuf[i] = section[i * (local_ncols + 2) + 1];
+    }
 
+    // Exchanging: Send to the Left, Receive to the Right
     MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, left, 0,
     recvbuf, local_nrows + 2, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
+    // Unpacking the values from the receive buffer into the section
     if(rank != size - 1)
     {
       for(int i = 0; i < local_nrows + 2; ++i)
+      {
         section[i * (local_ncols + 2) + local_ncols + 1] = recvbuf[i];
+      }
     }
 
-    // Send to Right, Receive from Left
+    // Packing the send buffer with the right column
     for(int i = 0; i < local_nrows + 2; ++i)
+    {
       sendbuf[i] = section[i * (local_ncols + 2) + local_ncols];
+    }     
 
+    // Exchanging: Send to the Right, Receive to the Left
     MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, right, 0,
     recvbuf, local_nrows + 2, MPI_FLOAT, left, 0, MPI_COMM_WORLD, &status);
 
+    // Unpacking the values from the receive buffer into the section
     if(rank != MASTER)
     {
       for(int i = 0; i < local_nrows + 2; ++i)
+      {
         section[i * (local_ncols + 2)] = recvbuf[i];
+      }
     }
 }
 
@@ -206,7 +217,7 @@ void stencil(const int local_ncols, const int local_nrows, const int width, cons
     for (int j = 1; j < local_ncols + 1; ++j)
     {
       int cell = j + i * (local_ncols + 2);
-      tmp_image[cell] = image[cell] * 0.6f + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]) * 0.1f;
+      tmp_image[cell] = ((image[cell] * 6.0f) + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]))/10.0f;
     }
   }
 }
