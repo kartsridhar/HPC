@@ -1,7 +1,7 @@
 Running on host compute084.bc4.acrc.priv
-Time is Sun Nov 17 00:22:49 GMT 2019
+Time is Sun Nov 17 00:28:16 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2734210
+Slurm job ID is 2734623
 
 This job runs on the following machines:
 compute084
@@ -10,368 +10,361 @@ section_nrows = 1024, section_cols = 258 for rank 0
 Allocated space for section and tmp_section for rank = 0
 section_nrows = 1024, section_cols = 258 for rank 1
 section_nrows = 1024, section_cols = 258 for rank 2
-Allocated space for section and tmp_section for rank = 2
 section_nrows = 1024, section_cols = 258 for rank 3
 Allocated space for section and tmp_section for rank = 1
+Allocated space for section and tmp_section for rank = 2
 Allocated space for section and tmp_section for rank = 3
-Final Image added from Rank 1
-Final Image added from Rank 2
-Final Image added from Rank 3
-Final Image added from Rank 0
-------------------------------------
- runtime: 0.031390 s
-------------------------------------
-*** Error in `/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe': free(): invalid next size (fast): 0x000000000259b010 ***
-*** Error in `/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe': free(): invalid next size (fast): 0x0000000001866010 ***
-*** Error in `/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe': free(): invalid next size (fast): 0x0000000001679010 ***
+*** Error in `/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe': free(): invalid next size (fast): 0x00000000009a5010 ***
+*** Error in `/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe': free(): invalid next size (fast): 0x0000000002148010 ***
+*** Error in `/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe': free(): invalid next size (fast): 0x0000000000a37010 ***
 ======= Backtrace: =========
 ======= Backtrace: =========
 ======= Backtrace: =========
-/usr/lib64/libc.so.6(+0x7c503)[0x2b9c9b877503]
-/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x4037d4]
-/usr/lib64/libc.so.6(+0x7c503)[0x2b0d0f376503]
-/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x4037d4]
-/usr/lib64/libc.so.6(+0x7c503)[0x2b5643285503]
-/usr/lib64/libc.so.6(__libc_start_main+0xf5)[0x2b9c9b81cb35]
-/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x4012a9]
+/usr/lib64/libc.so.6(+0x7c503)[0x2b26f36fd503]
+/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x403721]
+/usr/lib64/libc.so.6(+0x7c503)[0x2b15428db503]
+/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x403721]
+/usr/lib64/libc.so.6(+0x7c503)[0x2b50f6c37503]
+/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x403721]
+/usr/lib64/libc.so.6(__libc_start_main+0xf5)[0x2b26f36a2b35]
+/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x401269]
 ======= Memory map: ========
-/usr/lib64/libc.so.6(__libc_start_main+0xf5)[0x2b0d0f31bb35]
-/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x4012a9]
+/usr/lib64/libc.so.6(__libc_start_main+0xf5)[0x2b50f6bdcb35]
+/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x401269]
 ======= Memory map: ========
-/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x4037d4]
-/usr/lib64/libc.so.6(__libc_start_main+0xf5)[0x2b564322ab35]
-/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x4012a9]
+/usr/lib64/libc.so.6(__libc_start_main+0xf5)[0x2b1542880b35]
+/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x401269]
 ======= Memory map: ========
-00400000-00413000 r-xp 00000000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-00612000-00613000 r--p 00012000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-00613000-00614000 rw-p 00013000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-0259b000-0260c000 rw-p 00000000 00:00 0                                  [heap]
-2b9c99a61000-2b9c99a81000 r-xp 00000000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b9c99a81000-2b9c99a84000 rw-p 00000000 00:00 0 
-2b9c99a8c000-2b9c99c13000 rw-p 00000000 00:00 0 
-2b9c99c13000-2b9c99c26000 rw-s 00000000 00:12 1581873                    /dev/shm/Intel_MPI_b5MqHl (deleted)
-2b9c99c80000-2b9c99c81000 r--p 0001f000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b9c99c81000-2b9c99c82000 rw-p 00020000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b9c99c82000-2b9c99c83000 rw-p 00000000 00:00 0 
-2b9c99c83000-2b9c99e01000 r-xp 00000000400000-00413000 r-xp 00000000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-00612000-00613000 r--p 00012000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-00613000-00614000 rw-p 00013000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-01866000-018d7000 rw-p 00000000 00:00 0                                  [heap]
-2b0d0d560000-2b0d0d580000 r-xp 00000000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b0d0d580000-2b0d0d583000 rw-p 00000000 00:00 0 
-2b0d0d58b000-2b0d0d712000 rw-p 00000000 00:00 0 
-2b0d0d712000-2b0d0d725000 rw-s 00000000 00:12 1581873                    /dev/shm/Intel_MPI_b5MqHl (deleted)
-2b0d0d77f000-2b0d0d780000 r--p 0001f000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b0d0d780000-2b0d0d781000 rw-p 00020000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b0d0d781000-2b0d0d782000 rw-p 00000000 00:00 0 
-2b0d0d782000-2b0d0d900000 r-xp 00000000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b0d0d900000-2b0d0db00000 ---p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b0d0db00000-2b0d0db07000 rw-p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b0d0db07000-2b0d0db2b000 rw-p 00000000 00:00 0 
-2b0d0db2b000-2b0d0e1e9000 r-xp 00000000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b0d0e1e9000-2b0d0e3e8000 ---p 006be000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel00400000-00413000 r-xp 00000000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-00612000-00613000 r--p 00012000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-00613000-00614000 rw-p 00013000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-01679000-016ea000 rw-p 00000000 00:00 0                                  [heap]
-2b564146f000-2b564148f000 r-xp 00000000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b564148f000-2b5641492000 rw-p 00000000 00:00 0 
-2b564149a000-2b5641621000 rw-p 00000000 00:00 0 
-2b5641621000-2b5641634000 rw-s 00000000 00:12 1581873                    /dev/shm/Intel_MPI_b5MqHl (deleted)
-2b564168e000-2b564168f000 r--p 0001f000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b564168f000-2b5641690000 rw-p 00020000 00:23 42609                      /usr/lib64/ld-2.17.so
-2b5641690000-2b5641691000 rw-p 00000000 00:00 0 
-2b5641691000-2b564180f000 r-xp 00000000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b9c99e01000-2b9c9a001000 ---p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b9c9a001000-2b9c9a008000 rw-p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b9c9a008000-2b9c9a02c000 rw-p 00000000 00:00 0 
-2b9c9a02c000-2b9c9a6ea000 r-xp 00000000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b9c9a6ea000-2b9c9a8e9000 ---p 006be000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b9c9a8e9000-2b9c9a924000 rw-p 006bd000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b9c9a924000-2b9c9acbb000 rw-p 00000000 00:00 0 
-2b9c9acbb000-2b9c9acbd000 r-xp 00000000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b9c9acbd000-2b9c9aebd000 ---p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b9c9aebd000-2b9c9aebe000 r--p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b9c9aebe000-2b9c9aebf000 rw-p 00003000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b9c9aebf000-2b9c9aec6000 r-xp 00000000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b9c9aec6000-2b9c9b0c5000 ---p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b9c9b0c5000-2b9c9b0c6000 r--p 00006000 00:23 43306       _studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b0d0e3e8000-2b0d0e423000 rw-p 006bd000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b0d0e423000-2b0d0e7ba000 rw-p 00000000 00:00 0 
-2b0d0e7ba000-2b0d0e7bc000 r-xp 00000000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b0d0e7bc000-2b0d0e9bc000 ---p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b0d0e9bc000-2b0d0e9bd000 r--p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b0d0e9bd000-2b0d0e9be000 rw-p 00003000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b0d0e9be000-2b0d0e9c5000 r-xp 00000000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b0d0e9c5000-2b0d0ebc4000 ---p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b0d0ebc4000-2b0d0ebc5000 r--p 00006000 00:23 43306       00 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b564180f000-2b5641a0f000 ---p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b5641a0f000-2b5641a16000 rw-p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2b5641a16000-2b5641a3a000 rw-p 00000000 00:00 0 
-2b5641a3a000-2b56420f8000 r-xp 00000000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b56420f8000-2b56422f7000 ---p 006be000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b56422f7000-2b5642332000 rw-p 006bd000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2b5642332000-2b56426c9000 rw-p 00000000 00:00 0 
-2b56426c9000-2b56426cb000 r-xp 00000000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b56426cb000-2b56428cb000 ---p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b56428cb000-2b56428cc000 r--p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b56428cc000-2b56428cd000 rw-p 00003000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2b56428cd000-2b56428d4000 r-xp 00000000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b56428d4000-2b5642ad3000 ---p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b5642ad3000-2b5642ad4000 r--p 00006000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b9c9b0c6000-2b9c9b0c7000 rw-p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b9c9b0c7000-2b9c9b0de000 r-xp 00000000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b9c9b0de000-2b9c9b2dd000 ---p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b9c9b2dd000-2b9c9b2de000 r--p 00016000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b9c9b2de000-2b9c9b2df000 rw-p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b9c9b2df000-2b9c9b2e3000 rw-p 00000000 00:00 0 
-2b9c9b2e3000-2b9c9b3e3000 r-xp 00000000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b9c9b3e3000-2b9c9b5e3000 ---p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b9c9b5e3000-2b9c9b5e4000 r--p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b9c9b5e4000-2b9c9b5e5000 rw-p 00101000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b9c9b5e5000-2b9c9b5fa000 r-xp 00000000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b9c9b5fa000-2b9c9b7f9000 ---p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b9c9b7f9000-2b9c9b7fa000 r--p 00014000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b9c9b7fa000-2b9c9b7fb000 rw-p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b9c9b7fb000-2b9c9b9b1000 r-xp 00000000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b9c9b9b1000-2b9c9bbb1000 ---p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b9c9bbb1000-2b9c9bbb5000 r--p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b9c9bbb5000-2b9c9bbb7000 rw-p 001ba000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b9c9bbb7000-2b9c9bbbc000 rw-p 00000000 00:00 0 
-2b9c9bbbc000-2b9c9bbc6000 r-xp 00000000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b9c9bbc6000-2b9c9bdc6000 ---p 0000a000 00:23 43987                      /u               /usr/lib64/librt-2.17.so
-2b0d0ebc5000-2b0d0ebc6000 rw-p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b0d0ebc6000-2b0d0ebdd000 r-xp 00000000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b0d0ebdd000-2b0d0eddc000 ---p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b0d0eddc000-2b0d0eddd000 r--p 00016000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b0d0eddd000-2b0d0edde000 rw-p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b0d0edde000-2b0d0ede2000 rw-p 00000000 00:00 0 
-2b0d0ede2000-2b0d0eee2000 r-xp 00000000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b0d0eee2000-2b0d0f0e2000 ---p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b0d0f0e2000-2b0d0f0e3000 r--p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b0d0f0e3000-2b0d0f0e4000 rw-p 00101000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b0d0f0e4000-2b0d0f0f9000 r-xp 00000000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b0d0f0f9000-2b0d0f2f8000 ---p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b0d0f2f8000-2b0d0f2f9000 r--p 00014000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b0d0f2f9000-2b0d0f2fa000 rw-p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b0d0f2fa000-2b0d0f4b0000 r-xp 00000000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b0d0f4b0000-2b0d0f6b0000 ---p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b0d0f6b0000-2b0d0f6b4000 r--p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b0d0f6b4000-2b0d0f6b6000 rw-p 001ba000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b0d0f6b6000-2b0d0f6bb000 rw-p 00000000 00:00 0 
-2b0d0f6bb000-2b0d0f6c5000 r-xp 00000000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b0d0f6c5000-2b0d0f8c5000 ---p 0000a000 00:23 43987                      /u               /usr/lib64/librt-2.17.so
-2b5642ad4000-2b5642ad5000 rw-p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
-2b5642ad5000-2b5642aec000 r-xp 00000000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b5642aec000-2b5642ceb000 ---p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b5642ceb000-2b5642cec000 r--p 00016000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b5642cec000-2b5642ced000 rw-p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2b5642ced000-2b5642cf1000 rw-p 00000000 00:00 0 
-2b5642cf1000-2b5642df1000 r-xp 00000000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b5642df1000-2b5642ff1000 ---p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b5642ff1000-2b5642ff2000 r--p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b5642ff2000-2b5642ff3000 rw-p 00101000 00:23 42667                      /usr/lib64/libm-2.17.so
-2b5642ff3000-2b5643008000 r-xp 00000000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b5643008000-2b5643207000 ---p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b5643207000-2b5643208000 r--p 00014000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b5643208000-2b5643209000 rw-p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2b5643209000-2b56433bf000 r-xp 00000000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b56433bf000-2b56435bf000 ---p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b56435bf000-2b56435c3000 r--p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b56435c3000-2b56435c5000 rw-p 001ba000 00:23 42644                      /usr/lib64/libc-2.17.so
-2b56435c5000-2b56435ca000 rw-p 00000000 00:00 0 
-2b56435ca000-2b56435d4000 r-xp 00000000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b56435d4000-2b56437d4000 ---p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b9c9bdc6000-2b9c9bdc7000 r--p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b9c9bdc7000-2b9c9bdc8000 rw-p 0000b000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b9c9bdc8000-2b9c9bdce000 r-xp 00000000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b9c9bdce000-2b9c9bfcd000 ---p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b9c9bfcd000-2b9c9bfce000 r--p 00005000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b9c9bfce000-2b9c9bfcf000 rw-p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b9c9bfcf000-2b9c9c196000 r-xp 00000000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b9c9c196000-2b9c9c395000 ---p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b9c9c395000-2b9c9c396000 r--p 001c6000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b9c9c396000-2b9c9c39c000 rw-p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.sr/lib64/libnuma.so.1
-2b0d0f8c5000-2b0d0f8c6000 r--p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b0d0f8c6000-2b0d0f8c7000 rw-p 0000b000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b0d0f8c7000-2b0d0f8cd000 r-xp 00000000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b0d0f8cd000-2b0d0facc000 ---p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b0d0facc000-2b0d0facd000 r--p 00005000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b0d0facd000-2b0d0face000 rw-p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b0d0face000-2b0d0fc95000 r-xp 00000000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b0d0fc95000-2b0d0fe94000 ---p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b0d0fe94000-2b0d0fe95000 r--p 001c6000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b0d0fe95000-2b0d0fe9b000 rw-p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b0d0fe9b000-2b0d0fea1000 rw-p 00000000 00:00 0 
-2b0d0fea1000-2b0d0fead000 r-xp 00000000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b0d0fead000-2b0d100ac000 ---p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b0d100ac000-2b0d100ad000 r--p 0000b000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b0d100ad000-2b0d100ae000 rw-p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b0d100ae000-2b0d100b4000 rw-p 00000000 00:00 0 
-2b0d100b4000-2b0d100b7000 r-xp 00000000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b0d100b7000-2b0d102b6000 ---p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b0d102b6000-2b0d102b7000 r--p 00002000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b0d102b7000-2b0d102b8000 rw-p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b0d102b8000-2b0d102c1000 r-xp 00000000 00:23 46581                      /usr/lib64/lisr/lib64/libnuma.so.1
-2b56437d4000-2b56437d5000 r--p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b56437d5000-2b56437d6000 rw-p 0000b000 00:23 43987                      /usr/lib64/libnuma.so.1
-2b56437d6000-2b56437dc000 r-xp 00000000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b56437dc000-2b56439db000 ---p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b56439db000-2b56439dc000 r--p 00005000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b56439dc000-2b56439dd000 rw-p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2b56439dd000-2b5643ba4000 r-xp 00000000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b5643ba4000-2b5643da3000 ---p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b5643da3000-2b5643da4000 r--p 001c6000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b5643da4000-2b5643daa000 rw-p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2b5643daa000-2b5643db0000 rw-p 00000000 00:00 0 
-2b5643db0000-2b5643dbc000 r-xp 00000000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b5643dbc000-2b5643fbb000 ---p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b5643fbb000-2b5643fbc000 r--p 0000b000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b5643fbc000-2b5643fbd000 rw-p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b5643fbd000-2b5643fc3000 rw-p 00000000 00:00 0 
-2b5643fc3000-2b5643fc6000 r-xp 00000000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b5643fc6000-2b56441c5000 ---p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b56441c5000-2b56441c6000 r--p 00002000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b56441c6000-2b56441c7000 rw-p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b56441c7000-2b56441d0000 r-xp 00000000 00:23 46581                      /usr/lib64/li0.0
-2b9c9c39c000-2b9c9c3a2000 rw-p 00000000 00:00 0 
-2b9c9c3a2000-2b9c9c3ae000 r-xp 00000000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b9c9c3ae000-2b9c9c5ad000 ---p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b9c9c5ad000-2b9c9c5ae000 r--p 0000b000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b9c9c5ae000-2b9c9c5af000 rw-p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2b9c9c5af000-2b9c9c5b5000 rw-p 00000000 00:00 0 
-2b9c9c5b5000-2b9c9c5b8000 r-xp 00000000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b9c9c5b8000-2b9c9c7b7000 ---p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b9c9c7b7000-2b9c9c7b8000 r--p 00002000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b9c9c7b8000-2b9c9c7b9000 rw-p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2b9c9c7b9000-2b9c9c7c2000 r-xp 00000000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b9c9c7c2000-2b9c9c9c1000 ---p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b9c9c9c1000-2b9c9c9c2000 r--p 00008000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b9c9c9c2000-2b9c9c9c3000 rw-p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b9c9c9c3000-2b9c9ea84000 rw-s 00000000 00:12 1581830                    /dev/shm/Intel_MPI_9v0J4i (deleted)
-2b9c9ea84000-2b9c9ed45000 rw-p 00000000 00:00 0 
-2b9c9f54f000-2b9c9f755000 rw-p 00000000 00:00 0 
-2b9ca0000000-2b9ca0021000 rw-p 00000000 00:00 0 
-2b9ca0021000-2b9ca4000000 ---p 00000000 00:00 0 
-7ffed21c5000-7ffed21eb000 rw-p 00000000 00:00 0                          [stack]
-7ffed21fd000-7ffed21ff000 r-xp 00000000 00:00 0                          [vdso]
+00400000-00413000 r-xp 00000000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00612000-00613000 r--p 00012000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00613000-00614000 rw-p 00013000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+009a5000-00a16000 rw-p 00000000 00:00 0                                  [heap]
+2b26f18e7000-2b26f1907000 r-xp 00000000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b26f1907000-2b26f190a000 rw-p 00000000 00:00 0 
+2b26f1912000-2b26f1a99000 rw-p 00000000 00:00 0 
+2b26f1a99000-2b26f1aac000 rw-s 00000000 00:12 1589295                    /dev/shm/Intel_MPI_cMFLxN (deleted)
+2b26f1b06000-2b26f1b07000 r--p 0001f000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b26f1b07000-2b26f1b08000 rw-p 00020000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b26f1b08000-2b26f1b09000 rw-p 00000000 00:00 0 
+2b26f1b09000-2b26f1c87000 r-xp 00000000400000-00413000 r-xp 00000000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00612000-00613000 r--p 00012000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00613000-00614000 rw-p 00013000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00a37000-00aa8000 rw-p 00000000 00:00 0                                  [heap]
+2b1540ac5000-2b1540ae5000 r-xp 00000000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b1540ae5000-2b1540ae8000 rw-p 00000000 00:00 0 
+2b1540af0000-2b1540c77000 rw-p 00000000 00:00 0 
+2b1540c77000-2b1540c8a000 rw-s 00000000 00:12 1589295                    /dev/shm/Intel_MPI_cMFLxN (deleted)
+2b1540ce4000-2b1540ce5000 r--p 0001f000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b1540ce5000-2b1540ce6000 rw-p 00020000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b1540ce6000-2b1540ce7000 rw-p 00000000 00:00 0 
+2b1540ce7000-2b1540e65000 r-xp 00000000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b1540e65000-2b1541065000 ---p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b1541065000-2b154106c000 rw-p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b154106c000-2b1541090000 rw-p 00000000 00:00 0 
+2b1541090000-2b154174e000 r-xp 00000000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b154174e000-2b154194d000 ---p 006be000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel00400000-00413000 r-xp 00000000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00612000-00613000 r--p 00012000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00613000-00614000 rw-p 00013000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+02148000-021b9000 rw-p 00000000 00:00 0                                  [heap]
+2b50f4e21000-2b50f4e41000 r-xp 00000000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b50f4e41000-2b50f4e44000 rw-p 00000000 00:00 0 
+2b50f4e4c000-2b50f4fd3000 rw-p 00000000 00:00 0 
+2b50f4fd3000-2b50f4fe6000 rw-s 00000000 00:12 1589295                    /dev/shm/Intel_MPI_cMFLxN (deleted)
+2b50f5040000-2b50f5041000 r--p 0001f000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b50f5041000-2b50f5042000 rw-p 00020000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b50f5042000-2b50f5043000 rw-p 00000000 00:00 0 
+2b50f5043000-2b50f51c1000 r-xp 00000000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b50f51c1000-2b50f53c1000 ---p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b50f53c1000-2b50f53c8000 rw-p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b50f53c8000-2b50f53ec000 rw-p 00000000 00:00 0 
+2b50f53ec000-2b50f5aaa000 r-xp 00000000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b50f5aaa000-2b50f5ca9000 ---p 006be000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel00 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b26f1c87000-2b26f1e87000 ---p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b26f1e87000-2b26f1e8e000 rw-p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b26f1e8e000-2b26f1eb2000 rw-p 00000000 00:00 0 
+2b26f1eb2000-2b26f2570000 r-xp 00000000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b26f2570000-2b26f276f000 ---p 006be000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b26f276f000-2b26f27aa000 rw-p 006bd000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b26f27aa000-2b26f2b41000 rw-p 00000000 00:00 0 
+2b26f2b41000-2b26f2b43000 r-xp 00000000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b26f2b43000-2b26f2d43000 ---p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b26f2d43000-2b26f2d44000 r--p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b26f2d44000-2b26f2d45000 rw-p 00003000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b26f2d45000-2b26f2d4c000 r-xp 00000000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b26f2d4c000-2b26f2f4b000 ---p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b26f2f4b000-2b26f2f4c000 r--p 00006000 00:23 43306       _studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b154194d000-2b1541988000 rw-p 006bd000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b1541988000-2b1541d1f000 rw-p 00000000 00:00 0 
+2b1541d1f000-2b1541d21000 r-xp 00000000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b1541d21000-2b1541f21000 ---p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b1541f21000-2b1541f22000 r--p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b1541f22000-2b1541f23000 rw-p 00003000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b1541f23000-2b1541f2a000 r-xp 00000000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b1541f2a000-2b1542129000 ---p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b1542129000-2b154212a000 r--p 00006000 00:23 43306       _studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b50f5ca9000-2b50f5ce4000 rw-p 006bd000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b50f5ce4000-2b50f607b000 rw-p 00000000 00:00 0 
+2b50f607b000-2b50f607d000 r-xp 00000000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b50f607d000-2b50f627d000 ---p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b50f627d000-2b50f627e000 r--p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b50f627e000-2b50f627f000 rw-p 00003000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b50f627f000-2b50f6286000 r-xp 00000000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b50f6286000-2b50f6485000 ---p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b50f6485000-2b50f6486000 r--p 00006000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b50f6486000-2b50f6487000 rw-p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b50f6487000-2b50f649e000 r-xp 00000000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b50f649e000-2b50f669d000 ---p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b50f669d000-2b50f669e000 r--p 00016000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b50f669e000-2b50f669f000 rw-p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b50f669f000-2b50f66a3000 rw-p 00000000 00:00 0 
+2b50f66a3000-2b50f67a3000 r-xp 00000000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b50f67a3000-2b50f69a3000 ---p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b50f69a3000-2b50f69a4000 r--p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b50f69a4000-2b50f69a5000 rw-p 00101000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b50f69a5000-2b50f69ba000 r-xp 000000               /usr/lib64/librt-2.17.so
+2b26f2f4c000-2b26f2f4d000 rw-p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b26f2f4d000-2b26f2f64000 r-xp 00000000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b26f2f64000-2b26f3163000 ---p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b26f3163000-2b26f3164000 r--p 00016000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b26f3164000-2b26f3165000 rw-p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b26f3165000-2b26f3169000 rw-p 00000000 00:00 0 
+2b26f3169000-2b26f3269000 r-xp 00000000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b26f3269000-2b26f3469000 ---p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b26f3469000-2b26f346a000 r--p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b26f346a000-2b26f346b000 rw-p 00101000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b26f346b000-2b26f3480000 r-xp 00000000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b26f3480000-2b26f367f000 ---p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b26f367f000-2b26f3680000 r--p 00014000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b26f3680000-2b26f3681000 rw-p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b26f3681000-2b26f3837000 r-xp 00000000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b26f3837000-2b26f3a37000 ---p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b26f3a37000-2b26f3a3b000 r--p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b26f3a3b000-2b26f3a3d000 rw-p 001ba000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b26f3a3d000-2b26f3a42000 rw-p 00000000 00:00 0 
+2b26f3a42000-2b26f3a4c000 r-xp 00000000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b26f3a4c000-2b26f3c4c000 ---p 0000a000 00:23 43987                      /u               /usr/lib64/librt-2.17.so
+2b154212a000-2b154212b000 rw-p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b154212b000-2b1542142000 r-xp 00000000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b1542142000-2b1542341000 ---p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b1542341000-2b1542342000 r--p 00016000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b1542342000-2b1542343000 rw-p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b1542343000-2b1542347000 rw-p 00000000 00:00 0 
+2b1542347000-2b1542447000 r-xp 00000000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b1542447000-2b1542647000 ---p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b1542647000-2b1542648000 r--p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b1542648000-2b1542649000 rw-p 00101000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b1542649000-2b154265e000 r-xp 00000000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b154265e000-2b154285d000 ---p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b154285d000-2b154285e000 r--p 00014000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b154285e000-2b154285f000 rw-p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b154285f000-2b1542a15000 r-xp 00000000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b1542a15000-2b1542c15000 ---p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b1542c15000-2b1542c19000 r--p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b1542c19000-2b1542c1b000 rw-p 001ba000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b1542c1b000-2b1542c20000 rw-p 00000000 00:00 0 
+2b1542c20000-2b1542c2a000 r-xp 00000000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b1542c2a000-2b1542e2a000 ---p 0000a000 00:23 43987                      /u00 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b50f69ba000-2b50f6bb9000 ---p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b50f6bb9000-2b50f6bba000 r--p 00014000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b50f6bba000-2b50f6bbb000 rw-p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b50f6bbb000-2b50f6d71000 r-xp 00000000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b50f6d71000-2b50f6f71000 ---p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b50f6f71000-2b50f6f75000 r--p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b50f6f75000-2b50f6f77000 rw-p 001ba000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b50f6f77000-2b50f6f7c000 rw-p 00000000 00:00 0 
+2b50f6f7c000-2b50f6f86000 r-xp 00000000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b50f6f86000-2b50f7186000 ---p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b50f7186000-2b50f7187000 r--p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b50f7187000-2b50f7188000 rw-p 0000b000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b50f7188000-2b50f718e000 r-xp 00000000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b50f718e000-2b50f738d000 ---p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b50f738d000-2b50f738e000 r--p 00005000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b50f738e000-2b50f738f000 rw-p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b50f738f000-2b50f7556000 r-xp 00000000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b50f7556000-2b50f7755000 ---p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b50f7755000-2b50f7756000 r--p 001c6000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b50f7756000-2b50f775c000 rw-p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.sr/lib64/libnuma.so.1
+2b26f3c4c000-2b26f3c4d000 r--p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b26f3c4d000-2b26f3c4e000 rw-p 0000b000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b26f3c4e000-2b26f3c54000 r-xp 00000000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b26f3c54000-2b26f3e53000 ---p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b26f3e53000-2b26f3e54000 r--p 00005000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b26f3e54000-2b26f3e55000 rw-p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b26f3e55000-2b26f401c000 r-xp 00000000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b26f401c000-2b26f421b000 ---p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b26f421b000-2b26f421c000 r--p 001c6000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b26f421c000-2b26f4222000 rw-p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b26f4222000-2b26f4228000 rw-p 00000000 00:00 0 
+2b26f4228000-2b26f4234000 r-xp 00000000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b26f4234000-2b26f4433000 ---p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b26f4433000-2b26f4434000 r--p 0000b000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b26f4434000-2b26f4435000 rw-p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b26f4435000-2b26f443b000 rw-p 00000000 00:00 0 
+2b26f443b000-2b26f443e000 r-xp 00000000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b26f443e000-2b26f463d000 ---p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b26f463d000-2b26f463e000 r--p 00002000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b26f463e000-2b26f463f000 rw-p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b26f463f000-2b26f4648000 r-xp 00000000 00:23 46581                      /usr/lib64/lisr/lib64/libnuma.so.1
+2b1542e2a000-2b1542e2b000 r--p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b1542e2b000-2b1542e2c000 rw-p 0000b000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b1542e2c000-2b1542e32000 r-xp 00000000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b1542e32000-2b1543031000 ---p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b1543031000-2b1543032000 r--p 00005000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b1543032000-2b1543033000 rw-p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b1543033000-2b15431fa000 r-xp 00000000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b15431fa000-2b15433f9000 ---p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b15433f9000-2b15433fa000 r--p 001c6000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b15433fa000-2b1543400000 rw-p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b1543400000-2b1543406000 rw-p 00000000 00:00 0 
+2b1543406000-2b1543412000 r-xp 00000000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b1543412000-2b1543611000 ---p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b1543611000-2b1543612000 r--p 0000b000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b1543612000-2b1543613000 rw-p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b1543613000-2b1543619000 rw-p 00000000 00:00 0 
+2b1543619000-2b154361c000 r-xp 00000000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b154361c000-2b154381b000 ---p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b154381b000-2b154381c000 r--p 00002000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b154381c000-2b154381d000 rw-p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b154381d000-2b1543826000 r-xp 00000000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b26f4648000-2b26f4847000 ---p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b26f4847000-2b26f4848000 r--p 00008000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b26f4848000-2b26f4849000 rw-p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b26f4849000-2b26f690a000 rw-s 00000000 00:12 1589252                    /dev/shm/Intel_MPI_I1g5vU (deleted)
+2b26f690a000-2b26f6bcb000 rw-p 00000000 00:00 0 
+2b26f73d5000-2b26f75db000 rw-p 00000000 00:00 0 
+2b26f8000000-2b26f8021000 rw-p 00000000 00:00 0 
+2b26f8021000-2b26fc000000 ---p 00000000 00:00 0 
+7ffdba870000-7ffdba896000 rw-p 00000000 00:00 0                          [stack]
+7ffdba98b000-7ffdba98d000 r-xp 00000000 00:00 0                          [vdso]
 ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
 bmunge.so.2.0.0
-2b0d102c1000-2b0d104c0000 ---p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b0d104c0000-2b0d104c1000 r--p 00008000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b0d104c1000-2b0d104c2000 rw-p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b0d104c2000-2b0d12583000 rw-s 00000000 00:12 1581830                    /dev/shm/Intel_MPI_9v0J4i (deleted)
-2b0d12583000-2b0d12844000 rw-p 00000000 00:00 0 
-2b0d1304e000-2b0d13254000 rw-p 00000000 00:00 0 
-2b0d14000000-2b0d14021000 rw-p 00000000 00:00 0 
-2b0d14021000-2b0d18000000 ---p 00000000 00:00 0 
-7ffd1ff74000-7ffd1ff9a000 rw-p 00000000 00:00 0                          [stack]
-7ffd1ffa6000-7ffd1ffa8000 r-xp 00000000 00:00 0                          [vdso]
+2b1543826000-2b1543a25000 ---p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b1543a25000-2b1543a26000 r--p 00008000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b1543a26000-2b1543a27000 rw-p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b1543a27000-2b1545ae8000 rw-s 00000000 00:12 1589252                    /dev/shm/Intel_MPI_I1g5vU (deleted)
+2b1545ae8000-2b1545da9000 rw-p 00000000 00:00 0 
+2b15465b3000-2b15467b9000 rw-p 00000000 00:00 0 
+2b1548000000-2b1548021000 rw-p 00000000 00:00 0 
+2b1548021000-2b154c000000 ---p 00000000 00:00 0 
+7ffd75d4a000-7ffd75d70000 rw-p 00000000 00:00 0                          [stack]
+7ffd75df8000-7ffd75dfa000 r-xp 00000000 00:00 0                          [vdso]
 ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
-bmunge.so.2.0.0
-2b56441d0000-2b56443cf000 ---p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b56443cf000-2b56443d0000 r--p 00008000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b56443d0000-2b56443d1000 rw-p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2b56443d1000-2b5646492000 rw-s 00000000 00:12 1581830                    /dev/shm/Intel_MPI_9v0J4i (deleted)
-2b5646492000-2b5646753000 rw-p 00000000 00:00 0 
-2b5646f5d000-2b5647163000 rw-p 00000000 00:00 0 
-2b5648000000-2b5648021000 rw-p 00000000 00:00 0 
-2b5648021000-2b564c000000 ---p 00000000 00:00 0 
-7ffe6531b000-7ffe65341000 rw-p 00000000 00:00 0                          [stack]
-7ffe653c3000-7ffe653c5000 r-xp 00000000 00:00 0                          [vdso]
+0.0
+2b50f775c000-2b50f7762000 rw-p 00000000 00:00 0 
+2b50f7762000-2b50f776e000 r-xp 00000000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b50f776e000-2b50f796d000 ---p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b50f796d000-2b50f796e000 r--p 0000b000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b50f796e000-2b50f796f000 rw-p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b50f796f000-2b50f7975000 rw-p 00000000 00:00 0 
+2b50f7975000-2b50f7978000 r-xp 00000000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b50f7978000-2b50f7b77000 ---p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b50f7b77000-2b50f7b78000 r--p 00002000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b50f7b78000-2b50f7b79000 rw-p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b50f7b79000-2b50f7b82000 r-xp 00000000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b50f7b82000-2b50f7d81000 ---p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b50f7d81000-2b50f7d82000 r--p 00008000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b50f7d82000-2b50f7d83000 rw-p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b50f7d83000-2b50f9e44000 rw-s 00000000 00:12 1589252                    /dev/shm/Intel_MPI_I1g5vU (deleted)
+2b50f9e44000-2b50fa105000 rw-p 00000000 00:00 0 
+2b50fa90f000-2b50fab15000 rw-p 00000000 00:00 0 
+2b50fc000000-2b50fc021000 rw-p 00000000 00:00 0 
+2b50fc021000-2b5100000000 ---p 00000000 00:00 0 
+7ffc10d1d000-7ffc10d43000 rw-p 00000000 00:00 0                          [stack]
+7ffc10dd1000-7ffc10dd3000 r-xp 00000000 00:00 0                          [vdso]
 ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
-*** Error in `/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe': free(): invalid next size (fast): 0x0000000001acf010 ***
+*** Error in `/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe': free(): invalid next size (fast): 0x0000000001e30010 ***
 ======= Backtrace: =========
-/usr/lib64/libc.so.6(+0x7c503)[0x2ae910311503]
-/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x4037d4]
-/usr/lib64/libc.so.6(__libc_start_main+0xf5)[0x2ae9102b6b35]
-/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x4012a9]
+/usr/lib64/libc.so.6(+0x7c503)[0x2b65d0379503]
+/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x403721]
+/usr/lib64/libc.so.6(__libc_start_main+0xf5)[0x2b65d031eb35]
+/mnt/storage/home/ks17226/cw/HPC/CW2/./stencil.exe[0x401269]
 ======= Memory map: ========
-00400000-00413000 r-xp 00000000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-00612000-00613000 r--p 00012000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-00613000-00614000 rw-p 00013000 00:2b 279559233                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
-01acf000-01b40000 rw-p 00000000 00:00 0                                  [heap]
-2ae90e4fb000-2ae90e51b000 r-xp 00000000 00:23 42609                      /usr/lib64/ld-2.17.so
-2ae90e51b000-2ae90e51e000 rw-p 00000000 00:00 0 
-2ae90e526000-2ae90e6ad000 rw-p 00000000 00:00 0 
-2ae90e6ad000-2ae90e6c0000 rw-s 00000000 00:12 1581873                    /dev/shm/Intel_MPI_b5MqHl (deleted)
-2ae90e71a000-2ae90e71b000 r--p 0001f000 00:23 42609                      /usr/lib64/ld-2.17.so
-2ae90e71b000-2ae90e71c000 rw-p 00020000 00:23 42609                      /usr/lib64/ld-2.17.so
-2ae90e71c000-2ae90e71d000 rw-p 00000000 00:00 0 
-2ae90e71d000-2ae90e89b000 r-xp 00000000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2ae90e89b000-2ae90ea9b000 ---p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2ae90ea9b000-2ae90eaa2000 rw-p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
-2ae90eaa2000-2ae90eac6000 rw-p 00000000 00:00 0 
-2ae90eac6000-2ae90f184000 r-xp 00000000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2ae90f184000-2ae90f383000 ---p 006be000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2ae90f383000-2ae90f3be000 rw-p 006bd000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
-2ae90f3be000-2ae90f755000 rw-p 00000000 00:00 0 
-2ae90f755000-2ae90f757000 r-xp 00000000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2ae90f757000-2ae90f957000 ---p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2ae90f957000-2ae90f958000 r--p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2ae90f958000-2ae90f959000 rw-p 00003000 00:23 42663                      /usr/lib64/libdl-2.17.so
-2ae90f959000-2ae90f960000 r-xp 00000000 00:23 43306                      /usr/lib64/librt-2.17.so
-2ae90f960000-2ae90fb5f000 ---p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
-2ae90fb5f000-2ae90fb60000 r--p 00006000 00:23 43306                      /usr/lib64/librt-2.17.so
-2ae90fb60000-2ae90fb61000 rw-p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
-2ae90fb61000-2ae90fb78000 r-xp 00000000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2ae90fb78000-2ae90fd77000 ---p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2ae90fd77000-2ae90fd78000 r--p 00016000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2ae90fd78000-2ae90fd79000 rw-p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
-2ae90fd79000-2ae90fd7d000 rw-p 00000000 00:00 0 
-2ae90fd7d000-2ae90fe7d000 r-xp 00000000 00:23 42667                      /usr/lib64/libm-2.17.so
-2ae90fe7d000-2ae91007d000 ---p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
-2ae91007d000-2ae91007e000 r--p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
-2ae91007e000-2ae91007f000 rw-p 00101000 00:23 42667                      /usr/lib64/libm-2.17.so
-2ae91007f000-2ae910094000 r-xp 00000000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2ae910094000-2ae910293000 ---p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2ae910293000-2ae910294000 r--p 00014000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2ae910294000-2ae910295000 rw-p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
-2ae910295000-2ae91044b000 r-xp 00000000 00:23 42644                      /usr/lib64/libc-2.17.so
-2ae91044b000-2ae91064b000 ---p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
-2ae91064b000-2ae91064f000 r--p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
-2ae91064f000-2ae910651000 rw-p 001ba000 00:23 42644                      /usr/lib64/libc-2.17.so
-2ae910651000-2ae910656000 rw-p 00000000 00:00 0 
-2ae910656000-2ae910660000 r-xp 00000000 00:23 43987                      /usr/lib64/libnuma.so.1
-2ae910660000-2ae910860000 ---p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
-2ae910860000-2ae910861000 r--p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
-2ae910861000-2ae910862000 rw-p 0000b000 00:23 43987                      /usr/lib64/libnuma.so.1
-2ae910862000-2ae910868000 r-xp 00000000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2ae910868000-2ae910a67000 ---p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2ae910a67000-2ae910a68000 r--p 00005000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2ae910a68000-2ae910a69000 rw-p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
-2ae910a69000-2ae910c30000 r-xp 00000000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2ae910c30000-2ae910e2f000 ---p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2ae910e2f000-2ae910e30000 r--p 001c6000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2ae910e30000-2ae910e36000 rw-p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
-2ae910e36000-2ae910e3c000 rw-p 00000000 00:00 0 
-2ae910e3c000-2ae910e48000 r-xp 00000000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2ae910e48000-2ae911047000 ---p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2ae911047000-2ae911048000 r--p 0000b000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2ae911048000-2ae911049000 rw-p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
-2ae911049000-2ae91104f000 rw-p 00000000 00:00 0 
-2ae91104f000-2ae911052000 r-xp 00000000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2ae911052000-2ae911251000 ---p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2ae911251000-2ae911252000 r--p 00002000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2ae911252000-2ae911253000 rw-p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
-2ae911253000-2ae91125c000 r-xp 00000000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2ae91125c000-2ae91145b000 ---p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2ae91145b000-2ae91145c000 r--p 00008000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2ae91145c000-2ae91145d000 rw-p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
-2ae91145d000-2ae911462000 r-xp 00000000 00:23 43096                      /usr/lib64/libnss_dns-2.17.so
-2ae911462000-2ae911661000 ---p 00005000 00:23 43096                      /usr/lib64/libnss_dns-2.17.so
-2ae911661000-2ae911662000 r--p 00004000 00:23 43096                      /usr/lib64/libnss_dns-2.17.so
-2ae911662000-2ae911663000 rw-p 00005000 00:23 43096                      /usr/lib64/libnss_dns-2.17.so
-2ae911663000-2ae911679000 r-xp 00000000 00:23 43207                      /usr/lib64/libresolv-2.17.so
-2ae911679000-2ae911879000 ---p 00016000 00:23 43207                      /usr/lib64/libresolv-2.17.so
-2ae911879000-2ae91187a000 r--p 00016000 00:23 43207                      /usr/lib64/libresolv-2.17.so
-2ae91187a000-2ae91187b000 rw-p 00017000 00:23 43207                      /usr/lib64/libresolv-2.17.so
-2ae91187b000-2ae91187d000 rw-p 00000000 00:00 0 
-2ae91187d000-2ae91393e000 rw-s 00000000 00:12 1581830                    /dev/shm/Intel_MPI_9v0J4i (deleted)
-2ae91393e000-2ae913bff000 rw-p 00000000 00:00 0 
-2ae914409000-2ae91460f000 rw-p 00000000 00:00 0 
-2ae918000000-2ae918021000 rw-p 00000000 00:00 0 
-2ae918021000-2ae91c000000 ---p 00000000 00:00 0 
-7ffc0c2d6000-7ffc0c2fc000 rw-p 00000000 00:00 0                          [stack]
-7ffc0c35d000-7ffc0c35f000 r-xp 00000000 00:00 0                          [vdso]
+00400000-00413000 r-xp 00000000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00612000-00613000 r--p 00012000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+00613000-00614000 rw-p 00013000 00:2b 277983289                          /mnt/storage/home/ks17226/cw/HPC/CW2/stencil.exe
+01e30000-01ea1000 rw-p 00000000 00:00 0                                  [heap]
+2b65ce563000-2b65ce583000 r-xp 00000000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b65ce583000-2b65ce586000 rw-p 00000000 00:00 0 
+2b65ce58e000-2b65ce715000 rw-p 00000000 00:00 0 
+2b65ce715000-2b65ce728000 rw-s 00000000 00:12 1589295                    /dev/shm/Intel_MPI_cMFLxN (deleted)
+2b65ce782000-2b65ce783000 r--p 0001f000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b65ce783000-2b65ce784000 rw-p 00020000 00:23 42609                      /usr/lib64/ld-2.17.so
+2b65ce784000-2b65ce785000 rw-p 00000000 00:00 0 
+2b65ce785000-2b65ce903000 r-xp 00000000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b65ce903000-2b65ceb03000 ---p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b65ceb03000-2b65ceb0a000 rw-p 0017e000 00:2b 7508410                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/libmpifort.so.12.0
+2b65ceb0a000-2b65ceb2e000 rw-p 00000000 00:00 0 
+2b65ceb2e000-2b65cf1ec000 r-xp 00000000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b65cf1ec000-2b65cf3eb000 ---p 006be000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b65cf3eb000-2b65cf426000 rw-p 006bd000 00:2b 7508445                    /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt/libmpi.so.12.0
+2b65cf426000-2b65cf7bd000 rw-p 00000000 00:00 0 
+2b65cf7bd000-2b65cf7bf000 r-xp 00000000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b65cf7bf000-2b65cf9bf000 ---p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b65cf9bf000-2b65cf9c0000 r--p 00002000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b65cf9c0000-2b65cf9c1000 rw-p 00003000 00:23 42663                      /usr/lib64/libdl-2.17.so
+2b65cf9c1000-2b65cf9c8000 r-xp 00000000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b65cf9c8000-2b65cfbc7000 ---p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b65cfbc7000-2b65cfbc8000 r--p 00006000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b65cfbc8000-2b65cfbc9000 rw-p 00007000 00:23 43306                      /usr/lib64/librt-2.17.so
+2b65cfbc9000-2b65cfbe0000 r-xp 00000000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b65cfbe0000-2b65cfddf000 ---p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b65cfddf000-2b65cfde0000 r--p 00016000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b65cfde0000-2b65cfde1000 rw-p 00017000 00:23 43198                      /usr/lib64/libpthread-2.17.so
+2b65cfde1000-2b65cfde5000 rw-p 00000000 00:00 0 
+2b65cfde5000-2b65cfee5000 r-xp 00000000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b65cfee5000-2b65d00e5000 ---p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b65d00e5000-2b65d00e6000 r--p 00100000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b65d00e6000-2b65d00e7000 rw-p 00101000 00:23 42667                      /usr/lib64/libm-2.17.so
+2b65d00e7000-2b65d00fc000 r-xp 00000000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b65d00fc000-2b65d02fb000 ---p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b65d02fb000-2b65d02fc000 r--p 00014000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b65d02fc000-2b65d02fd000 rw-p 00015000 00:23 42578                      /usr/lib64/libgcc_s-4.8.5-20150702.so.1
+2b65d02fd000-2b65d04b3000 r-xp 00000000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b65d04b3000-2b65d06b3000 ---p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b65d06b3000-2b65d06b7000 r--p 001b6000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b65d06b7000-2b65d06b9000 rw-p 001ba000 00:23 42644                      /usr/lib64/libc-2.17.so
+2b65d06b9000-2b65d06be000 rw-p 00000000 00:00 0 
+2b65d06be000-2b65d06c8000 r-xp 00000000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b65d06c8000-2b65d08c8000 ---p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b65d08c8000-2b65d08c9000 r--p 0000a000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b65d08c9000-2b65d08ca000 rw-p 0000b000 00:23 43987                      /usr/lib64/libnuma.so.1
+2b65d08ca000-2b65d08d0000 r-xp 00000000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b65d08d0000-2b65d0acf000 ---p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b65d0acf000-2b65d0ad0000 r--p 00005000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b65d0ad0000-2b65d0ad1000 rw-p 00006000 00:23 46611                      /usr/lib64/libpmi.so.0.0.0
+2b65d0ad1000-2b65d0c98000 r-xp 00000000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b65d0c98000-2b65d0e97000 ---p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b65d0e97000-2b65d0e98000 r--p 001c6000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b65d0e98000-2b65d0e9e000 rw-p 001c7000 00:23 46597                      /usr/lib64/libslurm.so.30.0.0
+2b65d0e9e000-2b65d0ea4000 rw-p 00000000 00:00 0 
+2b65d0ea4000-2b65d0eb0000 r-xp 00000000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b65d0eb0000-2b65d10af000 ---p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b65d10af000-2b65d10b0000 r--p 0000b000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b65d10b0000-2b65d10b1000 rw-p 0000c000 00:23 43100                      /usr/lib64/libnss_files-2.17.so
+2b65d10b1000-2b65d10b7000 rw-p 00000000 00:00 0 
+2b65d10b7000-2b65d10ba000 r-xp 00000000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b65d10ba000-2b65d12b9000 ---p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b65d12b9000-2b65d12ba000 r--p 00002000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b65d12ba000-2b65d12bb000 rw-p 00003000 00:23 43280                      /usr/lib64/slurm/auth_munge.so
+2b65d12bb000-2b65d12c4000 r-xp 00000000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b65d12c4000-2b65d14c3000 ---p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b65d14c3000-2b65d14c4000 r--p 00008000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b65d14c4000-2b65d14c5000 rw-p 00009000 00:23 46581                      /usr/lib64/libmunge.so.2.0.0
+2b65d14c5000-2b65d14ca000 r-xp 00000000 00:23 43096                      /usr/lib64/libnss_dns-2.17.so
+2b65d14ca000-2b65d16c9000 ---p 00005000 00:23 43096                      /usr/lib64/libnss_dns-2.17.so
+2b65d16c9000-2b65d16ca000 r--p 00004000 00:23 43096                      /usr/lib64/libnss_dns-2.17.so
+2b65d16ca000-2b65d16cb000 rw-p 00005000 00:23 43096                      /usr/lib64/libnss_dns-2.17.so
+2b65d16cb000-2b65d16e1000 r-xp 00000000 00:23 43207                      /usr/lib64/libresolv-2.17.so
+2b65d16e1000-2b65d18e1000 ---p 00016000 00:23 43207                      /usr/lib64/libresolv-2.17.so
+2b65d18e1000-2b65d18e2000 r--p 00016000 00:23 43207                      /usr/lib64/libresolv-2.17.so
+2b65d18e2000-2b65d18e3000 rw-p 00017000 00:23 43207                      /usr/lib64/libresolv-2.17.so
+2b65d18e3000-2b65d18e5000 rw-p 00000000 00:00 0 
+2b65d18e5000-2b65d39a6000 rw-s 00000000 00:12 1589252                    /dev/shm/Intel_MPI_I1g5vU (deleted)
+2b65d39a6000-2b65d3c67000 rw-p 00000000 00:00 0 
+2b65d4471000-2b65d4677000 rw-p 00000000 00:00 0 
+2b65d8000000-2b65d8021000 rw-p 00000000 00:00 0 
+2b65d8021000-2b65dc000000 ---p 00000000 00:00 0 
+7ffe44c6e000-7ffe44c94000 rw-p 00000000 00:00 0                          [stack]
+7ffe44ccb000-7ffe44ccd000 r-xp 00000000 00:00 0                          [vdso]
 ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
 srun: error: compute084: tasks 0-3: Aborted
