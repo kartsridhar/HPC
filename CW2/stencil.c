@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
         // offset for each rank when storing back to image
         int offset = r * (ny / size) + 1;
 
-        MPI_Recv(&image[(i * width) + offset], local_ncols , MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+        MPI_Recv(&image[(i * width) + offset], ncols , MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
       }
     }
     else

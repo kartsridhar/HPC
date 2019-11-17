@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --nodes 2
-#SBATCH --ntasks-per-node 8
+#SBATCH --ntasks-per-node 5
 #SBATCH --partition veryshort
 #SBATCH --reservation COMS30005
 #SBATCH --account COMS30005
@@ -27,4 +27,4 @@ echo
 export I_MPI_PMI_LIBRARY=/usr/lib64/libpmi.so
 
 # Run the executable
-srun ./stencil.exe 4096 4096 100
+srun ./stencil.exe 1024 1024 100
