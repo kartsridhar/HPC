@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image)
 {
-  #pragma omp parallel
+  #pragma omp parallel for schedule(dynamic, 10)
   for (int i = 1; i < nx + 1; ++i) {
     for (int j = 1; j < ny + 1; ++j) {
        int cell = j + i * height;
