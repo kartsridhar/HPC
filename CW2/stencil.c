@@ -8,12 +8,12 @@
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
 
-void stencil(const int local_nrows, const int local_ncols, const int width, const int height,
-             float * restrict image, float * restrict tmp_image);
+void stencil(const int nx, const int ny, const int width, const int height,
+             float* image, float* tmp_image);
 void init_image(const int nx, const int ny, const int width, const int height,
-                float * restrict image, float * restrict tmp_image);
+                float* image, float* tmp_image);
 void output_image(const char* file_name, const int nx, const int ny,
-                  const int width, const int height, float * restrict image);
+                  const int width, const int height, float* image);
 double wtime(void);
 
 int calc_ncols_from_rank(int rank, int size, int height)
@@ -76,8 +76,8 @@ int main(int argc, char* argv[])
   right = (rank + 1) % size;
 
   // Allocate the image
-  float * restrict image = malloc(sizeof(float) * width * height);
-  float * restrict tmp_image = malloc(sizeof(float) * width * height);
+  float* image = malloc(sizeof(float) * width * height);
+  float* tmp_image = malloc(sizeof(float) * width * height);
   // float * restrict result = malloc(sizeof(float) * width * height);
 
   local_nrows = nx;
@@ -93,8 +93,8 @@ int main(int argc, char* argv[])
 
   printf("section_nrows = %d, section_cols = %d for rank %d\n", local_nrows, section_ncols, rank);
 
-  float * restrict section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
-  float * restrict tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
+  float* section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
+  float* tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
 
   printf("Allocated space for section and tmp_section for rank = %d\n", rank);
 
@@ -116,6 +116,7 @@ int main(int argc, char* argv[])
       }
     }
   }
+  printf("Initialised section and tmp_section for rank = %d\n", rank);
 
   // // Call the stencil kernel
   double tic = wtime();
@@ -132,7 +133,7 @@ int main(int argc, char* argv[])
     MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, left, 0,
     recvbuf, local_nrows + 2, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
-    if(right != MASTER)
+    if(rank != MASTER)
     {
       for(int i = 0; i < local_nrows + 2; ++i)
         section[i * (local_ncols + 2) + local_ncols + 1] = recvbuf[i];
@@ -163,7 +164,7 @@ int main(int argc, char* argv[])
     MPI_Sendrecv(sendbuf, local_nrows + 2, MPI_FLOAT, left, 0,
     recvbuf, local_nrows + 2, MPI_FLOAT, right, 0, MPI_COMM_WORLD, &status);
 
-    if(right != MASTER)
+    if(rank != MASTER)
     {
       for(int i = 0; i < local_nrows + 2; ++i)
         tmp_section[i * (local_ncols + 2) + local_ncols + 1] = recvbuf[i];
@@ -185,10 +186,8 @@ int main(int argc, char* argv[])
     stencil(local_ncols, local_nrows, width, height, tmp_section, section);
 
   }
-  double toc = wtime();
-
+  
   // Gathering
-
   for(int i = 1; i < local_nrows + 1; i++)
   {
     if(rank == MASTER)
@@ -212,6 +211,7 @@ int main(int argc, char* argv[])
       MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols , MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
   }
+  double toc = wtime();
 
   // Output if rank is MASTER
   if(rank == MASTER)
@@ -235,7 +235,7 @@ int main(int argc, char* argv[])
 }
 
 void stencil(const int local_ncols, const int local_nrows, const int width, const int height,
-             float * restrict image, float * restrict tmp_image)
+             float* image, float* tmp_image)
 {
   for (int i = 1; i < local_nrows + 1; ++i)
   {
@@ -249,7 +249,7 @@ void stencil(const int local_ncols, const int local_nrows, const int width, cons
 
 // Create the input image
 void init_image(const int nx, const int ny, const int width, const int height,
-                float * restrict image, float * restrict tmp_image)
+                float* image, float* tmp_image)
 {
   // Zero everything
   for (int j = 0; j < ny + 2; ++j) {
@@ -278,7 +278,7 @@ void init_image(const int nx, const int ny, const int width, const int height,
 
 // Routine to output the image in Netpbm grayscale binary image format
 void output_image(const char* file_name, const int nx, const int ny,
-                  const int width, const int height, float * restrict image)
+                  const int width, const int height, float* image)
 {
   // Open output file
   FILE* fp = fopen(file_name, "w");
