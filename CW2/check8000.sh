@@ -1,0 +1,1 @@
+python check.py --ref-stencil-file stencil_8000_8000_100.pgm --stencil-file stencil.pgm
