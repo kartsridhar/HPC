@@ -15,7 +15,8 @@ void init_image(const int nx, const int ny, const int width, const int height,
 void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float* image);
 double wtime(void);
-void communicate(float* sendbuf, float* recvbuf, float* section, int left, int right, int local_ncols, int local_nrows, int size, int rank, MPI_Status status);
+void communicate(float* sendbuf, float* recvbuf, float* section, int left, int right, 
+                int local_ncols, int local_nrows, int size, int rank, MPI_Status status);
 int calc_ncols_from_rank(int rank, int size, int ny);
 
 int main(int argc, char* argv[])
