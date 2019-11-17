@@ -4,13 +4,15 @@
 
 CC=mpiicc
 
-CFLAGS=-Wall -Ofast
+CFLAGS=-Wall
+
+OFLAGS=-O3 -xHOST
 
 EXES=stencil.exe
 
 
 stencil.exe: stencil.c
-	$(CC) -std=c99 $(CFLAGS) -o $@ $^
+	$(CC) -std=c99 $(CFLAGS) $(OFLAGS) -o $@ $^
 
 all: $(EXES)
 
