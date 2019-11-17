@@ -1,22 +1,22 @@
-Running on host compute084.bc4.acrc.priv
-Time is Sat Nov 16 23:36:05 GMT 2019
+Running on host compute086.bc4.acrc.priv
+Time is Sat Nov 16 23:59:49 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2732664
+Slurm job ID is 2733853
 
 This job runs on the following machines:
-compute084
+compute086
 
+section_nrows = 1024, section_cols = 258 for rank 0
+Allocated space for section and tmp_section for rank = 0
 section_nrows = 1024, section_cols = 258 for rank 1
 Allocated space for section and tmp_section for rank = 1
 section_nrows = 1024, section_cols = 258 for rank 2
 section_nrows = 1024, section_cols = 258 for rank 3
-section_nrows = 1024, section_cols = 258 for rank 0
-Allocated space for section and tmp_section for rank = 0
-Allocated space for section and tmp_section for rank = 2
 Allocated space for section and tmp_section for rank = 3
+Allocated space for section and tmp_section for rank = 2
 Final Image added from Rank 2
-Final Image added from Rank 3
 Final Image added from Rank 1
+Final Image added from Rank 3
 Final Image added from Rank 0
 ------------------------------------
  runtime: 0.000000 s

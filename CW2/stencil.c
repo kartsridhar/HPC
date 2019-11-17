@@ -105,13 +105,13 @@ int main(int argc, char* argv[])
     for(int j = 0; j < local_ncols + 2; j++) {
       if (j > 0 && j < (local_ncols + 1) && i > 0 && i < (local_nrows + 1)) 
       {
-        section[i * (local_ncols + 2) + j] = image[(ny/size * rank + i) * ((local_ncols + 2) + j)];
-        tmp_section[i * (local_ncols + 2) + j] = image[(ny/size * rank + i) * ((local_ncols + 2) + j)];                 /* core cells */
+        section[i * (local_ncols + 2) + j] = image[(i * width + j + (ny/size * rank))];
+        tmp_section[i * (local_ncols + 2) + j] = image[(i * width + j + (ny/size * rank))];                 /* core cells */
       }
       else
       {
         section[i * (local_ncols + 2) + j] = 0.0f;
-        tmp_section[i * (local_ncols + 2) + j] = 0.0f;  
+        tmp_section[i * (local_ncols + 2) + j] = 0.0f;
       }
     }
   }
