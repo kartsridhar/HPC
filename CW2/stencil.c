@@ -122,6 +122,7 @@ int main(int argc, char* argv[])
     // Call stencil from tmp_section to section
     stencil(local_ncols, local_nrows, width, height, tmp_section, section);
   }
+  double toc = wtime();
 
   // Gathering
   for(int i = 1; i < local_nrows + 1; i++)
@@ -146,7 +147,6 @@ int main(int argc, char* argv[])
       MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
   }
-  double toc = wtime();
 
   // Output if rank is MASTER
   if(rank == MASTER)
