@@ -216,7 +216,7 @@ void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int
 void stencil(const int local_ncols, const int local_nrows, const int width, const int height,
              float* image, float* tmp_image)
 { 
-  #pragma omp parallel for
+  #pragma omp simd collapse(2)
   for (int i = 1; i < local_nrows + 1; ++i)
   {
     for (int j = 1; j < local_ncols + 1; ++j)
