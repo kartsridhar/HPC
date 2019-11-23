@@ -2,13 +2,11 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include "mpi.h"
-#include "omp.h"
 #include <string.h>
 
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
-#define THREADS 2
 
 void stencil(const int local_ncols, const int local_nrows, const int width, const int height,
              float* image, float* tmp_image);
@@ -89,8 +87,6 @@ int main(int argc, char* argv[])
 
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
-
-  omp_set_num_threads(THREADS);
 
   // Initialising the sections
   for(int i = 0; i < local_nrows + 2; i++) 
@@ -215,8 +211,7 @@ void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int
 
 void stencil(const int local_ncols, const int local_nrows, const int width, const int height,
              float* image, float* tmp_image)
-{ 
-  #pragma omp parallel for
+{
   for (int i = 1; i < local_nrows + 1; ++i)
   {
     for (int j = 1; j < local_ncols + 1; ++j)
