@@ -5,7 +5,7 @@
 
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
-#define THREADS 8
+#define THREADS 10
 
 void stencil(const int nx, const int ny, const int width, const int height,
              float* image, float* tmp_image);

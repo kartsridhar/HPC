@@ -6,7 +6,7 @@ CC=mpiicc
 
 CFLAGS=-Wall
 
-OFLAGS=-O3 -xHOST
+OFLAGS=-O3 -xHost
 
 OMP=-fopenmp
 
