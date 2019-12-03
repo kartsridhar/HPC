@@ -109,6 +109,7 @@ int main(int argc, char* argv[])
 
   // Call the stencil kernel
   double tic = wtime();
+  #pragma omp simd
   for(int t = 0; t < niters; ++t) 
   {
     // Halo Exchange from left to right followed by right to left for section
@@ -169,6 +170,7 @@ int main(int argc, char* argv[])
   free(tmp_section);
 }
 
+#pragma omp declare simd
 void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int right, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
 {
     // Packing the send buffer with the left column
@@ -210,6 +212,7 @@ void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int
     }
 }
 
+#pragma omp declare simd
 void stencil(const int local_ncols, const int local_nrows, const int width, const int height,
              float* image, float* tmp_image)
 {
