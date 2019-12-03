@@ -7,7 +7,12 @@
 
     Does not significantly change the performance of the code
 
-4. Use register variables as counters for innter loops. Variables stored in registers can be accessed
+4. Use register variables as counters for inner loops. Variables stored in registers can be accessed
     much faster than the variables stored in memory
 
-5. 
+5. Use #pragma omp simd collapse(2) -> vectorises the next 2 loops inside the 
+    stencil function (essentially vectorising the nested for loops)
+
+6. Scale up everything in stencil by 10, divide the whole thing by 10 eventually. Instead of 0.6, do 6 and then divide by 10.
+
+7. 

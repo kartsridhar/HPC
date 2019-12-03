@@ -1,0 +1,1213 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 18.0.3.222 Build 20180410
+
+Compiler options: -I/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/include -std=c99 -fopenmp -Wall -O3 -xHost -qopt-report=5 -o stencil.exe -L/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt -L/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib -Xlinker --enable-new-dtags -Xlinker -rpath -Xlinker /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib/release_mt -Xlinker -rpath -Xlinker /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/mpi/intel64/lib -Xlinker -rpath -Xlinker /opt/intel/mpi-rt/2017.0.0/intel64/lib/release_mt -Xlinker -rpath -Xlinker /opt/intel/mpi-rt/2017.0.0/intel64/lib -lmpifort -lmpi -lmpigi -ldl -lrt -lpthread
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: main(int, char **)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (main(int, char **)) [1/8=12.5%] stencil.c(24,1)
+  -> EXTERN: (28,5) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (29,5) exit(int)
+  -> INLINE (MANUAL): (33,12) atoi(const char *) (isz = 4) (sz = 11)
+    -> EXTERN: /usr/include/stdlib.h:(280,16) strtol(const char *__restrict__, char **__restrict__, int)
+  -> INLINE (MANUAL): (34,12) atoi(const char *) (isz = 4) (sz = 11)
+    -> EXTERN: /usr/include/stdlib.h:(280,16) strtol(const char *__restrict__, char **__restrict__, int)
+  -> INLINE (MANUAL): (35,16) atoi(const char *) (isz = 4) (sz = 11)
+    -> EXTERN: /usr/include/stdlib.h:(280,16) strtol(const char *__restrict__, char **__restrict__, int)
+  -> EXTERN: (56,3) MPI_Init(int *, char ***)
+  -> EXTERN: (57,3) MPI_Comm_size(MPI_Comm, int *)
+  -> EXTERN: (58,3) MPI_Comm_rank(MPI_Comm, int *)
+  -> EXTERN: (68,18) malloc(size_t)
+  -> EXTERN: (69,22) malloc(size_t)
+  -> INLINE: (72,17) calc_ncols_from_rank(int, int, int) (isz = 7) (sz = 18)
+  -> EXTERN: (74,22) malloc(size_t)
+  -> EXTERN: (75,22) malloc(size_t)
+  -> EXTERN: (80,5) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (81,5) MPI_Abort(MPI_Comm, int)
+  -> EXTERN: (86,20) malloc(size_t)
+  -> EXTERN: (87,24) malloc(size_t)
+  -> INLINE: (90,3) init_image(const int, const int, const int, const int, float *__restrict__, float *__restrict__) (isz = 112) (sz = 127)
+  -> INLINE: (111,16) wtime(void) (isz = 8) (sz = 13)
+    -> EXTERN: (303,3) gettimeofday(struct timeval *__restrict__, __timezone_ptr_t)
+  -> INLINE: (115,5) halo_exchange(float *__restrict__, float *__restrict__, float *__restrict__, int, int, int, int, int, int, MPI_Status) (isz = 128) (sz = 151)
+    -> EXTERN: (184,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
+    -> EXTERN: (203,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
+  -> INLINE: (118,5) stencil(const int, const int, const int, const int, float *__restrict__, float *__restrict__) (isz = 61) (sz = 76)
+  -> INLINE: (121,5) halo_exchange(float *__restrict__, float *__restrict__, float *__restrict__, int, int, int, int, int, int, MPI_Status) (isz = 128) (sz = 151)
+    -> EXTERN: (184,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
+    -> EXTERN: (203,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
+  -> INLINE: (124,5) stencil(const int, const int, const int, const int, float *__restrict__, float *__restrict__) (isz = 61) (sz = 76)
+  -> INLINE: (126,16) wtime(void) (isz = 8) (sz = 13)
+    -> EXTERN: (303,3) gettimeofday(struct timeval *__restrict__, __timezone_ptr_t)
+  -> INLINE: (140,21) calc_ncols_from_rank(int, int, int) (isz = 7) (sz = 18)
+  -> EXTERN: (143,9) MPI_Recv(void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
+  -> EXTERN: (148,7) MPI_Send(const void *, int, MPI_Datatype, int, int, MPI_Comm)
+  -> EXTERN: (155,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (156,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (157,5) printf(const char *__restrict__, ...)
+  -> INLINE: (159,5) output_image(const char *, const int, const int, const int, const int, float *__restrict__) (isz = 103) (sz = 118)
+    -> EXTERN: (269,14) fopen(const char *__restrict__, const char *__restrict__)
+    -> EXTERN: (271,5) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (272,5) exit(int)
+    -> EXTERN: (276,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (291,7) fputc(int, FILE *)
+    -> EXTERN: (296,3) fclose(FILE *)
+  -> EXTERN: (162,3) MPI_Finalize(void)
+  -> EXTERN: (164,3) free(void *)
+  -> EXTERN: (165,3) free(void *)
+  -> EXTERN: (166,3) free(void *)
+  -> EXTERN: (167,3) free(void *)
+  -> EXTERN: (168,3) free(void *)
+  -> EXTERN: (169,3) free(void *)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at stencil.c(241,5) inlined into stencil.c(90,3)
+   remark #25444: Loopnest Interchanged: ( 1 2 ) --> ( 2 1 )
+   remark #15542: loop was not vectorized: inner loop was already vectorized   [ stencil.c(241,5) ]
+
+   LOOP BEGIN at stencil.c(240,3) inlined into stencil.c(90,3)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=7
+   LOOP END
+
+   LOOP BEGIN at stencil.c(240,3) inlined into stencil.c(90,3)
+      remark #15389: vectorization support: reference image[j+i*(ny+2)] has unaligned access   [ stencil.c(242,7) ]
+      remark #15389: vectorization support: reference tmp_image[j+i*(ny+2)] has unaligned access   [ stencil.c(243,7) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 8
+      remark #15399: vectorization support: unroll factor set to 2
+      remark #15309: vectorization support: normalized vectorization overhead 0.812
+      remark #15301: PERMUTED LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15451: unmasked unaligned unit stride stores: 2 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 7 
+      remark #15477: vector cost: 1.000 
+      remark #15478: estimated potential speedup: 5.450 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(240,3) inlined into stencil.c(90,3)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference image[j+i*(ny+2)] has unaligned access   [ stencil.c(242,7) ]
+      remark #15389: vectorization support: reference tmp_image[j+i*(ny+2)] has unaligned access   [ stencil.c(243,7) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 1.333
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at stencil.c(240,3) inlined into stencil.c(90,3)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at stencil.c(249,3) inlined into stencil.c(90,3)
+   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+   remark #25452: Original Order found to be proper, but by a close margin
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*(ny+2)] (256:13) and image[j+i*(ny+2)] (256:13)
+   remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*(ny+2)] (256:13) and image[j+i*(ny+2)] (256:13)
+
+   LOOP BEGIN at stencil.c(250,5) inlined into stencil.c(90,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*(ny+2)] (256:13) and image[j+i*(ny+2)] (256:13)
+      remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*(ny+2)] (256:13) and image[j+i*(ny+2)] (256:13)
+
+      LOOP BEGIN at stencil.c(254,9) inlined into stencil.c(90,3)
+         remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+         remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*(ny+2)] (256:13) and image[j+i*(ny+2)] (256:13)
+         remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*(ny+2)] (256:13) and image[j+i*(ny+2)] (256:13)
+
+         LOOP BEGIN at stencil.c(255,11) inlined into stencil.c(90,3)
+            remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+            remark #15329: vectorization support: non-unit strided store was emulated for the variable <image[j+i*(ny+2)]>, stride is unknown to compiler   [ stencil.c(256,13) ]
+            remark #15305: vectorization support: vector length 4
+            remark #15399: vectorization support: unroll factor set to 2
+            remark #15453: unmasked strided stores: 1 
+            remark #15475: --- begin vector cost summary ---
+            remark #15476: scalar cost: 4 
+            remark #15477: vector cost: 5.500 
+            remark #15478: estimated potential speedup: 0.720 
+            remark #15488: --- end vector cost summary ---
+            remark #25439: unrolled with remainder by 2  
+         LOOP END
+
+         LOOP BEGIN at stencil.c(255,11) inlined into stencil.c(90,3)
+         <Remainder>
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at stencil.c(93,3)
+   remark #25260: Invariant Condition eliminated(Proven False) at line 97
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between section[i*(ncols+2)+j] (104:9) and section[i*(ncols+2)+j] (104:9)
+   remark #15346: vector dependence: assumed OUTPUT dependence between section[i*(ncols+2)+j] (104:9) and section[i*(ncols+2)+j] (104:9)
+
+   LOOP BEGIN at stencil.c(95,5)
+      remark #25258: Invariant Condition eliminated(Loop at level 2 peeled) at line 97 
+      remark #25261: Invariant Condition eliminated(Proven True) at line 97
+      remark #25259: Invariant Condition eliminated(Loop at level 2 peeled last iter) at line 97
+      remark #25261: Invariant Condition eliminated(Proven True) at line 97
+      remark #15389: vectorization support: reference section[i*(ncols+2)+j] has unaligned access   [ stencil.c(99,9) ]
+      remark #15389: vectorization support: reference image[i*(nx+2)+j+(ny/size)*rank] has unaligned access   [ stencil.c(99,46) ]
+      remark #15389: vectorization support: reference tmp_section[i*(ncols+2)+j] has unaligned access   [ stencil.c(100,9) ]
+      remark #15389: vectorization support: reference section[i*(ncols+2)+j] has unaligned access   [ stencil.c(104,9) ]
+      remark #15389: vectorization support: reference tmp_section[i*(ncols+2)+j] has unaligned access   [ stencil.c(105,9) ]
+      remark #15389: vectorization support: reference section[i*(ncols+2)+j] has unaligned access   [ stencil.c(104,9) ]
+      remark #15389: vectorization support: reference tmp_section[i*(ncols+2)+j] has unaligned access   [ stencil.c(105,9) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <image[((ny/size)*rank+i)*(ncols+2+j)]>, masked, stride is unknown to compiler   [ stencil.c(100,50) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.076
+      remark #15450: unmasked unaligned unit stride loads: 2 
+      remark #15451: unmasked unaligned unit stride stores: 2 
+      remark #15456: masked unaligned unit stride loads: 1 
+      remark #15457: masked unaligned unit stride stores: 2 
+      remark #15460: masked strided loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 32 
+      remark #15477: vector cost: 76.000 
+      remark #15478: estimated potential speedup: 0.420 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+LOOP END
+
+LOOP BEGIN at stencil.c(112,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at stencil.c(178,5) inlined into stencil.c(115,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
+   LOOP END
+
+   LOOP BEGIN at stencil.c(178,5) inlined into stencil.c(115,5)
+      remark #15389: vectorization support: reference sendbuf[i] has unaligned access   [ stencil.c(180,7) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <section[i*(ncols+2)+1]>, stride is unknown to compiler   [ stencil.c(180,20) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.556
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15452: unmasked strided loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 4.500 
+      remark #15478: estimated potential speedup: 1.100 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(178,5) inlined into stencil.c(115,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stencil.c(190,7) inlined into stencil.c(115,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=15
+   LOOP END
+
+   LOOP BEGIN at stencil.c(190,7) inlined into stencil.c(115,5)
+      remark #15389: vectorization support: reference recvbuf[i] has unaligned access   [ stencil.c(192,60) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <section[i*(ncols+2)+ncols+1]>, stride is unknown to compiler   [ stencil.c(192,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.135
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 4.620 
+      remark #15478: estimated potential speedup: 1.060 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(190,7) inlined into stencil.c(115,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stencil.c(197,5) inlined into stencil.c(115,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
+   LOOP END
+
+   LOOP BEGIN at stencil.c(197,5) inlined into stencil.c(115,5)
+      remark #15389: vectorization support: reference sendbuf[i] has unaligned access   [ stencil.c(199,7) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <section[i*(ncols+2)+ncols]>, stride is unknown to compiler   [ stencil.c(199,20) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.556
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15452: unmasked strided loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 4.500 
+      remark #15478: estimated potential speedup: 1.100 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(197,5) inlined into stencil.c(115,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stencil.c(209,7) inlined into stencil.c(115,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=15
+   LOOP END
+
+   LOOP BEGIN at stencil.c(209,7) inlined into stencil.c(115,5)
+      remark #15389: vectorization support: reference recvbuf[i] has unaligned access   [ stencil.c(211,42) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <section[i*(ncols+2)]>, stride is unknown to compiler   [ stencil.c(211,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.135
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 4.620 
+      remark #15478: estimated potential speedup: 1.060 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(209,7) inlined into stencil.c(115,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stencil.c(225,3) inlined into stencil.c(118,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at stencil.c(227,5) inlined into stencil.c(118,5)
+      <Peeled loop for vectorization>
+         remark #25015: Estimate of max trip count of loop=7
+      LOOP END
+
+      LOOP BEGIN at stencil.c(227,5) inlined into stencil.c(118,5)
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)] has unaligned access   [ stencil.c(230,7) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)] has unaligned access   [ stencil.c(230,27) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)-ncols+2] has unaligned access   [ stencil.c(230,50) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)+ncols+2] has unaligned access   [ stencil.c(230,84) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)-1] has unaligned access   [ stencil.c(230,118) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)+1] has unaligned access   [ stencil.c(230,137) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 8
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.250
+         remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+         remark #15442: entire loop may be executed in remainder
+         remark #15450: unmasked unaligned unit stride loads: 5 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 45 
+         remark #15477: vector cost: 6.250 
+         remark #15478: estimated potential speedup: 5.700 
+         remark #15486: divides: 1 
+         remark #15488: --- end vector cost summary ---
+      LOOP END
+
+      LOOP BEGIN at stencil.c(227,5) inlined into stencil.c(118,5)
+      <Remainder loop for vectorization>
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)] has unaligned access   [ stencil.c(230,7) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)] has unaligned access   [ stencil.c(230,27) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)-ncols+2] has unaligned access   [ stencil.c(230,50) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)+ncols+2] has unaligned access   [ stencil.c(230,84) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)-1] has unaligned access   [ stencil.c(230,118) ]
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)+1] has unaligned access   [ stencil.c(230,137) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15309: vectorization support: normalized vectorization overhead 0.483
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at stencil.c(227,5) inlined into stencil.c(118,5)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at stencil.c(178,5) inlined into stencil.c(121,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
+   LOOP END
+
+   LOOP BEGIN at stencil.c(178,5) inlined into stencil.c(121,5)
+      remark #15389: vectorization support: reference sendbuf[i] has unaligned access   [ stencil.c(180,7) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <tmp_section[i*(ncols+2)+1]>, stride is unknown to compiler   [ stencil.c(180,20) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.556
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15452: unmasked strided loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 4.500 
+      remark #15478: estimated potential speedup: 1.100 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(178,5) inlined into stencil.c(121,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stencil.c(190,7) inlined into stencil.c(121,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=15
+   LOOP END
+
+   LOOP BEGIN at stencil.c(190,7) inlined into stencil.c(121,5)
+      remark #15389: vectorization support: reference recvbuf[i] has unaligned access   [ stencil.c(192,60) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_section[i*(ncols+2)+ncols+1]>, stride is unknown to compiler   [ stencil.c(192,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.135
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 4.620 
+      remark #15478: estimated potential speedup: 1.060 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(190,7) inlined into stencil.c(121,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stencil.c(197,5) inlined into stencil.c(121,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
+   LOOP END
+
+   LOOP BEGIN at stencil.c(197,5) inlined into stencil.c(121,5)
+      remark #15389: vectorization support: reference sendbuf[i] has unaligned access   [ stencil.c(199,7) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <tmp_section[i*(ncols+2)+ncols]>, stride is unknown to compiler   [ stencil.c(199,20) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.556
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15452: unmasked strided loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 4.500 
+      remark #15478: estimated potential speedup: 1.100 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(197,5) inlined into stencil.c(121,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stencil.c(209,7) inlined into stencil.c(121,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=15
+   LOOP END
+
+   LOOP BEGIN at stencil.c(209,7) inlined into stencil.c(121,5)
+      remark #15389: vectorization support: reference recvbuf[i] has unaligned access   [ stencil.c(211,42) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_section[i*(ncols+2)]>, stride is unknown to compiler   [ stencil.c(211,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.135
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 5 
+      remark #15477: vector cost: 4.620 
+      remark #15478: estimated potential speedup: 1.060 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(209,7) inlined into stencil.c(121,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at stencil.c(225,3) inlined into stencil.c(124,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at stencil.c(227,5) inlined into stencil.c(124,5)
+      <Peeled loop for vectorization>
+         remark #25015: Estimate of max trip count of loop=7
+      LOOP END
+
+      LOOP BEGIN at stencil.c(227,5) inlined into stencil.c(124,5)
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)] has unaligned access   [ stencil.c(230,7) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)] has unaligned access   [ stencil.c(230,27) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)-ncols+2] has unaligned access   [ stencil.c(230,50) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)+ncols+2] has unaligned access   [ stencil.c(230,84) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)-1] has unaligned access   [ stencil.c(230,118) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)+1] has unaligned access   [ stencil.c(230,137) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 8
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.250
+         remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+         remark #15442: entire loop may be executed in remainder
+         remark #15450: unmasked unaligned unit stride loads: 5 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 45 
+         remark #15477: vector cost: 6.250 
+         remark #15478: estimated potential speedup: 5.700 
+         remark #15486: divides: 1 
+         remark #15488: --- end vector cost summary ---
+      LOOP END
+
+      LOOP BEGIN at stencil.c(227,5) inlined into stencil.c(124,5)
+      <Remainder loop for vectorization>
+         remark #15389: vectorization support: reference section[j+i*(ncols+2)] has unaligned access   [ stencil.c(230,7) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)] has unaligned access   [ stencil.c(230,27) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)-ncols+2] has unaligned access   [ stencil.c(230,50) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)+ncols+2] has unaligned access   [ stencil.c(230,84) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)-1] has unaligned access   [ stencil.c(230,118) ]
+         remark #15389: vectorization support: reference tmp_section[j+i*(ncols+2)+1] has unaligned access   [ stencil.c(230,137) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15309: vectorization support: normalized vectorization overhead 0.483
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at stencil.c(227,5) inlined into stencil.c(124,5)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at stencil.c(129,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at stencil.c(133,7)
+      remark #25399: memcopy generated
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at stencil.c(133,7)
+         remark #15389: vectorization support: reference image[i*(nx+2)+j] has unaligned access   [ stencil.c(135,9) ]
+         remark #15389: vectorization support: reference section[i*(ncols+2)+j] has unaligned access   [ stencil.c(135,34) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 8
+         remark #15309: vectorization support: normalized vectorization overhead 1.000
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 5 
+         remark #15477: vector cost: 0.750 
+         remark #15478: estimated potential speedup: 5.000 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=3
+      LOOP END
+
+      LOOP BEGIN at stencil.c(133,7)
+      <Remainder loop for vectorization>
+         remark #25015: Estimate of max trip count of loop=24
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at stencil.c(138,7)
+      remark #15523: loop was not vectorized: loop control variable r was found, but loop iteration count cannot be computed before executing the loop
+      remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
+   LOOP END
+LOOP END
+
+LOOP BEGIN at stencil.c(283,5) inlined into stencil.c(159,5)
+   remark #25444: Loopnest Interchanged: ( 1 2 ) --> ( 2 1 )
+   remark #15542: loop was not vectorized: inner loop was already vectorized   [ stencil.c(283,5) ]
+
+   LOOP BEGIN at stencil.c(282,3) inlined into stencil.c(159,5)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
+   LOOP END
+
+   LOOP BEGIN at stencil.c(282,3) inlined into stencil.c(159,5)
+      remark #15388: vectorization support: reference image[j+i*(ny+2)] has aligned access   [ stencil.c(284,11) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 1.208
+      remark #15417: vectorization support: number of FP up converts: single precision to double precision 1   [ stencil.c(281,18) ]
+      remark #15301: PERMUTED LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 9 
+      remark #15477: vector cost: 1.500 
+      remark #15478: estimated potential speedup: 4.740 
+      remark #15487: type converts: 1 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(282,3) inlined into stencil.c(159,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference image[j+i*(ny+2)] has unaligned access   [ stencil.c(284,11) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 4.000
+      remark #15417: vectorization support: number of FP up converts: single precision to double precision 1   [ stencil.c(281,18) ]
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at stencil.c(282,3) inlined into stencil.c(159,5)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at stencil.c(289,3) inlined into stencil.c(159,5)
+   remark #25095: Loop Interchange not done due to: User Function Inside Loop Nest
+   remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+   remark #15382: vectorization support: call to function fputc(int, FILE *) cannot be vectorized   [ stencil.c(291,7) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:fputc(int, FILE *) (291:7) and call:fputc(int, FILE *) (291:7)
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:fputc(int, FILE *) (291:7) and call:fputc(int, FILE *) (291:7)
+
+   LOOP BEGIN at stencil.c(290,5) inlined into stencil.c(159,5)
+      remark #15527: loop was not vectorized: function call to fputc(int, FILE *) cannot be vectorized   [ stencil.c(291,7) ]
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+stencil.c(230,27):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (1, 0)
+stencil.c(230,27):remark #34050: adjacent dense (unit-strided stencil) loads seem unprofitable to optimize.
+stencil.c(230,27):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 4 }, step { 4 }, types { F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000007 }.
+stencil.c(230,27):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (1, 0)
+stencil.c(230,27):remark #34050: adjacent dense (unit-strided stencil) loads seem unprofitable to optimize.
+stencil.c(230,27):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 4 }, step { 4 }, types { F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000007 }.
+stencil.c(230,27):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (1, 0)
+stencil.c(230,27):remark #34050: adjacent dense (unit-strided stencil) loads seem unprofitable to optimize.
+stencil.c(230,27):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 4 }, step { 4 }, types { F32-V128, F32-V128, F32-V128 }, number of elements { 4 }, select mask { 0x000000007 }.
+stencil.c(230,27):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (1, 0)
+stencil.c(230,27):remark #34050: adjacent dense (unit-strided stencil) loads seem unprofitable to optimize.
+stencil.c(230,27):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 4 }, step { 4 }, types { F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000007 }.
+stencil.c(230,27):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (1, 0)
+stencil.c(230,27):remark #34050: adjacent dense (unit-strided stencil) loads seem unprofitable to optimize.
+stencil.c(230,27):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 4 }, step { 4 }, types { F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000007 }.
+stencil.c(230,27):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (1, 0)
+stencil.c(230,27):remark #34050: adjacent dense (unit-strided stencil) loads seem unprofitable to optimize.
+stencil.c(230,27):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 4 }, step { 4 }, types { F32-V128, F32-V128, F32-V128 }, number of elements { 4 }, select mask { 0x000000007 }.
+stencil.c(115,5):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (16, 0)
+stencil.c(121,5):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (16, 0)
+stencil.c(121,5):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (16, 0)
+stencil.c(115,5):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (16, 0)
+stencil.c(133,7):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to speed up library implementation
+stencil.c(133,7):remark #34014: optimization advice for memcpy: increase the source's alignment to 16 (and use __assume_aligned) to speed up library implementation
+stencil.c(133,7):remark #34026: call to memcpy implemented as a call to optimized library version
+stencil.c(121,5):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (16, 0)
+stencil.c(121,5):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (16, 0)
+stencil.c(24,1):remark #34051: REGISTER ALLOCATION : [main] stencil.c:24
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   30[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :     920
+            Global    :     338
+            Local     :     582
+        Regenerable   :      94
+        Spilled       :      99
+        
+    Routine stack
+        Variables     :     116 bytes*
+            Reads     :      44 [1.51e+01 ~ 0.3%]
+            Writes    :      16 [3.45e+00 ~ 0.1%]
+        Spills        :     752 bytes*
+            Reads     :     363 [2.86e+02 ~ 5.8%]
+            Writes    :     123 [5.26e+01 ~ 1.1%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: halo_exchange(float *__restrict__, float *__restrict__, float *__restrict__, int, int, int, int, int, int, MPI_Status)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (halo_exchange(float *__restrict__, float *__restrict__, float *__restrict__, int, int, int, int, int, int, MPI_Status)) [3/8=37.5%] stencil.c(173,1)
+  -> EXTERN: (184,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
+  -> EXTERN: (203,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at stencil.c(178,5)
+<Peeled loop for vectorization>
+   remark #25015: Estimate of max trip count of loop=3
+LOOP END
+
+LOOP BEGIN at stencil.c(178,5)
+   remark #15389: vectorization support: reference sendbuf[i] has unaligned access   [ stencil.c(180,7) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <section[i*(local_ncols+2)+1]>, stride is unknown to compiler   [ stencil.c(180,20) ]
+   remark #15305: vectorization support: vector length 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.556
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15452: unmasked strided loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 5 
+   remark #15477: vector cost: 4.500 
+   remark #15478: estimated potential speedup: 1.100 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at stencil.c(178,5)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at stencil.c(190,7)
+<Peeled loop for vectorization>
+   remark #25015: Estimate of max trip count of loop=15
+LOOP END
+
+LOOP BEGIN at stencil.c(190,7)
+   remark #15389: vectorization support: reference recvbuf[i] has unaligned access   [ stencil.c(192,60) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <section[i*(local_ncols+2)+local_ncols+1]>, stride is unknown to compiler   [ stencil.c(192,9) ]
+   remark #15305: vectorization support: vector length 16
+   remark #15309: vectorization support: normalized vectorization overhead 0.135
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15453: unmasked strided stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 5 
+   remark #15477: vector cost: 4.620 
+   remark #15478: estimated potential speedup: 1.060 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at stencil.c(190,7)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at stencil.c(197,5)
+<Peeled loop for vectorization>
+   remark #25015: Estimate of max trip count of loop=3
+LOOP END
+
+LOOP BEGIN at stencil.c(197,5)
+   remark #15389: vectorization support: reference sendbuf[i] has unaligned access   [ stencil.c(199,7) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <section[i*(local_ncols+2)+local_ncols]>, stride is unknown to compiler   [ stencil.c(199,20) ]
+   remark #15305: vectorization support: vector length 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.556
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15452: unmasked strided loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 5 
+   remark #15477: vector cost: 4.500 
+   remark #15478: estimated potential speedup: 1.100 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at stencil.c(197,5)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at stencil.c(209,7)
+<Peeled loop for vectorization>
+   remark #25015: Estimate of max trip count of loop=15
+LOOP END
+
+LOOP BEGIN at stencil.c(209,7)
+   remark #15389: vectorization support: reference recvbuf[i] has unaligned access   [ stencil.c(211,42) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <section[i*(local_ncols+2)]>, stride is unknown to compiler   [ stencil.c(211,9) ]
+   remark #15305: vectorization support: vector length 16
+   remark #15309: vectorization support: normalized vectorization overhead 0.135
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15453: unmasked strided stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 5 
+   remark #15477: vector cost: 4.620 
+   remark #15478: estimated potential speedup: 1.060 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at stencil.c(209,7)
+<Remainder loop for vectorization>
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+stencil.c(173,1):remark #34051: REGISTER ALLOCATION : [halo_exchange] stencil.c:173
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   19[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm4]
+        
+    Routine temporaries
+        Total         :     207
+            Global    :      87
+            Local     :     120
+        Regenerable   :      10
+        Spilled       :      21
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      96 bytes*
+            Reads     :      35 [2.43e+01 ~ 3.3%]
+            Writes    :      23 [1.84e+01 ~ 2.5%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: stencil(const int, const int, const int, const int, float *__restrict__, float *__restrict__)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (stencil(const int, const int, const int, const int, float *__restrict__, float *__restrict__)) [4/8=50.0%] stencil.c(218,1)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at stencil.c(225,3)
+   remark #15329: vectorization support: irregularly indexed store was emulated for the variable <tmp_image[cell]>, part of index is nonlinearly computed   [ stencil.c(230,7) ]
+   remark #15415: vectorization support: irregularly indexed load was generated for the variable <image[cell]>, part of index is nonlinearly computed   [ stencil.c(230,27) ]
+   remark #15415: vectorization support: irregularly indexed load was generated for the variable <image[cell-local_ncols+2]>, part of index is nonlinearly computed   [ stencil.c(230,50) ]
+   remark #15415: vectorization support: irregularly indexed load was generated for the variable <image[cell+local_ncols+2]>, part of index is nonlinearly computed   [ stencil.c(230,84) ]
+   remark #15415: vectorization support: irregularly indexed load was generated for the variable <image[cell-1]>, part of index is nonlinearly computed   [ stencil.c(230,118) ]
+   remark #15415: vectorization support: irregularly indexed load was generated for the variable <image[cell+1]>, part of index is nonlinearly computed   [ stencil.c(230,137) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15309: vectorization support: normalized vectorization overhead 0.013
+   remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+   remark #15462: unmasked indexed (or gather) loads: 5 
+   remark #15463: unmasked indexed (or scatter) stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 112 
+   remark #15477: vector cost: 77.120 
+   remark #15478: estimated potential speedup: 1.440 
+   remark #15482: vectorized math library calls: 2 
+   remark #15486: divides: 1 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at stencil.c(225,3)
+<Remainder loop for vectorization>
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+stencil.c(230,118):remark #34072: adjacent sparse (indexed) loads seem unprofitable to optimize. Details: types { F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000005 }.
+stencil.c(218,1):remark #34051: REGISTER ALLOCATION : [stencil] stencil.c:218
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   29[ rax rdx rcx rsi rdi r8-r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :     124
+            Global    :      25
+            Local     :      99
+        Regenerable   :      13
+        Spilled       :       4
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      24 bytes*
+            Reads     :       3 [2.70e+00 ~ 0.3%]
+            Writes    :       3 [2.70e+00 ~ 0.3%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: output_image(const char *, const int, const int, const int, const int, float *__restrict__)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (output_image(const char *, const int, const int, const int, const int, float *__restrict__)) [5/8=62.5%] stencil.c(267,1)
+  -> EXTERN: (269,14) fopen(const char *__restrict__, const char *__restrict__)
+  -> EXTERN: (271,5) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (272,5) exit(int)
+  -> EXTERN: (276,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (291,7) fputc(int, FILE *)
+  -> EXTERN: (296,3) fclose(FILE *)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at stencil.c(283,5)
+   remark #25444: Loopnest Interchanged: ( 1 2 ) --> ( 2 1 )
+   remark #15542: loop was not vectorized: inner loop was already vectorized   [ stencil.c(283,5) ]
+
+   LOOP BEGIN at stencil.c(282,3)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=3
+   LOOP END
+
+   LOOP BEGIN at stencil.c(282,3)
+      remark #15388: vectorization support: reference image[j+i*height] has aligned access   [ stencil.c(284,11) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 1.208
+      remark #15417: vectorization support: number of FP up converts: single precision to double precision 1   [ stencil.c(281,18) ]
+      remark #15301: PERMUTED LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 9 
+      remark #15477: vector cost: 1.500 
+      remark #15478: estimated potential speedup: 4.740 
+      remark #15487: type converts: 1 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at stencil.c(282,3)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference image[j+i*height] has unaligned access   [ stencil.c(284,11) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 4.000
+      remark #15417: vectorization support: number of FP up converts: single precision to double precision 1   [ stencil.c(281,18) ]
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at stencil.c(282,3)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at stencil.c(289,3)
+   remark #25095: Loop Interchange not done due to: User Function Inside Loop Nest
+   remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+   remark #15382: vectorization support: call to function fputc(int, FILE *) cannot be vectorized   [ stencil.c(291,7) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:fputc(int, FILE *) (291:7) and call:fputc(int, FILE *) (291:7)
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:fputc(int, FILE *) (291:7) and call:fputc(int, FILE *) (291:7)
+
+   LOOP BEGIN at stencil.c(290,5)
+      remark #15527: loop was not vectorized: function call to fputc(int, FILE *) cannot be vectorized   [ stencil.c(291,7) ]
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+stencil.c(267,1):remark #34051: REGISTER ALLOCATION : [output_image] stencil.c:267
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   21[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm6]
+        
+    Routine temporaries
+        Total         :     108
+            Global    :      37
+            Local     :      71
+        Regenerable   :      13
+        Spilled       :      10
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      40 bytes*
+            Reads     :       5 [6.18e+01 ~ 3.8%]
+            Writes    :       9 [2.80e+01 ~ 1.7%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: wtime(void)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (wtime(void)) [6/8=75.0%] stencil.c(301,1)
+  -> EXTERN: (303,3) gettimeofday(struct timeval *__restrict__, __timezone_ptr_t)
+
+
+    Report from: Code generation optimizations [cg]
+
+stencil.c(301,1):remark #34051: REGISTER ALLOCATION : [wtime] stencil.c:301
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    4[ rsi rdi zmm0-zmm1]
+        
+    Routine temporaries
+        Total         :      13
+            Global    :       6
+            Local     :       7
+        Regenerable   :       3
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :      16 bytes*
+            Reads     :       2 [2.00e+00 ~ 9.5%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: calc_ncols_from_rank(int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (calc_ncols_from_rank(int, int, int)) [7/8=87.5%] stencil.c(308,1)
+
+
+    Report from: Code generation optimizations [cg]
+
+stencil.c(308,1):remark #34051: REGISTER ALLOCATION : [calc_ncols_from_rank] stencil.c:308
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    4[ rax rdx rsi rdi]
+        
+    Routine temporaries
+        Total         :      21
+            Global    :      10
+            Local     :      11
+        Regenerable   :       0
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: init_image(const int, const int, const int, const int, float *__restrict__, float *__restrict__)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (init_image(const int, const int, const int, const int, float *__restrict__, float *__restrict__)) [8/8=100.0%] stencil.c(238,1)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at stencil.c(240,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*height] (242:7) and image[j+i*height] (242:7)
+   remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*height] (242:7) and image[j+i*height] (242:7)
+
+   LOOP BEGIN at stencil.c(241,5)
+   <Multiversioned v1>
+      remark #25235: Loop multiversioned to eliminate assumed dependencies
+      remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 2
+      remark #15309: vectorization support: normalized vectorization overhead 0.333
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 7 
+      remark #15477: vector cost: 1.500 
+      remark #15478: estimated potential speedup: 4.410 
+      remark #15488: --- end vector cost summary ---
+      remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
+   LOOP END
+
+   LOOP BEGIN at stencil.c(241,5)
+   <Multiversioned v2>
+      remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <image[j+i*height]>, stride is unknown to compiler   [ stencil.c(242,7) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_image[j+i*height]>, stride is unknown to compiler   [ stencil.c(243,7) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 2
+      remark #15453: unmasked strided stores: 2 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 7 
+      remark #15477: vector cost: 11.000 
+      remark #15478: estimated potential speedup: 0.630 
+      remark #15488: --- end vector cost summary ---
+      remark #25439: unrolled with remainder by 2  
+   LOOP END
+
+   LOOP BEGIN at stencil.c(241,5)
+   <Remainder, Multiversioned v2>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at stencil.c(249,3)
+   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+   remark #25452: Original Order found to be proper, but by a close margin
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*height] (256:13) and image[j+i*height] (256:13)
+   remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*height] (256:13) and image[j+i*height] (256:13)
+
+   LOOP BEGIN at stencil.c(250,5)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*height] (256:13) and image[j+i*height] (256:13)
+      remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*height] (256:13) and image[j+i*height] (256:13)
+
+      LOOP BEGIN at stencil.c(254,9)
+         remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+         remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+         remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*height] (256:13) and image[j+i*height] (256:13)
+         remark #15346: vector dependence: assumed OUTPUT dependence between image[j+i*height] (256:13) and image[j+i*height] (256:13)
+
+         LOOP BEGIN at stencil.c(255,11)
+         <Multiversioned v1>
+            remark #25235: Loop multiversioned to eliminate assumed dependencies
+            remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+            remark #15305: vectorization support: vector length 4
+            remark #15399: vectorization support: unroll factor set to 2
+            remark #15309: vectorization support: normalized vectorization overhead 0.333
+            remark #15475: --- begin vector cost summary ---
+            remark #15476: scalar cost: 4 
+            remark #15477: vector cost: 0.750 
+            remark #15478: estimated potential speedup: 5.000 
+            remark #15488: --- end vector cost summary ---
+            remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
+         LOOP END
+
+         LOOP BEGIN at stencil.c(255,11)
+         <Multiversioned v2>
+            remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+            remark #15329: vectorization support: non-unit strided store was emulated for the variable <image[j+i*height]>, stride is unknown to compiler   [ stencil.c(256,13) ]
+            remark #15305: vectorization support: vector length 4
+            remark #15399: vectorization support: unroll factor set to 2
+            remark #15453: unmasked strided stores: 1 
+            remark #15475: --- begin vector cost summary ---
+            remark #15476: scalar cost: 4 
+            remark #15477: vector cost: 5.500 
+            remark #15478: estimated potential speedup: 0.720 
+            remark #15488: --- end vector cost summary ---
+            remark #25439: unrolled with remainder by 2  
+         LOOP END
+
+         LOOP BEGIN at stencil.c(255,11)
+         <Remainder, Multiversioned v2>
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+stencil.c(238,1):remark #34051: REGISTER ALLOCATION : [init_image] stencil.c:238
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   15[ rax rdx rcx rbx rbp rsi rdi r8-r15]
+        
+    Routine temporaries
+        Total         :     117
+            Global    :      49
+            Local     :      68
+        Regenerable   :       2
+        Spilled       :      28
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :     168 bytes*
+            Reads     :      34 [2.69e+02 ~ 7.1%]
+            Writes    :      23 [7.96e+01 ~ 2.1%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
