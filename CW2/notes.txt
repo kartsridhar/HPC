@@ -1,0 +1,13 @@
+1. Run between mpicc and mpiicc, choose the latter coz it is naturally faster
+2. Find alternative compiler to -fast -> -O3 -xHost
+3. Convert all pointers on the image to restrict -> tells the compiler that the respective pointer is the only way
+    to access teh object pointed by it and compiler does not need to add any additional checks.
+
+    It is essentially a way for us to inform about any optimisations that compiler can make.
+
+    Does not significantly change the performance of the code
+
+4. Use register variables as counters for innter loops. Variables stored in registers can be accessed
+    much faster than the variables stored in memory
+
+5. 

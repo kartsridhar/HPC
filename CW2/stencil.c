@@ -10,13 +10,13 @@
 #define MASTER 0
 
 void stencil(const int local_ncols, const int local_nrows, const int width, const int height,
-             float* image, float* tmp_image);
+             float * restrict image, float * restrict tmp_image);
 void init_image(const int nx, const int ny, const int width, const int height,
-                float* image, float* tmp_image);
+                float * restrict image, float * restrict tmp_image);
 void output_image(const char* file_name, const int nx, const int ny,
-                  const int width, const int height, float* image);
+                  const int width, const int height, float * restrict image);
 double wtime(void);
-void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int right, 
+void halo_exchange(float * restrict sendbuf, float * restrict recvbuf, float * restrict section, int left, int right, 
                 int local_ncols, int local_nrows, int size, int rank, MPI_Status status);
 int calc_ncols_from_rank(int rank, int size, int ny);
 
@@ -169,10 +169,13 @@ int main(int argc, char* argv[])
   free(tmp_section);
 }
 
-void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int right, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
-{
+void halo_exchange(float * restrict sendbuf, float * restrict recvbuf, float * restrict section, int left, int right, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
+{   
+    // Register variable for iterating through the loops
+    register int i;
+
     // Packing the send buffer with the left column
-    for(int i = 0; i < local_nrows + 2; ++i)
+    for(i = 0; i < local_nrows + 2; ++i)
     {
       sendbuf[i] = section[i * (local_ncols + 2) + 1];
     }
@@ -184,14 +187,14 @@ void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int
     // Unpacking the values from the receive buffer into the section
     if(rank != size - 1)
     {
-      for(int i = 0; i < local_nrows + 2; ++i)
+      for(i = 0; i < local_nrows + 2; ++i)
       {
         section[i * (local_ncols + 2) + local_ncols + 1] = recvbuf[i];
       }
     }
 
     // Packing the send buffer with the right column
-    for(int i = 0; i < local_nrows + 2; ++i)
+    for(i = 0; i < local_nrows + 2; ++i)
     {
       sendbuf[i] = section[i * (local_ncols + 2) + local_ncols];
     }     
@@ -203,7 +206,7 @@ void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int
     // Unpacking the values from the receive buffer into the section
     if(rank != MASTER)
     {
-      for(int i = 0; i < local_nrows + 2; ++i)
+      for(i = 0; i < local_nrows + 2; ++i)
       {
         section[i * (local_ncols + 2)] = recvbuf[i];
       }
@@ -211,12 +214,17 @@ void halo_exchange(float* sendbuf, float* recvbuf, float* section, int left, int
 }
 
 void stencil(const int local_ncols, const int local_nrows, const int width, const int height,
-             float* image, float* tmp_image)
-{
+             float * restrict image, float * restrict tmp_image)
+{ 
+
+  // Register variables for iterating through the loops
+  register int i;
+  register int j;
+
   #pragma omp simd collapse(2)
-  for (int i = 1; i < local_nrows + 1; ++i)
+  for (i = 1; i < local_nrows + 1; ++i)
   {
-    for (int j = 1; j < local_ncols + 1; ++j)
+    for (j = 1; j < local_ncols + 1; ++j)
     {
       int cell = j + i * (local_ncols + 2);
       tmp_image[cell] = ((image[cell] * 6.0f) + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]))/10.0f;
@@ -226,7 +234,7 @@ void stencil(const int local_ncols, const int local_nrows, const int width, cons
 
 // Create the input image
 void init_image(const int nx, const int ny, const int width, const int height,
-                float* image, float* tmp_image)
+                float * restrict image, float * restrict tmp_image)
 {
   // Zero everything
   for (int j = 0; j < ny + 2; ++j) {
@@ -255,7 +263,7 @@ void init_image(const int nx, const int ny, const int width, const int height,
 
 // Routine to output the image in Netpbm grayscale binary image format
 void output_image(const char* file_name, const int nx, const int ny,
-                  const int width, const int height, float* image)
+                  const int width, const int height, float * restrict image)
 {
   // Open output file
   FILE* fp = fopen(file_name, "w");
