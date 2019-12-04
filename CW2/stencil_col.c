@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
 
   float* section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
   float* tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
-
+  
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
 

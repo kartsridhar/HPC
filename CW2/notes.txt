@@ -15,4 +15,7 @@
 
 6. Scale up everything in stencil by 10, divide the whole thing by 10 eventually. Instead of 0.6, do 6 and then divide by 10.
 
-7. 
+7. Tried data aligning by using _mm_malloc and __assume_aligned to 
+    ensure only 64 bits of information is passed in. Slowed down the time for all.
+
+8.

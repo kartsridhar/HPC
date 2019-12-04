@@ -65,14 +65,18 @@ int main(int argc, char* argv[])
   right = (rank + 1) % size;
 
   // Allocate the image
-  float* image = malloc(sizeof(float) * width * height);
-  float* tmp_image = malloc(sizeof(float) * width * height);
+//   float* image = malloc(sizeof(float) * width * height);
+//   float* tmp_image = malloc(sizeof(float) * width * height);
+  float* image = (float *)_mm_malloc(sizeof(float) * width * height, 64);
+  float* tmp_image = (float *)_mm_malloc(sizeof(float) * width * height, 64);
 
   local_nrows = nx;
   local_ncols = calc_ncols_from_rank(rank, size, ny);
 
-  sendbuf = (float*) malloc(sizeof(float) * (local_nrows + 2));
-  recvbuf = (float*) malloc(sizeof(float) * (local_nrows + 2));
+//   sendbuf = (float*) malloc(sizeof(float) * (local_nrows + 2));
+//   recvbuf = (float*) malloc(sizeof(float) * (local_nrows + 2));
+  sendbuf = (float *) _mm_malloc(sizeof(float) * (local_nrows + 2), 64);
+  recvbuf = (float *) _mm_malloc(sizeof(float) * (local_nrows + 2), 64);
 
   /* check whether the initialisation was successful */
   if ( local_ncols < 1 )
@@ -83,9 +87,11 @@ int main(int argc, char* argv[])
 
   int section_ncols = local_ncols + 2;
 
-  float* section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
-  float* tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
-  
+//   float* section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
+//   float* tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
+  float* section = (float *) _mm_malloc(sizeof(float) * (local_nrows + 2) * section_ncols, 64);
+  float* tmp_section = (float *) _mm_malloc(sizeof(float) * (local_nrows + 2) * section_ncols, 64);
+
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
 
@@ -161,12 +167,18 @@ int main(int argc, char* argv[])
 
   MPI_Finalize();
 
-  free(image);
-  free(tmp_image);
-  free(sendbuf);
-  free(recvbuf);
-  free(section);
-  free(tmp_section);
+//   free(image);
+//   free(tmp_image);
+//   free(sendbuf);
+//   free(recvbuf);
+//   free(section);
+//   free(tmp_section);
+  _mm_free(image);
+  _mm_free(tmp_image);
+  _mm_free(sendbuf);
+  _mm_free(recvbuf);
+  _mm_free(section);
+  _mm_free(tmp_section);
 }
 
 void halo_exchange(float * restrict sendbuf, float * restrict recvbuf, float * restrict section, int left, int right, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
@@ -221,9 +233,19 @@ void stencil(const int local_ncols, const int local_nrows, const int width, cons
   register int i;
   register int j;
 
-  #pragma omp simd collapse(2)
+//   #pragma omp simd collapse(2)
+//   for (i = 1; i < local_nrows + 1; ++i)
+//   {
+//     for (j = 1; j < local_ncols + 1; ++j)
+//     {
+//       int cell = j + i * (local_ncols + 2);      
+//       tmp_image[cell] = ((image[cell] * 6.0f) + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]))/10.0f;
+//     }
+//   }
   for (i = 1; i < local_nrows + 1; ++i)
   {
+    __assume_aligned(image, 64);
+    __assume_aligned(tmp_image, 64);
     for (j = 1; j < local_ncols + 1; ++j)
     {
       int cell = j + i * (local_ncols + 2);      

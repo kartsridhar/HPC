@@ -18,7 +18,7 @@ void output_image(const char* file_name, const int nx, const int ny,
 double wtime(void);
 void halo_exchange(float * restrict sendbuf, float * restrict recvbuf, float * restrict section, int left, int right, 
                 int local_ncols, int local_nrows, int size, int rank, MPI_Status status);
-int calc_ncols_from_rank(int rank, int size, int ny);
+int calc_nrows_from_rank(int rank, int size, int nx);
 
 int main(int argc, char* argv[])
 {
@@ -61,31 +61,31 @@ int main(int argc, char* argv[])
   ** determine process ranks to the left and right of rank
   ** respecting periodic boundary conditions
   */
-  left = (rank == MASTER) ? (rank + size - 1) : (rank - 1);
-  right = (rank + 1) % size;
+  up = (rank == MASTER) ? (rank + size - 1) : (rank - 1);
+  down = (rank + 1) % size;
 
   // Allocate the image
   float* image = malloc(sizeof(float) * width * height);
   float* tmp_image = malloc(sizeof(float) * width * height);
 
-  local_nrows = nx;
-  local_ncols = calc_ncols_from_rank(rank, size, ny);
+  local_nrows = calc_nrows_from_rank(rank, size, nx);
+  local_ncols = ny;
 
-  sendbuf = (float*) malloc(sizeof(float) * (local_nrows + 2));
-  recvbuf = (float*) malloc(sizeof(float) * (local_nrows + 2));
+  sendbuf = (float*) malloc(sizeof(float) * (local_ncols + 2));
+  recvbuf = (float*) malloc(sizeof(float) * (local_ncols + 2));
 
   /* check whether the initialisation was successful */
-  if ( local_ncols < 1 )
+  if ( local_nrows < 1 )
   {
-    fprintf(stderr,"Error: too many processes:- local_ncols < 1\n");
+    fprintf(stderr,"Error: too many processes:- local_nrows < 1\n");
     MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
   }
 
-  int section_ncols = local_ncols + 2;
+  int section_nrows = local_nrows + 2;
 
-  float* section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
-  float* tmp_section = malloc(sizeof(float) * (local_nrows + 2) * section_ncols);
-  
+  float* section = malloc(sizeof(float) * section_nrows * (local_ncols + 2));
+  float* tmp_section = malloc(sizeof(float) * section_nrows * (local_ncols + 2));
+
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
 
@@ -304,16 +304,16 @@ double wtime(void)
   return tv.tv_sec + tv.tv_usec * 1e-6;
 }
 
-int calc_ncols_from_rank(int rank, int size, int ny)
+int calc_nrows_from_rank(int rank, int size, int nx)
 {
-  int ncols;
+  int nrows;
 
-  ncols = ny / size;       /* integer division */
-  if ((ny % size) != 0) {  /* if there is a remainder */
+  nrows = nx / size;       /* integer division */
+  if ((nx % size) != 0) {  /* if there is a remainder */
     if (rank == size - 1)
-      ncols += ny % size;  /* add remainder to last rank */
+      nrows += nx % size;  /* add remainder to last rank */
   }
 
-  return ncols;
+  return nrows;
 }
 
