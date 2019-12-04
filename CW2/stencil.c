@@ -136,12 +136,12 @@ int main(int argc, char* argv[])
       {
         int offset = r * local_nrows;       // offset for each rank when storing back to image
 
-        MPI_Recv(&image[(i + offset) * width], local_ncols + 1, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+        MPI_Recv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
       }
     }
     else
     {
-      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols + 1, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
   }
 
@@ -166,10 +166,10 @@ int main(int argc, char* argv[])
 void halo_exchange(float * restrict section, int up, int down, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
 {   
     // Sending to up first then receive to the down
-    MPI_Sendrecv(&section[(local_ncols + 2) + 1], local_ncols + 1, MPI_FLOAT, up, 0, &section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols + 1, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &status);
+    MPI_Sendrecv(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, &section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &status);
 
     // Send to down then receive from up
-    MPI_Sendrecv(&section[local_nrows * (local_ncols + 2) + 1], local_ncols + 1, MPI_FLOAT, down, 0, &section[1], local_ncols + 1, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &status);
+    MPI_Sendrecv(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, &section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &status);
 }
 
 void stencil(const int local_nrows, const int local_ncols, const int width, const int height,

@@ -54,11 +54,11 @@ INLINE REPORT: (main(int, char **)) [1/8=12.5%] stencil.c(24,1)
   -> INLINE: (87,3) init_image(const int, const int, const int, const int, float *__restrict__, float *__restrict__) (isz = 112) (sz = 127)
   -> INLINE: (108,16) wtime(void) (isz = 8) (sz = 13)
     -> EXTERN: (262,3) gettimeofday(struct timeval *__restrict__, __timezone_ptr_t)
-  -> INLINE: (112,5) halo_exchange(float *__restrict__, int, int, int, int, int, int, MPI_Status) (isz = 40) (sz = 59)
+  -> INLINE: (112,5) halo_exchange(float *__restrict__, int, int, int, int, int, int, MPI_Status) (isz = 36) (sz = 55)
     -> EXTERN: (169,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
     -> EXTERN: (172,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
   -> INLINE: (115,5) stencil(const int, const int, const int, const int, float *__restrict__, float *__restrict__) (isz = 61) (sz = 76)
-  -> INLINE: (118,5) halo_exchange(float *__restrict__, int, int, int, int, int, int, MPI_Status) (isz = 40) (sz = 59)
+  -> INLINE: (118,5) halo_exchange(float *__restrict__, int, int, int, int, int, int, MPI_Status) (isz = 36) (sz = 55)
     -> EXTERN: (169,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
     -> EXTERN: (172,5) MPI_Sendrecv(const void *, int, MPI_Datatype, int, int, void *, int, MPI_Datatype, int, int, MPI_Comm, MPI_Status *)
   -> INLINE: (121,5) stencil(const int, const int, const int, const int, float *__restrict__, float *__restrict__) (isz = 61) (sz = 76)
@@ -457,19 +457,19 @@ stencil.c(24,1):remark #34051: REGISTER ALLOCATION : [main] stencil.c:24
         Assigned     :   30[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm15]
         
     Routine temporaries
-        Total         :     749
-            Global    :     272
+        Total         :     747
+            Global    :     270
             Local     :     477
         Regenerable   :      96
-        Spilled       :      97
+        Spilled       :      95
         
     Routine stack
         Variables     :     116 bytes*
             Reads     :      24 [1.14e+01 ~ 0.3%]
             Writes    :       4 [0.00e+00 ~ 0.0%]
-        Spills        :     736 bytes*
-            Reads     :     242 [2.31e+02 ~ 5.5%]
-            Writes    :     141 [5.77e+01 ~ 1.4%]
+        Spills        :     720 bytes*
+            Reads     :     233 [2.25e+02 ~ 5.4%]
+            Writes    :     141 [6.53e+01 ~ 1.6%]
     
     Notes
     
@@ -499,9 +499,9 @@ stencil.c(167,1):remark #34051: REGISTER ALLOCATION : [halo_exchange] stencil.c:
         Assigned     :   15[ rax rdx rcx rbx rbp rsi rdi r8-r15]
         
     Routine temporaries
-        Total         :      51
+        Total         :      50
             Global    :      17
-            Local     :      34
+            Local     :      33
         Regenerable   :       8
         Spilled       :      10
         
