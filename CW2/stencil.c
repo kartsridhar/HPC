@@ -4,6 +4,7 @@
 #include "mpi.h"
 #include "omp.h"
 #include <string.h>
+#include <math.h>
 
 // Define output file name
 #define OUTPUT_FILE "stencil.pgm"
@@ -85,6 +86,8 @@ int main(int argc, char* argv[])
 
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
+  
+  int chunk = floor(nx/size);
 
   // Initialising the sections
   for(int i = 0; i < local_nrows + 2; i++) 
@@ -92,9 +95,9 @@ int main(int argc, char* argv[])
     for(int j = 0; j < local_ncols + 2; j++) 
     {
       if (j > 0 && j < (local_ncols + 1) && i > 0 && i < (local_nrows + 1))
-      {
-        section[i * (local_ncols + 2) + j] = image[( i * width + j + (nx/size * rank * width) )];
-        tmp_section[i * (local_ncols + 2) + j] = image[( i * width + j + (nx/size * rank * width) )];                 
+      { 
+        section[i * (local_ncols + 2) + j] = image[( i * width + j + (chunk * rank * width) )];
+        tmp_section[i * (local_ncols + 2) + j] = image[( i * width + j + (chunk * rank * width) )];                 
       }
       else
       {
@@ -123,26 +126,30 @@ int main(int argc, char* argv[])
   double toc = wtime();
 
   // Gathering
-  for(int i = 1; i < local_nrows + 1; i++)
+  if(rank == MASTER)
   {
-    if(rank == MASTER)
+    for(int i = 1; i < local_nrows + 1; i++)
     {
       for(int j = 1; j < local_ncols + 1 ; j++)
       {
         image[(i * width) + j] = section[i * (local_ncols + 2) + j];
       }
+    }
 
-      for(int r = 1; r < size; r++)
+    for(int r = 1; r < size; r++)
+    { 
+      int offset = r * local_nrows;       // offset for each rank when storing back to image
+      int nrows = calc_nrows_from_rank(r, size, nx);
+      for(int i = 1; i < nrows + 1; i++)
       {
-        int offset = r * local_nrows;       // offset for each rank when storing back to image
-
         MPI_Recv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
       }
     }
-    else
-    {
+  }
+  else
+  {
+    for(int i = 1; i < local_nrows + 1; i++)
       MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
-    }
   }
 
   // Output if rank is MASTER
