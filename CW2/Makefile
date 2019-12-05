@@ -6,7 +6,7 @@ CC=mpiicc
 
 CFLAGS=-Wall
 
-OFLAGS=-O3 -xHost
+OFLAGS=-O3 -xHOST
 
 OMP=-fopenmp
 
@@ -15,7 +15,7 @@ EXES=stencil.exe
 REPORT=-qopt-report=5
 
 stencil.exe: stencil.c
-	$(CC) -std=c99 $(OMP) $(CFLAGS) $(OFLAGS) -o $@ $^
+	$(CC) -std=c99 $(CFLAGS) $(OFLAGS) -o $@ $^
 
 all: $(EXES)
 
