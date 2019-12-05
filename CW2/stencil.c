@@ -120,61 +120,47 @@ int main(int argc, char* argv[])
   for(int t = 0; t < niters; ++t) 
   { 
     // Halo Exchange from left to right followed by right to left for section
-    if(up != -1)
-      MPI_Isend(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &send_request1);
-    if(down != -1)
-      MPI_Irecv(&section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recv_request1);
+    MPI_Isend(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &send_request1);
+    MPI_Irecv(&section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recv_request1);
     
     // Sending to down, receiving from up
-    if(down != -1)
-      MPI_Isend(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &send_request2);
-    if(up != -1)
-      MPI_Irecv(&section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &recv_request2);
+    MPI_Isend(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &send_request2);
+    MPI_Irecv(&section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &recv_request2);
 
-    // Call stencil from section to tmp_section
+    // Call stencil from section to tmp_section in the middle
     stencil_main(local_nrows, local_ncols, section, tmp_section);
 
     // Waiting
-    if(up != -1)
-      MPI_Wait(&send_request1, &status);
-    if(down != -1)
-      MPI_Wait(&recv_request1, &status);
+    MPI_Wait(&send_request1, &status);
+    MPI_Wait(&recv_request1, &status);
 
     // Waiting
-    if(down != -1)
-      MPI_Wait(&send_request2, &status);
-    if(up != -1)
-      MPI_Wait(&recv_request2, &status);
+    MPI_Wait(&send_request2, &status);
+    MPI_Wait(&recv_request2, &status);
 
-    stencil_out(local_nrows, local_ncols, tmp_section, section);
+    // Call stencil from section to tmp_section on halo
+    stencil_out(local_nrows, local_ncols, section, tmp_section);
 
     // Halo Exchange from left to right followed by right to left for tmp_section
-    if(up != -1)
-      MPI_Isend(&tmp_section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &send_request1);
-    if(down != -1)
-      MPI_Irecv(&tmp_section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recv_request1);
+    MPI_Isend(&tmp_section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &send_request1);
+    MPI_Irecv(&tmp_section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recv_request1);
 
     // Sending to down, receiving from up
-    if(down != -1)
-      MPI_Isend(&tmp_section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &send_request2);
-    if(up != -1)
-      MPI_Irecv(&tmp_section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &recv_request2);
+    MPI_Isend(&tmp_section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &send_request2);
+    MPI_Irecv(&tmp_section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &recv_request2);
 
-    // Call stencil from tmp_section to section
+    // Call stencil from tmp_section to section in the middle
     stencil_main(local_nrows, local_ncols, tmp_section, section);
 
     // Waiting
-    if(up != -1)
-      MPI_Wait(&send_request1, &status);
-    if(down != -1)
-      MPI_Wait(&recv_request1, &status);
+    MPI_Wait(&send_request1, &status);
+    MPI_Wait(&recv_request1, &status);
 
     // Waiting
-    if(down != -1)
-      MPI_Wait(&send_request2, &status);
-    if(up != -1)
-      MPI_Wait(&recv_request2, &status);
+    MPI_Wait(&send_request2, &status);
+    MPI_Wait(&recv_request2, &status);
 
+    // Call stencil from tmp_section to section on halo
     stencil_out(local_nrows, local_ncols, tmp_section, section);
   }
   double toc = wtime();
