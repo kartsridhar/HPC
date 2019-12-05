@@ -1,11 +1,11 @@
-Running on host compute084.bc4.acrc.priv
-Time is Thu Dec  5 00:53:37 GMT 2019
+Running on host compute085.bc4.acrc.priv
+Time is Thu Dec  5 09:51:14 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2851422
+Slurm job ID is 2852418
 
 This job runs on the following machines:
-compute[084-085]
+compute[085-086]
 
 ------------------------------------
- runtime: 1.281320 s
+ runtime: 0.373661 s
 ------------------------------------

@@ -18,7 +18,7 @@ void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float * restrict image);
 double wtime(void);
 void halo_exchange(float * restrict section, int up, int down, 
-                int local_ncols, int local_nrows, int size, int rank, MPI_Status status);
+                int local_ncols, int local_nrows, int size, int rank, MPI_Status status, MPI_Request send_request, MPI_Request recv_request, int ierr);
 int calc_nrows_from_rank(int rank, int size, int nx);
 
 int main(int argc, char* argv[])
@@ -40,6 +40,10 @@ int main(int argc, char* argv[])
   int size;               /* size of cohort, i.e. num processes started */
 
   MPI_Status status;     /* struct used by MPI_Recv */
+
+  MPI_Request send_request, recv_request;
+  int ierr;             // return value for asynchronous communication
+
   int up;              /* the rank of the process to the left */
   int down;             /* the rank of the process to the right */
   int local_nrows;       /* number of rows apportioned to this rank */
@@ -112,13 +116,13 @@ int main(int argc, char* argv[])
   for(int t = 0; t < niters; ++t) 
   {
     // Halo Exchange from left to right followed by right to left for section
-    halo_exchange(section, up, down, local_ncols, local_nrows, size, rank, status);
+    halo_exchange(section, up, down, local_ncols, local_nrows, size, rank, status, send_request, recv_request, ierr);
 
     // Call stencil from section to tmp_section
     stencil(local_nrows, local_ncols, width, height, section, tmp_section);
 
     // Halo Exchange from left to right followed by right to left for tmp_section
-    halo_exchange(tmp_section, up, down, local_ncols, local_nrows, size, rank, status);
+    halo_exchange(tmp_section, up, down, local_ncols, local_nrows, size, rank, status, send_request, recv_request, ierr);
 
     // Call stencil from tmp_section to section
     stencil(local_nrows, local_ncols, width, height, tmp_section, section);
@@ -142,14 +146,18 @@ int main(int argc, char* argv[])
       int nrows = calc_nrows_from_rank(r, size, nx);
       for(int i = 1; i < nrows + 1; i++)
       {
-        MPI_Recv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+        ierr = MPI_Irecv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &recv_request);
+        ierr = MPI_Wait(&recv_request, &status);
       }
     }
   }
   else
   {
     for(int i = 1; i < local_nrows + 1; i++)
-      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+    {
+      ierr = MPI_Isend(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD, &send_request);
+      ierr = MPI_Wait(&send_request, &status);
+    }
   }
 
   // Output if rank is MASTER
@@ -170,13 +178,25 @@ int main(int argc, char* argv[])
   _mm_free(tmp_section);
 }
 
-void halo_exchange(float * restrict section, int up, int down, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
+void halo_exchange(float * restrict section, int up, int down, int local_ncols, int local_nrows, int size, int rank, MPI_Status status, MPI_Request send_request, MPI_Request recv_request, int ierr)
 {   
-    // Sending to up first then receive to the down
-    MPI_Sendrecv(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, &section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &status);
+    // Testing with asynchronous
+    
+    // Sending to up first, then receiving from down
+    ierr = MPI_Isend(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &send_request);
+    ierr = MPI_Irecv(&section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recv_request);
 
-    // Send to down then receive from up
-    MPI_Sendrecv(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, &section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &status);
+    // Waiting
+    ierr = MPI_Wait(&send_request, &status);
+    ierr = MPI_Wait(&recv_request, &status);
+
+    // Sending to down, receiving from up
+    ierr = MPI_Isend(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &send_request);
+    ierr = MPI_Irecv(&section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &recv_request);
+
+    // Waiting
+    ierr = MPI_Wait(&send_request, &status);
+    ierr = MPI_Wait(&recv_request, &status);
 }
 
 void stencil(const int local_nrows, const int local_ncols, const int width, const int height,

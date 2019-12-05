@@ -18,4 +18,7 @@
 7. Tried data aligning by using _mm_malloc and __assume_aligned to 
     ensure only 64 bits of information is passed in. Slowed down the time for all.
 
-8. Tried row wise and data align with row wise
+8. Tried row wise and data align with row wise. Better than column wise
+
+9. Trying asynchronous communication. MPI_Isend and MPI_Irecv are non blocking. Function call returns before the 
+    communication is completed.
