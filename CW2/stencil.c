@@ -182,8 +182,7 @@ int main(int argc, char* argv[])
       int nrows = calc_nrows_from_rank(r, size, nx);
       for(int i = 1; i < nrows + 1; i++)
       {
-        MPI_Irecv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &recv_request);
-        MPI_Wait(&recv_request, &status);
+        MPI_Recv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
       }
     }
   }
@@ -191,8 +190,7 @@ int main(int argc, char* argv[])
   {
     for(int i = 1; i < local_nrows + 1; i++)
     {
-      MPI_Isend(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD, &send_request);
-      MPI_Wait(&send_request, &status);
+      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
     }
   }
 
