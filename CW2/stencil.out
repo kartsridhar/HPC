@@ -1,19 +1,15 @@
 Running on host compute084.bc4.acrc.priv
-Time is Wed Dec 11 16:01:44 GMT 2019
+Time is Wed Dec 11 17:37:57 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2896559
+Slurm job ID is 2897566
 
 This job runs on the following machines:
-compute[084,089]
+compute[084-085]
 
-srun: Warning: can't run 1 processes on 2 nodes, setting nnodes to 1
 ------------------------------------
- runtime for rank 0: 0.095528 s
-------------------------------------
-------------------------------------
- runtime for rank 0: 0.053638 s
+ runtime: 1.322697 s
 ------------------------------------
 ------------------------------------
- runtime for rank 0: 0.035918 s
+ runtime: 1.012662 s
 ------------------------------------
 All done
