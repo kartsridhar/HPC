@@ -25,10 +25,10 @@ echo
 # Enable using `srun` with Intel MPI
 export I_MPI_PMI_LIBRARY=/usr/lib64/libpmi.so
 
-for value in {55..56}
+for value in {1..14}
 do
     # Run the executable
-    srun -n $value ./stencil.exe 8000 8000 100
+    srun -n $value ./stencil.exe 1024 1024 100
 done
 
 echo All done
