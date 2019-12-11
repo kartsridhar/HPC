@@ -1,42 +1,42 @@
-Running on host compute085.bc4.acrc.priv
-Time is Wed Dec 11 18:47:13 GMT 2019
+Running on host compute088.bc4.acrc.priv
+Time is Wed Dec 11 19:24:32 GMT 2019
 Directory is /mnt/storage/home/ks17226/cw/HPC/CW2
-Slurm job ID is 2897933
+Slurm job ID is 2898037
 
 This job runs on the following machines:
-compute[085-086]
+compute[088,090]
 
 ------------------------------------
- runtime: 0.227686 s
+ runtime: 0.144061 s
 ------------------------------------
 ------------------------------------
- runtime: 0.166551 s
+ runtime: 0.134742 s
 ------------------------------------
 ------------------------------------
- runtime: 0.138783 s
+ runtime: 0.176230 s
 ------------------------------------
 ------------------------------------
- runtime: 0.245102 s
-------------------------------------
-srun: error: slurm_receive_msg: Socket timed out on send/recv operation
-srun: error: Unable to confirm allocation for job 2897933: Socket timed out on send/recv operation
-srun: Check SLURM_JOB_ID environment variable for expired or invalid job.
-------------------------------------
- runtime: 0.403691 s
+ runtime: 0.095941 s
 ------------------------------------
 ------------------------------------
- runtime: 0.169735 s
+ runtime: 0.145948 s
 ------------------------------------
 ------------------------------------
- runtime: 0.154006 s
+ runtime: 0.103245 s
 ------------------------------------
 ------------------------------------
- runtime: 0.149539 s
+ runtime: 0.122212 s
 ------------------------------------
 ------------------------------------
- runtime: 0.176085 s
+ runtime: 0.107287 s
 ------------------------------------
 ------------------------------------
- runtime: 0.201513 s
+ runtime: 0.264826 s
+------------------------------------
+------------------------------------
+ runtime: 0.142603 s
+------------------------------------
+------------------------------------
+ runtime: 0.128972 s
 ------------------------------------
 All done
