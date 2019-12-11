@@ -10,15 +10,15 @@
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
 
-void stencil_inner(const int local_nrows, const int local_ncols,
-             float * restrict image, float * restrict tmp_image);
-void stencil_halo(const int local_nrows, const int local_ncols,
+void stencil(const int local_nrows, const int local_ncols, const int width, const int height,
              float * restrict image, float * restrict tmp_image);
 void init_image(const int nx, const int ny, const int width, const int height,
-                float * restrict image);
+                float * restrict image, float * restrict tmp_image);
 void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float * restrict image);
 double wtime(void);
+void halo_exchange(float * restrict section, int up, int down, 
+                int local_ncols, int local_nrows, int size, int rank, MPI_Status status);
 int calc_nrows_from_rank(int rank, int size, int nx);
 
 int main(int argc, char* argv[])
@@ -40,9 +40,6 @@ int main(int argc, char* argv[])
   int size;               /* size of cohort, i.e. num processes started */
 
   MPI_Status status;     /* struct used by MPI_Recv */
-
-  MPI_Request requests[4];
-
   int up;              /* the rank of the process to the left */
   int down;             /* the rank of the process to the right */
   int local_nrows;       /* number of rows apportioned to this rank */
@@ -69,7 +66,8 @@ int main(int argc, char* argv[])
   if(rank == size - 1) down = MPI_PROC_NULL;
 
   // Allocate the image
-  float* image = (float *)_mm_malloc(sizeof(float) * width * height, 64);
+  float* image = malloc(sizeof(float) * width * height);
+  float* tmp_image = malloc(sizeof(float) * width * height);
 
   local_nrows = calc_nrows_from_rank(rank, size, nx);
   local_ncols = ny;
@@ -83,11 +81,11 @@ int main(int argc, char* argv[])
 
   int section_nrows = local_nrows + 2;
 
-  float* section = (float *) _mm_malloc(sizeof(float) * section_nrows * (local_ncols + 2), 64);
-  float* tmp_section = (float *) _mm_malloc(sizeof(float) * section_nrows * (local_ncols + 2), 64);
+  float* section = malloc(sizeof(float) * section_nrows * (local_ncols + 2));
+  float* tmp_section = malloc(sizeof(float) * section_nrows * (local_ncols + 2));
 
   // Set the input image
-  init_image(nx, ny, width, height, image);
+  init_image(nx, ny, width, height, image, tmp_image);
   
   int chunk = floor(nx/size);
 
@@ -112,52 +110,18 @@ int main(int argc, char* argv[])
   // Call the stencil kernel
   double tic = wtime();
   for(int t = 0; t < niters; ++t) 
-  { 
+  {
     // Halo Exchange from left to right followed by right to left for section
-    MPI_Isend(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &requests[0]);
-    MPI_Irecv(&section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &requests[1]);
-    
-    // Sending to down, receiving from up
-    MPI_Isend(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &requests[2]);
-    MPI_Irecv(&section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &requests[3]);
+    halo_exchange(section, up, down, local_ncols, local_nrows, size, rank, status);
 
-    // Call stencil from section to tmp_section in the middle
-    stencil_inner(local_nrows, local_ncols, section, tmp_section);
-
-    // Waiting
-    MPI_Wait(&requests[0], &status);
-    MPI_Wait(&requests[1], &status);
-
-    // Waiting
-    MPI_Wait(&requests[2], &status);
-    MPI_Wait(&requests[3], &status);
-
-    // Call stencil from section to tmp_section on halo
-    stencil_halo(local_nrows, local_ncols, section, tmp_section);
-
-    //------------------------------------------------------------------------------------------------------------------------
+    // Call stencil from section to tmp_section
+    stencil(local_nrows, local_ncols, width, height, section, tmp_section);
 
     // Halo Exchange from left to right followed by right to left for tmp_section
-    MPI_Isend(&tmp_section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &requests[0]);
-    MPI_Irecv(&tmp_section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &requests[1]);
+    halo_exchange(tmp_section, up, down, local_ncols, local_nrows, size, rank, status);
 
-    // Sending to down, receiving from up
-    MPI_Isend(&tmp_section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &requests[2]);
-    MPI_Irecv(&tmp_section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &requests[3]);
-
-    // Call stencil from tmp_section to section in the middle
-    stencil_inner(local_nrows, local_ncols, tmp_section, section);
-
-    // Waiting
-    MPI_Wait(&requests[0], &status);
-    MPI_Wait(&requests[1], &status);
-
-    // Waiting
-    MPI_Wait(&requests[2], &status);
-    MPI_Wait(&requests[3], &status);
-
-    // Call stencil from tmp_section to section on halo
-    stencil_halo(local_nrows, local_ncols, tmp_section, section);
+    // Call stencil from tmp_section to section
+    stencil(local_nrows, local_ncols, width, height, tmp_section, section);
   }
   double toc = wtime();
 
@@ -185,9 +149,7 @@ int main(int argc, char* argv[])
   else
   {
     for(int i = 1; i < local_nrows + 1; i++)
-    {
       MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
-    }
   }
 
   // Output if rank is MASTER
@@ -202,12 +164,22 @@ int main(int argc, char* argv[])
 
   MPI_Finalize();
 
-  _mm_free(image);
-  _mm_free(section);
-  _mm_free(tmp_section);
+  free(image);
+  free(tmp_image);
+  free(section);
+  free(tmp_section);
 }
 
-void stencil_inner(const int local_nrows, const int local_ncols,
+void halo_exchange(float * restrict section, int up, int down, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
+{   
+    // Sending to up first then receive to the down
+    MPI_Sendrecv(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, &section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &status);
+
+    // Send to down then receive from up
+    MPI_Sendrecv(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, &section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &status);
+}
+
+void stencil(const int local_nrows, const int local_ncols, const int width, const int height,
              float * restrict image, float * restrict tmp_image)
 { 
 
@@ -216,45 +188,25 @@ void stencil_inner(const int local_nrows, const int local_ncols,
   register int j;
 
   #pragma omp simd collapse(2)
-  for (i = 2; i < local_nrows; ++i)
+  for (i = 1; i < local_nrows + 1; ++i)
   {
     for (j = 1; j < local_ncols + 1; ++j)
-    { 
-      __assume_aligned(image, 64);
-      __assume_aligned(tmp_image, 64);
+    {
       int cell = j + i * (local_ncols + 2);      
       tmp_image[cell] = ((image[cell] * 6.0f) + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]))/10.0f;
     }
   }
 }
 
-void stencil_halo(const int local_nrows, const int local_ncols,
-             float * restrict image, float * restrict tmp_image)
-{ 
-
-  // Register variables for iterating through the loops
-  register int j;
-
-  for (j = 1; j < local_ncols + 1; ++j)
-  { 
-    __assume_aligned(image, 64);
-    __assume_aligned(tmp_image, 64);
-    int cell1 = j + 1 * (local_ncols + 2);      
-    tmp_image[cell1] = ((image[cell1] * 6.0f) + (image[cell1 - (local_ncols + 2)] + image[cell1 + (local_ncols + 2)] + image[cell1 - 1] +  image[cell1 + 1]))/10.0f;
-  
-    int cell2 = j + local_nrows * (local_ncols + 2);      
-    tmp_image[cell2] = ((image[cell2] * 6.0f) + (image[cell2 - (local_ncols + 2)] + image[cell2 + (local_ncols + 2)] + image[cell2 - 1] +  image[cell2 + 1]))/10.0f;
-  }
-}
-
 // Create the input image
 void init_image(const int nx, const int ny, const int width, const int height,
-                float * restrict image)
+                float * restrict image, float * restrict tmp_image)
 {
   // Zero everything
   for (int j = 0; j < ny + 2; ++j) {
     for (int i = 0; i < nx + 2; ++i) {
       image[j + i * height] = 0.0;
+      tmp_image[j + i * height] = 0.0;
     }
   }
 
