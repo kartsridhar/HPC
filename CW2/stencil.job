@@ -28,7 +28,7 @@ export I_MPI_PMI_LIBRARY=/usr/lib64/libpmi.so
 for value in {1..3}
 do
     # Run the executable
-    srun -n value ./stencil.exe 1024 1024 100
+    srun -n $value ./stencil.exe 1024 1024 100
 done
 
 echo All done
