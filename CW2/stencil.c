@@ -156,7 +156,7 @@ int main(int argc, char* argv[])
   if(rank == MASTER)
   {
     printf("------------------------------------\n");
-    printf(" runtime: %lf s\n", toc - tic);
+    printf(" runtime for rank %d: %lf s\n", rank, toc - tic);
     printf("------------------------------------\n");
 
     output_image(OUTPUT_FILE, nx, ny, width, height, image);
