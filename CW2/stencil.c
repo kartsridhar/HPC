@@ -18,7 +18,7 @@ void output_image(const char* file_name, const int nx, const int ny,
 double wtime(void);
 void halo_exchange(float * restrict section, int up, int down, int local_nrows, int local_ncols, MPI_Status status);
 void initialise_sections(int local_nrows, int local_ncols, int chunk, int rank, int width, float * restrict section, float * restrict tmp_section, float * restrict image);
-void gather_sections(int local_nrows, int local_ncols, float * restrict section, float * restrict image, int nx, int width, MPI_Status status);
+void gather_sections(int local_nrows, int local_ncols, int rank, int size, float * restrict section, float * restrict image, int nx, int width, MPI_Status status);
 int calc_nrows_from_rank(int rank, int size, int nx);
 
 int main(int argc, char* argv[])
@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
   double toc = wtime();
 
   // Gathering the sections
-  gather_sections(local_nrows, local_ncols, section, image, nx, width, status);
+  gather_sections(local_nrows, local_ncols, rank, size, section, image, nx, width, status);
 
   // Output if rank is MASTER
   if(rank == MASTER)
@@ -182,7 +182,7 @@ void stencil(const int local_nrows, const int local_ncols, float * restrict imag
 }
 
 // Function to gather the local images into the final image
-void gather_sections(int local_nrows, int local_ncols, float * restrict section, float * restrict image, int nx, int width, MPI_Status status)
+void gather_sections(int local_nrows, int local_ncols, int rank, int size, float * restrict section, float * restrict image, int nx, int width, MPI_Status status)
 {
   if(rank == MASTER)
   {
