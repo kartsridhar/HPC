@@ -10,15 +10,14 @@
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
 
-void stencil(const int local_nrows, const int local_ncols, const int width, const int height,
-             float * restrict image, float * restrict tmp_image);
+void stencil(const int local_nrows, const int local_ncols, float * restrict image, float * restrict tmp_image);
 void init_image(const int nx, const int ny, const int width, const int height,
-                float * restrict image, float * restrict tmp_image);
+                float * restrict image);
 void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float * restrict image);
 double wtime(void);
 void halo_exchange(float * restrict section, int up, int down, 
-                int local_ncols, int local_nrows, int size, int rank, MPI_Status status);
+                int local_ncols, int local_nrows, MPI_Status status);
 int calc_nrows_from_rank(int rank, int size, int nx);
 
 int main(int argc, char* argv[])
@@ -67,7 +66,6 @@ int main(int argc, char* argv[])
 
   // Allocate the image
   float* image = (float *)_mm_malloc(sizeof(float) * width * height, 64);
-  float* tmp_image = (float *)_mm_malloc(sizeof(float) * width * height, 64);
 
   local_nrows = calc_nrows_from_rank(rank, size, nx);
   local_ncols = ny;
@@ -85,7 +83,7 @@ int main(int argc, char* argv[])
   float* tmp_section = (float *) _mm_malloc(sizeof(float) * section_nrows * (local_ncols + 2), 64);
 
   // Set the input image
-  init_image(nx, ny, width, height, image, tmp_image);
+  init_image(nx, ny, width, height, image);
   
   int chunk = floor(nx/size);
 
@@ -112,16 +110,16 @@ int main(int argc, char* argv[])
   for(int t = 0; t < niters; ++t) 
   {
     // Halo Exchange from left to right followed by right to left for section
-    halo_exchange(section, up, down, local_ncols, local_nrows, size, rank, status);
+    halo_exchange(section, up, down, local_ncols, local_nrows, status);
 
     // Call stencil from section to tmp_section
-    stencil(local_nrows, local_ncols, width, height, section, tmp_section);
+    stencil(local_nrows, local_ncols, section, tmp_section);
 
     // Halo Exchange from left to right followed by right to left for tmp_section
-    halo_exchange(tmp_section, up, down, local_ncols, local_nrows, size, rank, status);
+    halo_exchange(tmp_section, up, down, local_ncols, local_nrows, status);
 
     // Call stencil from tmp_section to section
-    stencil(local_nrows, local_ncols, width, height, tmp_section, section);
+    stencil(local_nrows, local_ncols, tmp_section, section);
   }
   double toc = wtime();
 
@@ -165,12 +163,11 @@ int main(int argc, char* argv[])
   MPI_Finalize();
 
   _mm_free(image);
-  _mm_free(tmp_image);
   _mm_free(section);
   _mm_free(tmp_section);
 }
 
-void halo_exchange(float * restrict section, int up, int down, int local_ncols, int local_nrows, int size, int rank, MPI_Status status)
+void halo_exchange(float * restrict section, int up, int down, int local_ncols, int local_nrows, MPI_Status status)
 {   
     // Sending to up first then receive to the down
     MPI_Sendrecv(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, &section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &status);
@@ -179,8 +176,7 @@ void halo_exchange(float * restrict section, int up, int down, int local_ncols, 
     MPI_Sendrecv(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, &section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &status);
 }
 
-void stencil(const int local_nrows, const int local_ncols, const int width, const int height,
-             float * restrict image, float * restrict tmp_image)
+void stencil(const int local_nrows, const int local_ncols, float * restrict image, float * restrict tmp_image)
 { 
 
   // Register variables for iterating through the loops
@@ -202,13 +198,12 @@ void stencil(const int local_nrows, const int local_ncols, const int width, cons
 
 // Create the input image
 void init_image(const int nx, const int ny, const int width, const int height,
-                float * restrict image, float * restrict tmp_image)
+                float * restrict image)
 {
   // Zero everything
   for (int j = 0; j < ny + 2; ++j) {
     for (int i = 0; i < nx + 2; ++i) {
       image[j + i * height] = 0.0;
-      tmp_image[j + i * height] = 0.0;
     }
   }
 
