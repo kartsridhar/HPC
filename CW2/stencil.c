@@ -102,13 +102,12 @@ int main(int argc, char* argv[])
     displacements[i] = offset;
     offset += num_elems[i];
   }
-
-  double scatter_tic = wtime();
+  
+  // Scattering
   MPI_Scatterv(&image[local_ncols + 2], num_elems, displacements,
                  MPI_FLOAT, &section[local_ncols + 2], num_elems[rank],
                  MPI_FLOAT,
                  MASTER, MPI_COMM_WORLD);
-  double scatter_toc = wtime();
 
   // Call the stencil kernel
   double tic = wtime();
@@ -129,23 +128,13 @@ int main(int argc, char* argv[])
   double toc = wtime();
 
   // Gathering
-  double gather_tic = wtime();
   MPI_Gatherv(&section[local_ncols + 2], num_elems[rank], MPI_FLOAT,
                 &image[local_ncols + 2], num_elems, displacements,
                 MPI_FLOAT, MASTER, MPI_COMM_WORLD);
-  double gather_toc = wtime();
 
   // Output if rank is MASTER
   if(rank == MASTER)
   { 
-    printf("------------------------------------\n");
-    printf(" runtime for scatter: %lf s\n", scatter_toc - scatter_tic);
-    printf("------------------------------------\n");
-
-    printf("------------------------------------\n");
-    printf(" runtime for gather: %lf s\n", gather_toc - gather_tic);
-    printf("------------------------------------\n");
-
     printf("------------------------------------\n");
     printf(" runtime: %lf s\n", toc - tic);
     printf("------------------------------------\n");
