@@ -22,3 +22,8 @@
 
 9. Trying asynchronous communication. MPI_Isend and MPI_Irecv are non blocking. Function call returns before the 
     communication is completed.
+
+-------------------------------------------
+1. Amdahl's Law
+2. Intel vTune
+3. perf why is row major cache misses more than column major
