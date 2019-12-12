@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 
   int num_elems[size];
   int displacements[size];
-  int offset = local_ncols + 2;
+  int offset = 0;
 
   for(int i = 0; i < size; i++)
   {
@@ -103,30 +103,10 @@ int main(int argc, char* argv[])
     offset += num_elems[i];
   }
 
-  MPI_Scatterv(image, num_elems, displacements,
+  MPI_Scatterv(&image[local_ncols + 2], num_elems, displacements,
                  MPI_FLOAT, &section[local_ncols + 2], num_elems[rank],
                  MPI_FLOAT,
                  MASTER, MPI_COMM_WORLD);
-  // int chunk = floor(nx/size);
-
-  // // Initialising the sections
-
-  // for(int i = 0; i < local_nrows + 2; i++) 
-  // {
-  //   for(int j = 0; j < local_ncols + 2; j++) 
-  //   {
-  //     if (j > 0 && j < (local_ncols + 1) && i > 0 && i < (local_nrows + 1))
-  //     { 
-  //       section[i * (local_ncols + 2) + j] = image[( i * width + j + (chunk * rank * width) )];
-  //       tmp_section[i * (local_ncols + 2) + j] = image[( i * width + j + (chunk * rank * width) )];                 
-  //     }
-  //     else
-  //     {
-  //       section[i * (local_ncols + 2) + j] = 0.0f;
-  //       tmp_section[i * (local_ncols + 2) + j] = 0.0f;
-  //     }
-  //   }
-  // }
 
   // Call the stencil kernel
   double tic = wtime();
@@ -150,31 +130,6 @@ int main(int argc, char* argv[])
   MPI_Gatherv(&section[local_ncols + 2], num_elems[rank], MPI_FLOAT,
                 &image[local_ncols + 2], num_elems, displacements,
                 MPI_FLOAT, MASTER, MPI_COMM_WORLD);
-  // if(rank == MASTER)
-  // {
-  //   for(int i = 1; i < local_nrows + 1; i++)
-  //   {
-  //     for(int j = 1; j < local_ncols + 1 ; j++)
-  //     {
-  //       image[(i * width) + j] = section[i * (local_ncols + 2) + j];
-  //     }
-  //   }
-
-  //   for(int r = 1; r < size; r++)
-  //   { 
-  //     int offset = r * local_nrows;       // offset for each rank when storing back to image
-  //     int nrows = calc_nrows_from_rank(r, size, nx);
-  //     for(int i = 1; i < nrows + 1; i++)
-  //     {
-  //       MPI_Recv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
-  //     }
-  //   }
-  // }
-  // else
-  // {
-  //   for(int i = 1; i < local_nrows + 1; i++)
-  //     MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
-  // }
 
   // Output if rank is MASTER
   if(rank == MASTER)
