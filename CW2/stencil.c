@@ -88,8 +88,10 @@ int main(int argc, char* argv[])
   
   int chunk = floor(nx/size);
 
+  double scatter_tic = wtime();
   // Initialising the sections
   initialise_sections(local_nrows, local_ncols, chunk, rank, width, section, tmp_section, image);
+  double scatter_toc = wtime();
 
   // Call the stencil kernel
   double tic = wtime();
@@ -110,11 +112,21 @@ int main(int argc, char* argv[])
   double toc = wtime();
 
   // Gathering the sections
+  double gather_tic = wtime();
   gather_sections(local_nrows, local_ncols, rank, size, section, image, nx, width, status);
+  double gather_toc = wtime();
 
   // Output if rank is MASTER
   if(rank == MASTER)
   {
+    printf("------------------------------------\n");
+    printf(" runtime for local scatter: %lf s\n", scatter_toc - scatter_tic);
+    printf("------------------------------------\n");
+
+    printf("------------------------------------\n");
+    printf(" runtime for local gather: %lf s\n", gather_toc - gather_tic);
+    printf("------------------------------------\n");
+
     printf("------------------------------------\n");
     printf(" runtime: %lf s\n", toc - tic);
     printf("------------------------------------\n");
