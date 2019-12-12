@@ -64,12 +64,16 @@ int main(int argc, char* argv[])
 
   if(rank == MASTER) up = MPI_PROC_NULL;
   if(rank == size - 1) down = MPI_PROC_NULL;
-
+  float* image;
+  float* tmp_image;
   // Allocate the image
   if(rank == MASTER)
   {
-    float* image = malloc(sizeof(float) * width * height);
-    float* tmp_image = malloc(sizeof(float) * width * height);
+    image = malloc(sizeof(float) * width * height);
+    tmp_image = malloc(sizeof(float) * width * height);
+
+    // Set the input image
+    init_image(nx, ny, width, height, image, tmp_image);
   }
 
   local_nrows = calc_nrows_from_rank(rank, size, nx);
@@ -97,9 +101,6 @@ int main(int argc, char* argv[])
     displacements[i] = offset;
     offset += num_elems[i];
   }
-
-  // Set the input image
-  init_image(nx, ny, width, height, image, tmp_image);
 
   MPI_Scatterv(&image, num_elems, displacements,
                  MPI_FLOAT, &section[local_ncols + 2], num_elems[rank],
