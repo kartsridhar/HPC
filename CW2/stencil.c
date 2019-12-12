@@ -97,12 +97,13 @@ int main(int argc, char* argv[])
 
   for(int i = 0; i < size; i++)
   {
-    num_elems[i] = local_nrows * (local_ncols + 2);
+    int nrows = calc_nrows_from_rank(i, size, nx);
+    num_elems[i] = nrows * (local_ncols + 2);
     displacements[i] = offset;
     offset += num_elems[i];
   }
 
-  MPI_Scatterv(&image, num_elems, displacements,
+  MPI_Scatterv(image, num_elems, displacements,
                  MPI_FLOAT, &section[local_ncols + 2], num_elems[rank],
                  MPI_FLOAT,
                  MASTER, MPI_COMM_WORLD);
@@ -183,12 +184,12 @@ int main(int argc, char* argv[])
     printf("------------------------------------\n");
 
     output_image(OUTPUT_FILE, nx, ny, width, height, image);
+    free(image);
+    free(tmp_image);
   }
 
   MPI_Finalize();
 
-  free(image);
-  free(tmp_image);
   free(section);
   free(tmp_section);
 }
