@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
   // Adding MPI stuff
   int rank;               /* 'rank' of process among it's cohort */
   int size;               /* size of cohort, i.e. num processes started */
-
+  
   MPI_Status status;     /* struct used by MPI_Recv */
   int up;              /* the rank of the process to the left */
   int down;             /* the rank of the process to the right */
@@ -66,8 +66,11 @@ int main(int argc, char* argv[])
   if(rank == size - 1) down = MPI_PROC_NULL;
 
   // Allocate the image
-  float* image = malloc(sizeof(float) * width * height);
-  float* tmp_image = malloc(sizeof(float) * width * height);
+  if(rank == MASTER)
+  {
+    float* image = malloc(sizeof(float) * width * height);
+    float* tmp_image = malloc(sizeof(float) * width * height);
+  }
 
   local_nrows = calc_nrows_from_rank(rank, size, nx);
   local_ncols = ny;
@@ -84,28 +87,44 @@ int main(int argc, char* argv[])
   float* section = malloc(sizeof(float) * section_nrows * (local_ncols + 2));
   float* tmp_section = malloc(sizeof(float) * section_nrows * (local_ncols + 2));
 
+  int num_elems[size];
+  int displacements[size];
+  int offset = local_ncols + 2;
+
+  for(int i = 0; i < size; i++)
+  {
+    num_elems[i] = local_nrows * (local_ncols + 2);
+    displacements[i] = offset;
+    offset += num_elems[i];
+  }
+
   // Set the input image
   init_image(nx, ny, width, height, image, tmp_image);
-  
-  int chunk = floor(nx/size);
 
-  // Initialising the sections
-  for(int i = 0; i < local_nrows + 2; i++) 
-  {
-    for(int j = 0; j < local_ncols + 2; j++) 
-    {
-      if (j > 0 && j < (local_ncols + 1) && i > 0 && i < (local_nrows + 1))
-      { 
-        section[i * (local_ncols + 2) + j] = image[( i * width + j + (chunk * rank * width) )];
-        tmp_section[i * (local_ncols + 2) + j] = image[( i * width + j + (chunk * rank * width) )];                 
-      }
-      else
-      {
-        section[i * (local_ncols + 2) + j] = 0.0f;
-        tmp_section[i * (local_ncols + 2) + j] = 0.0f;
-      }
-    }
-  }
+  MPI_Scatterv(&image, num_elems, displacements,
+                 MPI_FLOAT, &section[local_ncols + 2], num_elems[rank],
+                 MPI_FLOAT,
+                 MASTER, MPI_COMM_WORLD);
+  // int chunk = floor(nx/size);
+
+  // // Initialising the sections
+
+  // for(int i = 0; i < local_nrows + 2; i++) 
+  // {
+  //   for(int j = 0; j < local_ncols + 2; j++) 
+  //   {
+  //     if (j > 0 && j < (local_ncols + 1) && i > 0 && i < (local_nrows + 1))
+  //     { 
+  //       section[i * (local_ncols + 2) + j] = image[( i * width + j + (chunk * rank * width) )];
+  //       tmp_section[i * (local_ncols + 2) + j] = image[( i * width + j + (chunk * rank * width) )];                 
+  //     }
+  //     else
+  //     {
+  //       section[i * (local_ncols + 2) + j] = 0.0f;
+  //       tmp_section[i * (local_ncols + 2) + j] = 0.0f;
+  //     }
+  //   }
+  // }
 
   // Call the stencil kernel
   double tic = wtime();
@@ -126,31 +145,34 @@ int main(int argc, char* argv[])
   double toc = wtime();
 
   // Gathering
-  if(rank == MASTER)
-  {
-    for(int i = 1; i < local_nrows + 1; i++)
-    {
-      for(int j = 1; j < local_ncols + 1 ; j++)
-      {
-        image[(i * width) + j] = section[i * (local_ncols + 2) + j];
-      }
-    }
+  MPI_Gatherv(&section[local_ncols + 2], num_elems[rank], MPI_FLOAT,
+                &image[local_ncols + 2], num_elems, displacements,
+                MPI_FLOAT, MASTER, MPI_COMM_WORLD);
+  // if(rank == MASTER)
+  // {
+  //   for(int i = 1; i < local_nrows + 1; i++)
+  //   {
+  //     for(int j = 1; j < local_ncols + 1 ; j++)
+  //     {
+  //       image[(i * width) + j] = section[i * (local_ncols + 2) + j];
+  //     }
+  //   }
 
-    for(int r = 1; r < size; r++)
-    { 
-      int offset = r * local_nrows;       // offset for each rank when storing back to image
-      int nrows = calc_nrows_from_rank(r, size, nx);
-      for(int i = 1; i < nrows + 1; i++)
-      {
-        MPI_Recv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
-      }
-    }
-  }
-  else
-  {
-    for(int i = 1; i < local_nrows + 1; i++)
-      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
-  }
+  //   for(int r = 1; r < size; r++)
+  //   { 
+  //     int offset = r * local_nrows;       // offset for each rank when storing back to image
+  //     int nrows = calc_nrows_from_rank(r, size, nx);
+  //     for(int i = 1; i < nrows + 1; i++)
+  //     {
+  //       MPI_Recv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+  //     }
+  //   }
+  // }
+  // else
+  // {
+  //   for(int i = 1; i < local_nrows + 1; i++)
+  //     MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+  // }
 
   // Output if rank is MASTER
   if(rank == MASTER)
@@ -275,9 +297,10 @@ int calc_nrows_from_rank(int rank, int size, int nx)
   int nrows;
 
   nrows = nx / size;       /* integer division */
-  if ((nx % size) != 0) {  /* if there is a remainder */
-    if (rank == size - 1)
-      nrows += nx % size;  /* add remainder to last rank */
+  int remainder = nx % size;
+  if (remainder != 0) {  /* if there is a remainder */
+    if(rank < remainder)
+      nrows += 1;
   }
 
   return nrows;
