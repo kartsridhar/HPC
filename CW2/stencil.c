@@ -10,15 +10,17 @@
 #define OUTPUT_FILE "stencil.pgm"
 #define MASTER 0
 
-void stencil(const int local_nrows, const int local_ncols, float * restrict image, float * restrict tmp_image);
+void stencil_main(const int local_nrows, const int local_ncols,
+             float * restrict image, float * restrict tmp_image);
+void stencil_out(const int local_nrows, const int local_ncols,
+             float * restrict image, float * restrict tmp_image);
 void init_image(const int nx, const int ny, const int width, const int height,
                 float * restrict image);
 void output_image(const char* file_name, const int nx, const int ny,
                   const int width, const int height, float * restrict image);
 double wtime(void);
-void halo_exchange(float * restrict section, int up, int down, int local_nrows, int local_ncols, MPI_Status status);
-void initialise_sections(int local_nrows, int local_ncols, int chunk, int rank, int width, float * restrict section, float * restrict tmp_section, float * restrict image);
-void gather_sections(int local_nrows, int local_ncols, int rank, int size, float * restrict section, float * restrict image, int nx, int width, MPI_Status status);
+void halo_exchange(float * restrict section, int up, int down, 
+                int local_ncols, int local_nrows, MPI_Status status, MPI_Request send_request1, MPI_Request recv_request1, MPI_Request send_request2, MPI_Request recv_request2);
 int calc_nrows_from_rank(int rank, int size, int nx);
 
 int main(int argc, char* argv[])
@@ -40,6 +42,10 @@ int main(int argc, char* argv[])
   int size;               /* size of cohort, i.e. num processes started */
 
   MPI_Status status;     /* struct used by MPI_Recv */
+
+  MPI_Request send_request, recv_request;
+  MPI_Request send_request1, recv_request1, send_request2, recv_request2;
+
   int up;              /* the rank of the process to the left */
   int down;             /* the rank of the process to the right */
   int local_nrows;       /* number of rows apportioned to this rank */
@@ -66,7 +72,8 @@ int main(int argc, char* argv[])
   if(rank == size - 1) down = MPI_PROC_NULL;
 
   // Allocate the image
-  float* image = (float *)_mm_malloc(sizeof(float) * width * height, 64);
+  // float* image = (float *)_mm_malloc(sizeof(float) * width * height, 64);
+  float* image = malloc(sizeof(float) * width * height);
 
   local_nrows = calc_nrows_from_rank(rank, size, nx);
   local_ncols = ny;
@@ -80,8 +87,10 @@ int main(int argc, char* argv[])
 
   int section_nrows = local_nrows + 2;
 
-  float* section = (float *) _mm_malloc(sizeof(float) * section_nrows * (local_ncols + 2), 64);
-  float* tmp_section = (float *) _mm_malloc(sizeof(float) * section_nrows * (local_ncols + 2), 64);
+  // float* section = (float *) _mm_malloc(sizeof(float) * section_nrows * (local_ncols + 2), 64);
+  // float* tmp_section = (float *) _mm_malloc(sizeof(float) * section_nrows * (local_ncols + 2), 64);
+  float* section = malloc(sizeof(float) * section_nrows * (local_ncols + 2));
+  float* tmp_section = malloc(sizeof(float) * section_nrows * (local_ncols + 2));
 
   // Set the input image
   init_image(nx, ny, width, height, image);
@@ -89,49 +98,6 @@ int main(int argc, char* argv[])
   int chunk = floor(nx/size);
 
   // Initialising the sections
-  initialise_sections(local_nrows, local_ncols, chunk, rank, width, section, tmp_section, image);
-
-  // Call the stencil kernel
-  double tic = wtime();
-  for(int t = 0; t < niters; ++t) 
-  {
-    // Halo Exchange from up to down followed by down to up for section
-    halo_exchange(section, up, down, local_nrows, local_ncols, status);
-
-    // Call stencil from section to tmp_section
-    stencil(local_nrows, local_ncols, section, tmp_section);
-
-    // Halo Exchange from up to down followed by down to up for tmp_section
-    halo_exchange(tmp_section, up, down, local_nrows, local_ncols, status);
-
-    // Call stencil from tmp_section to section
-    stencil(local_nrows, local_ncols, tmp_section, section);
-  }
-  double toc = wtime();
-
-  // Gathering the sections
-  gather_sections(local_nrows, local_ncols, rank, size, section, image, nx, width, status);
-
-  // Output if rank is MASTER
-  if(rank == MASTER)
-  {
-    printf("------------------------------------\n");
-    printf(" runtime: %lf s\n", toc - tic);
-    printf("------------------------------------\n");
-
-    output_image(OUTPUT_FILE, nx, ny, width, height, image);
-  }
-
-  MPI_Finalize();
-
-  _mm_free(image);
-  _mm_free(section);
-  _mm_free(tmp_section);
-}
-
-// Function to initialise the local images
-void initialise_sections(int local_nrows, int local_ncols, int chunk, int rank, int width, float * restrict section, float * restrict tmp_section, float * restrict image)
-{
   for(int i = 0; i < local_nrows + 2; i++) 
   {
     for(int j = 0; j < local_ncols + 2; j++) 
@@ -148,42 +114,72 @@ void initialise_sections(int local_nrows, int local_ncols, int chunk, int rank, 
       }
     }
   }
-}
 
-// Function to perform halo exchange
-void halo_exchange(float * restrict section, int up, int down, int local_nrows, int local_ncols, MPI_Status status)
-{   
-    // Sending to up first then receive to the down
-    MPI_Sendrecv(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, &section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &status);
+  // Call the stencil kernel
+  double tic = wtime();
+  for(int t = 0; t < niters; ++t) 
+  { 
+    // Halo Exchange from left to right followed by right to left for section
+    if(up != -1)
+      MPI_Isend(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &send_request1);
+    if(down != -1)
+      MPI_Irecv(&section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recv_request1);
+    
+    // Sending to down, receiving from up
+    if(down != -1)
+      MPI_Isend(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &send_request2);
+    if(up != -1)
+      MPI_Irecv(&section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &recv_request2);
 
-    // Send to down then receive from up
-    MPI_Sendrecv(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, &section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &status);
-}
+    // Call stencil from section to tmp_section
+    stencil_main(local_nrows, local_ncols, section, tmp_section);
 
-// Function to perform the stencil operation
-void stencil(const int local_nrows, const int local_ncols, float * restrict image, float * restrict tmp_image)
-{ 
+    // Waiting
+    if(up != -1)
+      MPI_Wait(&send_request1, &status);
+    if(down != -1)
+      MPI_Wait(&recv_request1, &status);
 
-  // Register variables for iterating through the loops
-  register int i;
-  register int j;
+    // Waiting
+    if(down != -1)
+      MPI_Wait(&send_request2, &status);
+    if(up != -1)
+      MPI_Wait(&recv_request2, &status);
 
-  #pragma omp simd collapse(2)
-  for (i = 1; i < local_nrows + 1; ++i)
-  {
-    for (j = 1; j < local_ncols + 1; ++j)
-    { 
-      __assume_aligned(image, 64);
-      __assume_aligned(tmp_image, 64);
-      int cell = j + i * (local_ncols + 2);      
-      tmp_image[cell] = ((image[cell] * 6.0f) + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]))/10.0f;
-    }
+    stencil_out(local_nrows, local_ncols, tmp_section, section);
+
+    // Halo Exchange from left to right followed by right to left for tmp_section
+    if(up != -1)
+      MPI_Isend(&tmp_section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &send_request1);
+    if(down != -1)
+      MPI_Irecv(&tmp_section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recv_request1);
+
+    // Sending to down, receiving from up
+    if(down != -1)
+      MPI_Isend(&tmp_section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &send_request2);
+    if(up != -1)
+      MPI_Irecv(&tmp_section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &recv_request2);
+
+    // Call stencil from tmp_section to section
+    stencil_main(local_nrows, local_ncols, tmp_section, section);
+
+    // Waiting
+    if(up != -1)
+      MPI_Wait(&send_request1, &status);
+    if(down != -1)
+      MPI_Wait(&recv_request1, &status);
+
+    // Waiting
+    if(down != -1)
+      MPI_Wait(&send_request2, &status);
+    if(up != -1)
+      MPI_Wait(&recv_request2, &status);
+
+    stencil_out(local_nrows, local_ncols, tmp_section, section);
   }
-}
+  double toc = wtime();
 
-// Function to gather the local images into the final image
-void gather_sections(int local_nrows, int local_ncols, int rank, int size, float * restrict section, float * restrict image, int nx, int width, MPI_Status status)
-{
+  // Gathering
   if(rank == MASTER)
   {
     for(int i = 1; i < local_nrows + 1; i++)
@@ -200,15 +196,94 @@ void gather_sections(int local_nrows, int local_ncols, int rank, int size, float
       int nrows = calc_nrows_from_rank(r, size, nx);
       for(int i = 1; i < nrows + 1; i++)
       {
-        MPI_Recv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &status);
+        MPI_Irecv(&image[(i + offset) * width + 1], local_ncols, MPI_FLOAT, r, 0, MPI_COMM_WORLD, &recv_request);
+        MPI_Wait(&recv_request, &status);
       }
     }
   }
   else
   {
     for(int i = 1; i < local_nrows + 1; i++)
-      MPI_Send(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD);
+    {
+      MPI_Isend(&section[i * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, MASTER, 0, MPI_COMM_WORLD, &send_request);
+      MPI_Wait(&send_request, &status);
+    }
   }
+
+  // Output if rank is MASTER
+  if(rank == MASTER)
+  {
+    printf("------------------------------------\n");
+    printf(" runtime: %lf s\n", toc - tic);
+    printf("------------------------------------\n");
+
+    output_image(OUTPUT_FILE, nx, ny, width, height, image);
+  }
+
+  MPI_Finalize();
+
+  // _mm_free(image);
+  // _mm_free(section);
+  // _mm_free(tmp_section);
+  free(image);
+  free(section);
+  free(tmp_section);
+}
+
+void halo_exchange(float * restrict section, int up, int down, int local_ncols, int local_nrows, MPI_Status status, MPI_Request send_request1, MPI_Request recv_request1, MPI_Request send_request2, MPI_Request recv_request2)
+{   
+    // Sending to up first, then receiving from down
+    MPI_Isend(&section[(local_ncols + 2) + 1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &send_request1);
+    MPI_Irecv(&section[(local_nrows + 1) * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &recv_request1);
+
+    // Sending to down, receiving from up
+    MPI_Isend(&section[local_nrows * (local_ncols + 2) + 1], local_ncols, MPI_FLOAT, down, 0, MPI_COMM_WORLD, &send_request2);
+    MPI_Irecv(&section[1], local_ncols, MPI_FLOAT, up, 0, MPI_COMM_WORLD, &recv_request2);
+}
+
+void stencil_main(const int local_nrows, const int local_ncols,
+             float * restrict image, float * restrict tmp_image)
+{ 
+
+  // Register variables for iterating through the loops
+  register int i;
+  register int j;
+
+  for (i = 2; i < local_nrows; ++i)
+  {
+    for (j = 1; j < local_ncols + 1; ++j)
+    { 
+      // __assume_aligned(image, 64);
+      // __assume_aligned(tmp_image, 64);
+      int cell = j + i * (local_ncols + 2);      
+      tmp_image[cell] = ((image[cell] * 6.0f) + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]))/10.0f;
+    }
+  }
+}
+
+void stencil_out(const int local_nrows, const int local_ncols,
+             float * restrict image, float * restrict tmp_image)
+{ 
+
+  // Register variables for iterating through the loops
+  register int i;
+  register int j;
+
+    for (j = 1; j < local_ncols + 1; ++j)
+    { 
+      // __assume_aligned(image, 64);
+      // __assume_aligned(tmp_image, 64);
+      int cell = j + 1 * (local_ncols + 2);      
+      tmp_image[cell] = ((image[cell] * 6.0f) + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]))/10.0f;
+    }
+
+    for (j = 1; j < local_ncols + 1; ++j)
+    { 
+      // __assume_aligned(image, 64);
+      // __assume_aligned(tmp_image, 64);
+      int cell = j + local_nrows * (local_ncols + 2);      
+      tmp_image[cell] = ((image[cell] * 6.0f) + (image[cell - (local_ncols + 2)] + image[cell + (local_ncols + 2)] + image[cell - 1] +  image[cell + 1]))/10.0f;
+    }
 }
 
 // Create the input image
