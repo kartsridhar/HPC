@@ -26,10 +26,5 @@ echo
 export I_MPI_PMI_LIBRARY=/usr/lib64/libpmi.so
 
 # Run the executable
-for i in {1..5}
-do
-    srun -n 28 ./stencil.exe 1024 1024 100
-done
-
-echo All done
+srun -n 56 ./stencil.exe 1024 1024 100
 
