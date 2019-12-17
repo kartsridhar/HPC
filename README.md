@@ -4,5 +4,5 @@ This repository contains code that performs something similar to the GaussianBlu
 
 All of this has been run and tested on the supercomputer BlueCrystal Phase 4
 
-Serial Optimisation: Through compiler flags 
-Parallelisation: Through OpenMPI
+* Serial Optimisation: Through compiler flags 
+* Parallelisation: Through OpenMPI
